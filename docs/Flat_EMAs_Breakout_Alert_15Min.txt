@@ -1,0 +1,198 @@
+// ============================================================
+// Flat EMAs Breakout Alert - 15 Minute
+// ============================================================
+// 描述：
+//   當出現 EMA8、EMA20 和 EMA56 平緩後的突破時發出警示（15分鐘圖表）
+//
+// 條件：
+//   1. EMA8: 典型價格的指數移動平均（典型價格 = (High + Low + Open + Close) / 4）
+//   2. EMA20: 收盤價的指數移動平均（標準）
+//   3. EMA56: 最低價的指數移動平均
+//   4. 平緩判斷：過去 8 期內，三條均線都呈現視覺平緩狀態且彼此接近
+//   5. 突破 K 棒：
+//      - 多頭突破：收盤 > 開盤，最高價是過去 5 期的最高價，實體為過去 5 根最大
+//      - 空頭突破：收盤 < 開盤，最低價是過去 5 期的最低價，實體為過去 5 根最大
+//   6. 訊號不能在 10 根 K 棒內重複
+//
+// 輸出：
+//   1 = 多頭突破（買入訊號）
+//  -1 = 空頭突破（賣出訊號）
+//   0 = 無訊號
+//
+// 適用時間框架：15分鐘
+// ============================================================
+
+{@type:indicator}
+
+// ===== 參數設定 =====
+settotalbar(250);
+
+// --- 均線參數 ---
+input: ema8_period(8, "EMA8 週期"),
+       ema20_period(20, "EMA20 週期"),
+       ema56_period(56, "EMA56 週期");
+
+// --- 平緩判斷參數 ---
+input: flat_range_length(8, "平緩判斷觀察期數（回看K棒數）"),
+       flat_threshold_pct(0.5, "平緩閾值百分比（%）"),
+       ema_proximity_pct(1.5, "均線接近度百分比（%）");
+
+// ===== 變數宣告 =====
+// --- 均線相關變數 ---
+var: ema8(0),
+     ema20(0),
+     ema56(0);
+
+// --- 平緩判斷變數 ---
+var: ema8_max(0), ema8_min(0), ema8_range(0), ema8_ratio(0), isEma8Flattish(false),
+     ema20_max(0), ema20_min(0), ema20_range(0), ema20_ratio(0), isEma20Flattish(false),
+     ema56_max(0), ema56_min(0), ema56_range(0), ema56_ratio(0), isEma56Flattish(false),
+     areEmasClose(false), emaMax(0), emaMin(0), emaSpread(0), emaSpreadPct(0),
+     wereEmasFlattish(false);
+
+// --- 突破 K 棒判斷變數 ---
+var: isBullBar(false), isBearBar(false),
+     isNewHigh(false), isNewLow(false),
+     bodySize(0), maxBodySize(0), isBiggestBody(false),
+     lastSignalBar(0), barsSinceSignal(0), canShowSignal(false),
+     alertSignal(0);
+
+// --- 時間框架檢查變數 ---
+var: is15MinChart(false);
+
+// --- 警示觸發控制變數 ---
+var: intrabarpersist AlertTriggeredBull(false),
+     intrabarpersist AlertTriggeredBear(false);
+
+// ============================================================
+// 時間框架驗證：僅在 15 分鐘圖表上運行
+// ============================================================
+
+is15MinChart = (BarInterval = 15);
+
+// 如果不是 15 分鐘圖表，不進行計算
+if not is15MinChart then
+begin
+    alertSignal = 0;
+end
+else
+begin
+    // ============================================================
+    // 計算均線
+    // ============================================================
+
+    ema8 = EMA((high + low + open + close) / 4, ema8_period);
+    ema20 = EMA(close, ema20_period);
+    ema56 = EMA(low, ema56_period);
+
+    // ============================================================
+    // 判斷各均線是否視覺平緩
+    // ============================================================
+
+    // EMA8 平緩判斷
+    ema8_max = Highest(ema8, flat_range_length);
+    ema8_min = Lowest(ema8, flat_range_length);
+    ema8_range = ema8_max - ema8_min;
+    if ema8 > 0 then
+        ema8_ratio = ema8_range / ema8 * 100
+    else
+        ema8_ratio = 0;
+    isEma8Flattish = (ema8_ratio < flat_threshold_pct);
+
+    // EMA20 平緩判斷
+    ema20_max = Highest(ema20, flat_range_length);
+    ema20_min = Lowest(ema20, flat_range_length);
+    ema20_range = ema20_max - ema20_min;
+    if ema20 > 0 then
+        ema20_ratio = ema20_range / ema20 * 100
+    else
+        ema20_ratio = 0;
+    isEma20Flattish = (ema20_ratio < flat_threshold_pct);
+
+    // EMA56 平緩判斷
+    ema56_max = Highest(ema56, flat_range_length);
+    ema56_min = Lowest(ema56, flat_range_length);
+    ema56_range = ema56_max - ema56_min;
+    if ema56 > 0 then
+        ema56_ratio = ema56_range / ema56 * 100
+    else
+        ema56_ratio = 0;
+    isEma56Flattish = (ema56_ratio < flat_threshold_pct);
+
+    // 檢查均線是否彼此接近
+    emaMax = ema8;
+    if ema20 > emaMax then emaMax = ema20;
+    if ema56 > emaMax then emaMax = ema56;
+
+    emaMin = ema8;
+    if ema20 < emaMin then emaMin = ema20;
+    if ema56 < emaMin then emaMin = ema56;
+
+    emaSpread = emaMax - emaMin;
+    if emaMax > 0 then
+        emaSpreadPct = (emaSpread / emaMax) * 100
+    else
+        emaSpreadPct = 0;
+
+    areEmasClose = (emaSpreadPct < ema_proximity_pct);
+
+    wereEmasFlattish = isEma8Flattish and isEma20Flattish and isEma56Flattish and areEmasClose;
+
+    // ============================================================
+    // 訊號控制邏輯：訊號不能在 10 根 K 棒內重複
+    // ============================================================
+
+    barsSinceSignal = CurrentBar - lastSignalBar;
+    if lastSignalBar = 0 then
+        canShowSignal = wereEmasFlattish
+    else
+        canShowSignal = wereEmasFlattish and (barsSinceSignal >= 10);
+
+    // ============================================================
+    // 判斷是否為突破性 K 棒
+    // ============================================================
+
+    isBullBar = (close > open);
+    isBearBar = (close < open);
+
+    // 對稱檢查：當前最高價 > 過去5根的最高價（不包括當前）
+    isNewHigh = (high > Highest(high[1], 5));
+    // 對稱檢查：當前最低價 < 過去5根的最低價（不包括當前）
+    isNewLow = (low < Lowest(low[1], 5));
+
+    bodySize = AbsValue(close - open);
+    // 對稱檢查：當前實體 > 過去5根的最大實體（不包括當前）
+    maxBodySize = Highest(AbsValue(close[1] - open[1]), 5);
+    isBiggestBody = (bodySize > maxBodySize);
+
+    // ============================================================
+    // 產生警示訊號
+    // ============================================================
+
+    alertSignal = 0;
+
+    // 多頭突破警示（僅在 15 分鐘圖表上觸發）
+    if is15MinChart and wereEmasFlattish[1] and isBullBar and isNewHigh and isBiggestBody and canShowSignal and not AlertTriggeredBull then
+    begin
+        alertSignal = 1;
+        lastSignalBar = CurrentBar;
+        ret = 1;
+        AlertTriggeredBull = true;
+    end;
+
+    // 空頭突破警示（僅在 15 分鐘圖表上觸發）
+    if is15MinChart and wereEmasFlattish[1] and isBearBar and isNewLow and isBiggestBody and canShowSignal and not AlertTriggeredBear then
+    begin
+        alertSignal = -1;
+        lastSignalBar = CurrentBar;
+        ret = -1;
+        AlertTriggeredBear = true;
+    end;
+end;
+
+// === 重置機制：當條件不再滿足時重置警示觸發標記 ===
+// 當均線不再平緩時重置，允許下次條件滿足時再次觸發
+if not wereEmasFlattish then begin
+    AlertTriggeredBull = false;
+    AlertTriggeredBear = false;
+end;

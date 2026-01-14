@@ -1,0 +1,135 @@
+// ============================================================
+// Strategy 3: Statistical Volume Anomaly Alert
+// ============================================================
+// 描述：
+//   使用多維度統計分析偵測成交量異常
+//   結合 Z-score、百分位數、移動平均偏差等指標
+//
+// 核心邏輯：
+//   - 成交量 Z-score > 2.0（異常高）
+//   - 成交量超過 95% 百分位數
+//   - 成交量移動平均偏差 > 50%
+//   - 價格變化率 < 3%
+//   - 成交次數異常增加
+//
+// 資料週期：適用於日內圖表（分鐘圖、Tick圖等）
+// ============================================================
+
+{@type:sensor}
+
+// ===== 參數設定 =====
+settotalbar(200);
+
+// --- 統計參數 ---
+input: lookback_period(30, "統計回看期數"),
+       volume_zscore_threshold(2.0, "成交量 Z-score 閾值"),
+       volume_percentile_threshold(95, "成交量百分位數閾值"),
+       volume_ma_deviation_threshold(50, "成交量移動平均偏差閾值 (%)"),
+       tick_zscore_threshold(1.5, "成交次數 Z-score 閾值"),
+       max_price_increase(5.0, "最大價格漲幅限制 (%)");
+
+// ===== 變數宣告 =====
+var: currentVolume(0),              // 當前成交量
+     currentTicks(0),               // 當前成交次數
+     volumeMean(0),                 // 成交量平均值
+     volumeStdDev(0),               // 成交量標準差
+     volumeZScore(0),               // 成交量 Z-score
+     volumePercentile(0),           // 成交量百分位數
+     volumeMA(0),                   // 成交量移動平均
+     volumeDeviation(0),            // 成交量偏差百分比
+     tickMean(0),                   // 成交次數平均值
+     tickStdDev(0),                 // 成交次數標準差
+     tickZScore(0),                 // 成交次數 Z-score
+     priceChangePercent(0),         // 價格變化百分比
+     anomalySignal(false),          // 異常訊號
+     intrabarpersist alertTriggeredToday(false);  // 今日是否已觸發警示
+
+// ============================================================
+// 檢查是否為新的一天（重置警示標記）
+// ============================================================
+if Date <> Date[1] then
+    alertTriggeredToday = false;
+
+// ============================================================
+// 取得成交量資料
+// ============================================================
+currentVolume = GetField("成交量");
+currentTicks = GetField("TotalTicks");
+
+// ============================================================
+// 計算成交量統計指標
+// ============================================================
+// 計算過去 N 期的成交量平均值和標準差
+volumeMean = Average(GetField("成交量", "D"), lookback_period);
+volumeStdDev = StandardDev(GetField("成交量", "D"), lookback_period, 2);
+
+// 計算成交量 Z-score
+if volumeStdDev > 0 then
+    volumeZScore = (currentVolume - volumeMean) / volumeStdDev
+else
+    volumeZScore = 0;
+
+// 計算成交量移動平均
+volumeMA = Average(GetField("成交量", "D"), lookback_period);
+
+// 計算成交量偏差百分比
+if volumeMA > 0 then
+    volumeDeviation = ((currentVolume - volumeMA) / volumeMA) * 100
+else
+    volumeDeviation = 0;
+
+// 計算成交量百分位數（簡化版：計算超過過去N期多少比例）
+var: rankCount(0), i(0);
+rankCount = 0;
+for i = 0 to lookback_period - 1
+begin
+    if currentVolume >= GetField("成交量", "D")[i] then
+        rankCount = rankCount + 1;
+end;
+volumePercentile = (rankCount / lookback_period) * 100;
+
+// ============================================================
+// 計算成交次數統計指標
+// ============================================================
+tickMean = Average(GetField("TotalTicks", "D"), lookback_period);
+tickStdDev = StandardDev(GetField("TotalTicks", "D"), lookback_period, 2);
+
+// 計算成交次數 Z-score
+if tickStdDev > 0 then
+    tickZScore = (currentTicks - tickMean) / tickStdDev
+else
+    tickZScore = 0;
+
+// ============================================================
+// 計算價格變化率
+// ============================================================
+priceChangePercent = RateOfChange(Close, lookback_period);
+
+// ============================================================
+// 異常訊號判斷
+// ============================================================
+// 條件1：成交量 Z-score > 閾值
+// 條件2：成交量百分位數 > 閾值
+// 條件3：成交量移動平均偏差 > 閾值
+// 條件4：成交次數 Z-score > 閾值
+// 條件5：價格尚未上漲超過 5%
+// 條件6：今日尚未觸發過警示
+anomalySignal = (volumeZScore > volume_zscore_threshold)
+            and (volumePercentile > volume_percentile_threshold)
+            and (volumeDeviation > volume_ma_deviation_threshold)
+            and (tickZScore > tick_zscore_threshold)
+            and (priceChangePercent < max_price_increase)
+            and (priceChangePercent > -3.0)
+            and not alertTriggeredToday;
+
+// ============================================================
+// 警示觸發
+// ============================================================
+if anomalySignal then
+begin
+    ret = 1;
+    alertTriggeredToday = true;  // 標記今日已觸發，避免重複警示
+end
+else
+    ret = 0;
+

@@ -1,0 +1,101 @@
+// ============================================================
+// Strategy 1: Volume-Price Divergence Accumulation Alert
+// ============================================================
+// 描述：
+//   偵測價格橫盤整理但成交量異常增加的累積訊號
+//   使用價格變化率 < 2% 但成交量 Z-score > 1.5 來識別
+//
+// 核心邏輯：
+//   - 價格變化率 < 2% (橫盤)
+//   - 成交量 Z-score > 1.5 (異常增加)
+//   - 外盤量/總量比例 > 60% (買盤主導)
+//   - 價格尚未上漲超過 5%
+//
+// 資料週期：適用於日內圖表（分鐘圖、Tick圖等）
+// ============================================================
+
+{@type:sensor}
+
+// ===== 參數設定 =====
+settotalbar(200);
+
+// --- 統計參數 ---
+input: lookback_period(20, "統計回看期數"),
+       price_change_threshold(2.0, "價格變化閾值 (%)"),
+       volume_zscore_threshold(1.5, "成交量 Z-score 閾值"),
+       ask_volume_ratio_threshold(60, "外盤量比例閾值 (%)"),
+       max_price_increase(5.0, "最大價格漲幅限制 (%)");
+
+// ===== 變數宣告 =====
+var: currentVolume(0),              // 當前成交量
+     askVolume(0),                  // 外盤量
+     volumeMean(0),                 // 成交量平均值
+     volumeStdDev(0),               // 成交量標準差
+     volumeZScore(0),               // 成交量 Z-score
+     askVolumeRatio(0),             // 外盤量比例
+     priceChangePercent(0),         // 價格變化百分比
+     accumulationSignal(false),     // 累積訊號
+     intrabarpersist alertTriggeredToday(false);  // 今日是否已觸發警示
+
+// ============================================================
+// 檢查是否為新的一天（重置警示標記）
+// ============================================================
+if Date <> Date[1] then
+    alertTriggeredToday = false;
+
+// ============================================================
+// 取得成交量資料
+// ============================================================
+currentVolume = GetField("成交量");
+askVolume = GetField("TradeVolumeAtAsk");
+
+// ============================================================
+// 計算統計指標
+// ============================================================
+// 計算過去 N 期的成交量平均值和標準差
+volumeMean = Average(GetField("成交量", "D"), lookback_period);
+volumeStdDev = StandardDev(GetField("成交量", "D"), lookback_period, 2);
+
+// 計算成交量 Z-score
+if volumeStdDev > 0 then
+    volumeZScore = (currentVolume - volumeMean) / volumeStdDev
+else
+    volumeZScore = 0;
+
+// 計算外盤量比例
+if currentVolume > 0 then
+    askVolumeRatio = (askVolume / currentVolume) * 100
+else
+    askVolumeRatio = 0;
+
+// ============================================================
+// 計算價格變化率
+// ============================================================
+priceChangePercent = RateOfChange(Close, lookback_period);
+
+// ============================================================
+// 累積訊號判斷
+// ============================================================
+// 條件1：價格變化率 < 閾值（橫盤整理）
+// 條件2：成交量 Z-score > 閾值（異常增加）
+// 條件3：外盤量比例 > 閾值（買盤主導）
+// 條件4：價格尚未上漲超過 5%
+// 條件5：今日尚未觸發過警示
+accumulationSignal = (absvalue(priceChangePercent) < price_change_threshold)
+                 and (volumeZScore > volume_zscore_threshold)
+                 and (askVolumeRatio > ask_volume_ratio_threshold)
+                 and (priceChangePercent < max_price_increase)
+                 and (priceChangePercent > -2.0)  // 允許小幅下跌但不超過2%
+                 and not alertTriggeredToday;
+
+// ============================================================
+// 警示觸發
+// ============================================================
+if accumulationSignal then
+begin
+    ret = 1;
+    alertTriggeredToday = true;  // 標記今日已觸發，避免重複警示
+end
+else
+    ret = 0;
+

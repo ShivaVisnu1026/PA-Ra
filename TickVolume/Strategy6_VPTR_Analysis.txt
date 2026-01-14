@@ -1,0 +1,217 @@
+// ============================================================
+// Strategy 6: Volume Per Tick Ratio (VPTR) Anomaly Detection
+// ============================================================
+// 描述：
+//   使用成交量/成交次數比例偵測大單累積
+//   透過 Z-score 和壓縮指數識別異常的單筆成交量
+//
+// 核心邏輯：
+//   - VPTR Z-Score：統計學上的異常偵測
+//   - Tick Compression Index：相對於平均值的壓縮倍數
+//   - VPTR Trend：趨勢方向判斷（斜率分析）
+//
+// 警示等級：
+//   - Warning (ret=1)：VPTR Z-Score > 2.0 或 壓縮指數 > 1.3x
+//   - Strong (ret=2)：VPTR Z-Score > 2.5 且 壓縮指數 > 1.5x
+//   - Critical (ret=3)：VPTR Z-Score > 3.0 且 壓縮指數 > 2.0x 且價格橫盤
+//
+// 資料週期：適用於日內圖表（分鐘圖、Tick圖等）
+// 偵測階段：早期累積（價格移動前）
+// ============================================================
+
+{@type:sensor}
+
+// ===== 參數設定 =====
+settotalbar(200);
+
+// --- 統計參數 ---
+input: lookback_period(60, "分析週期(分鐘)"),
+       vptr_zscore_warning(2.0, "VPTR Z-Score 警告閾值"),
+       vptr_zscore_strong(2.5, "VPTR Z-Score 強烈閾值"),
+       vptr_zscore_critical(3.0, "VPTR Z-Score 嚴重閾值"),
+       compression_warning(1.3, "壓縮指數警告閾值"),
+       compression_strong(1.5, "壓縮指數強烈閾值"),
+       compression_critical(2.0, "壓縮指數嚴重閾值"),
+       price_flat_threshold(1.0, "價格橫盤閾值 (%)"),
+       cooldown_minutes(5, "警示冷卻時間(分鐘)"),
+       ask_ratio_threshold(55, "外盤量比例閾值 (%)");
+
+// ===== 變數宣告 =====
+var: currentVolume(0),              // 當前成交量
+     currentTicks(0),               // 當前成交次數
+     askVolume(0),                  // 外盤量
+     currentVPTR(0),                // 當前 Volume Per Tick Ratio
+     vptrMean(0),                   // VPTR 平均值
+     vptrStdDev(0),                 // VPTR 標準差
+     vptrZScore(0),                 // VPTR Z-Score
+     avgVPTR(0),                    // 歷史平均 VPTR
+     compressionIndex(0),           // 壓縮指數
+     priceChangePercent(0),         // 價格變化百分比
+     askVolumeRatio(0),             // 外盤量比例
+     alertLevel(0),                 // 警示等級 (0=無, 1=警告, 2=強烈, 3=嚴重)
+     intrabarpersist lastAlertTime(0),      // 上次警示時間
+     intrabarpersist lastAlertLevel(0),     // 上次警示等級
+     intrabarpersist vptrSum(0),            // VPTR 累積和（用於計算平均）
+     intrabarpersist vptrCount(0);          // VPTR 樣本數
+
+// ============================================================
+// 檢查是否為新的一天（重置計數器）
+// ============================================================
+if Date <> Date[1] then
+begin
+    vptrSum = 0;
+    vptrCount = 0;
+    lastAlertTime = 0;
+    lastAlertLevel = 0;
+end;
+
+// ============================================================
+// 取得成交量和成交次數資料
+// ============================================================
+currentVolume = GetField("成交量");
+currentTicks = GetField("TotalTicks");
+askVolume = GetField("TradeVolumeAtAsk");
+
+// 計算當前 VPTR
+if currentTicks > 0 then
+    currentVPTR = currentVolume / currentTicks
+else
+    currentVPTR = 0;
+
+// 更新 VPTR 累積統計
+if currentVPTR > 0 then
+begin
+    vptrSum = vptrSum + currentVPTR;
+    vptrCount = vptrCount + 1;
+end;
+
+// ============================================================
+// 計算 VPTR 統計指標
+// ============================================================
+// 計算過去 N 期的 VPTR 平均值和標準差
+var: i(0), tempVolume(0), tempTicks(0), tempVPTR(0);
+var: vptrArray[200](0);  // 儲存歷史 VPTR 值
+
+// 收集歷史 VPTR 數據
+for i = 0 to lookback_period - 1
+begin
+    tempVolume = GetField("成交量", "D")[i];
+    tempTicks = GetField("TotalTicks", "D")[i];
+    if tempTicks > 0 then
+        vptrArray[i] = tempVolume / tempTicks
+    else
+        vptrArray[i] = 0;
+end;
+
+// 計算 VPTR 平均值
+vptrMean = 0;
+for i = 0 to lookback_period - 1
+begin
+    vptrMean = vptrMean + vptrArray[i];
+end;
+if lookback_period > 0 then
+    vptrMean = vptrMean / lookback_period;
+
+// 計算 VPTR 標準差
+vptrStdDev = 0;
+for i = 0 to lookback_period - 1
+begin
+    vptrStdDev = vptrStdDev + (vptrArray[i] - vptrMean) * (vptrArray[i] - vptrMean);
+end;
+if lookback_period > 1 then
+    vptrStdDev = SquareRoot(vptrStdDev / (lookback_period - 1));
+
+// 計算 VPTR Z-Score
+if vptrStdDev > 0 then
+    vptrZScore = (currentVPTR - vptrMean) / vptrStdDev
+else
+    vptrZScore = 0;
+
+// ============================================================
+// 計算壓縮指數
+// ============================================================
+// 歷史平均 VPTR（使用簡化方法）
+avgVPTR = vptrMean;
+
+// 壓縮指數 = 當前 VPTR / 平均 VPTR
+if avgVPTR > 0 then
+    compressionIndex = currentVPTR / avgVPTR
+else
+    compressionIndex = 0;
+
+// ============================================================
+// 計算價格變化率
+// ============================================================
+priceChangePercent = absvalue(RateOfChange(Close, lookback_period));
+
+// ============================================================
+// 計算外盤量比例
+// ============================================================
+if currentVolume > 0 then
+    askVolumeRatio = (askVolume / currentVolume) * 100
+else
+    askVolumeRatio = 0;
+
+// ============================================================
+// 警示冷卻邏輯檢查
+// ============================================================
+var: timeSinceLastAlert(0), allowAlert(false);
+timeSinceLastAlert = Time - lastAlertTime;
+allowAlert = (timeSinceLastAlert >= cooldown_minutes);
+
+// 如果警示等級提升，立即允許警示（不受冷卻時間限制）
+// 這裡假設 Time 以分鐘為單位，實際可能需要調整
+
+// ============================================================
+// 分級警示判斷
+// ============================================================
+alertLevel = 0;
+
+// Critical Level (ret=3)：最嚴重的累積訊號
+if (vptrZScore > vptr_zscore_critical)
+   and (compressionIndex > compression_critical)
+   and (priceChangePercent < price_flat_threshold)
+   and (askVolumeRatio > ask_ratio_threshold) then
+begin
+    alertLevel = 3;
+end
+
+// Strong Level (ret=2)：強烈累積訊號
+else if (vptrZScore > vptr_zscore_strong)
+        and (compressionIndex > compression_strong)
+        and (askVolumeRatio > ask_ratio_threshold - 5) then
+begin
+    alertLevel = 2;
+end
+
+// Warning Level (ret=1)：初步警告訊號
+else if ((vptrZScore > vptr_zscore_warning) or (compressionIndex > compression_warning))
+        and (askVolumeRatio > ask_ratio_threshold - 10) then
+begin
+    alertLevel = 1;
+end;
+
+// ============================================================
+// 警示觸發邏輯（含冷卻時間管理）
+// ============================================================
+if alertLevel > 0 then
+begin
+    // 如果警示等級提升或冷卻時間已過，觸發警示
+    if (alertLevel > lastAlertLevel) or allowAlert then
+    begin
+        ret = alertLevel;
+        lastAlertTime = Time;
+        lastAlertLevel = alertLevel;
+    end
+    else
+        ret = 0;  // 冷卻期間，不觸發
+end
+else
+begin
+    ret = 0;
+    // 重置上次警示等級（當無警示時）
+    if allowAlert then
+        lastAlertLevel = 0;
+end;
+
+

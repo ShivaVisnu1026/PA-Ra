@@ -1,0 +1,112 @@
+// ============================================================
+// Strategy 2: Smart Money Flow Accumulation Alert
+// ============================================================
+// 描述：
+//   使用外盤量與內盤量的比例變化來偵測聰明錢累積
+//   結合整股/零股成交量分析來識別機構進場
+//
+// 核心邏輯：
+//   - 外盤量/內盤量比例持續上升
+//   - 整股成交量比例增加（機構進場）
+//   - 成交量增加但價格未大幅上漲
+//   - 累積外盤量超過過去平均的 1.5 倍
+//
+// 資料週期：適用於日內圖表（分鐘圖、Tick圖等）
+// ============================================================
+
+{@type:sensor}
+
+// ===== 參數設定 =====
+settotalbar(200);
+
+// --- 參數 ---
+input: lookback_period(20, "統計回看期數"),
+       min_ask_bid_ratio(1.2, "最小外盤/內盤比例"),
+       board_lot_ratio_threshold(70, "整股成交量比例閾值 (%)"),
+       cumulative_volume_multiplier(1.5, "累積成交量倍數"),
+       max_price_increase(5.0, "最大價格漲幅限制 (%)");
+
+// ===== 變數宣告 =====
+var: currentVolume(0),              // 當前成交量
+     askVolume(0),                  // 外盤量
+     bidVolume(0),                  // 內盤量（總量 - 外盤量）
+     boardLotVolume(0),             // 整股成交量
+     askBidRatio(0),                // 外盤/內盤比例
+     boardLotRatio(0),              // 整股成交量比例
+     cumulativeAskVolume(0),        // 累積外盤量（過去N期）
+     avgCumulativeAskVolume(0),     // 平均累積外盤量
+     priceChangePercent(0),         // 價格變化百分比
+     smartMoneySignal(false),       // 聰明錢訊號
+     intrabarpersist alertTriggeredToday(false);  // 今日是否已觸發警示
+
+// ============================================================
+// 檢查是否為新的一天（重置警示標記）
+// ============================================================
+if Date <> Date[1] then
+    alertTriggeredToday = false;
+
+// ============================================================
+// 取得成交量資料
+// ============================================================
+currentVolume = GetField("成交量");
+askVolume = GetField("TradeVolumeAtAsk");
+boardLotVolume = GetField("BoardLotVolume");
+
+// 計算內盤量（總量 - 外盤量）
+bidVolume = currentVolume - askVolume;
+
+// ============================================================
+// 計算比例指標
+// ============================================================
+// 外盤/內盤比例
+if bidVolume > 0 then
+    askBidRatio = askVolume / bidVolume
+else
+    askBidRatio = 0;
+
+// 整股成交量比例
+if currentVolume > 0 then
+    boardLotRatio = (boardLotVolume / currentVolume) * 100
+else
+    boardLotRatio = 0;
+
+// ============================================================
+// 計算累積外盤量
+// ============================================================
+// 計算過去 N 期的累積外盤量
+cumulativeAskVolume = Summation(GetField("TradeVolumeAtAsk", "D"), lookback_period);
+
+// 計算過去 N 期的平均累積外盤量（用於比較）
+avgCumulativeAskVolume = Average(Summation(GetField("TradeVolumeAtAsk", "D"), lookback_period), lookback_period);
+
+// ============================================================
+// 計算價格變化率
+// ============================================================
+priceChangePercent = RateOfChange(Close, lookback_period);
+
+// ============================================================
+// 聰明錢訊號判斷
+// ============================================================
+// 條件1：外盤/內盤比例 > 閾值
+// 條件2：整股成交量比例 > 閾值（機構進場）
+// 條件3：累積外盤量 > 平均值的倍數
+// 條件4：價格尚未上漲超過 5%
+// 條件5：今日尚未觸發過警示
+smartMoneySignal = (askBidRatio > min_ask_bid_ratio)
+               and (boardLotRatio > board_lot_ratio_threshold)
+               and (cumulativeAskVolume > avgCumulativeAskVolume * cumulative_volume_multiplier)
+               and (priceChangePercent < max_price_increase)
+               and (priceChangePercent > -3.0)  // 允許小幅下跌
+               and not alertTriggeredToday;
+
+// ============================================================
+// 警示觸發
+// ============================================================
+if smartMoneySignal then
+begin
+    ret = 1;
+    alertTriggeredToday = true;  // 標記今日已觸發，避免重複警示
+end
+else
+    ret = 0;
+
