@@ -1,0 +1,2131 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async=async src="https://www.googletagmanager.com/gtag/js?id=GTM-NHPFZR5F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'GTM-NHPFZR5F');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta property="og:type" Content="website" />
+    <meta property="og:site_name" Content="XS語法" />
+    <meta property="og:image" content="https://xshelp.xq.com.tw/XSHelp/Content/Images/png-07-xs-155-90.png" />
+    <meta property="og:title" Content="首頁 - XS語法" />
+    <meta property="og:description" Content="首頁" />
+    <link href="/XSHelp/Content/Images/favicon.ico" rel="icon" type="image/ico" />
+    <link href="/XSHelp/Content/css?v=MmAetLgQWTpj53h5C1K54227FFaG9xOGVb-qgk1DRGE1" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        // todo: js 參數替換
+        gConfig = {
+            site_path: "/XSHelp/",
+            site_url: "http://xshelp.xq.com.tw/",
+            djsite_url: "http://jv-testweb/",
+            url_suffix: "",
+            runat_asp: "1",
+            d: ""
+        };
+    </script>
+    <script src="/XSHelp/bundles/jquery?v=14H8EzIR27VT10jKdQjUdjivbIr5qhF08VKu4RwT7rI1"></script>
+
+</head>
+<body>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WMXRLD"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WMXRLD');</script>
+    <!-- End Google Tag Manager -->
+    <div id="container" class="clearfix">
+        <div id="help-main">
+            <div class="menu_side">
+                <div class="xq_logo">
+                    <a href="https://www.xq.com.tw/">
+                        <img src="/XSHelp/Content/Images/png-xsh-180-60.png" />
+                    </a>
+                </div>
+                <div class="help_logo">
+                    <img src="/XSHelp/Content/Images/png-07-xs-155-90.png" />
+                </div>
+                <script type="text/javascript" src="/XSHelp/Scripts/util.string.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/jmoneyui.autolist.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onPos.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onRange.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/XSHelp/Content/jmoneyui.autolist.css" type="text/css" />
+
+<div class="search">
+    <input type="text" class="inputarea default" value="函數、關鍵字或欄位" />
+    <button class="inputSearch"></button>
+</div>
+<script type="text/javascript">
+    (function () {
+        var cookie_key = 'search_record';
+        $('.inputarea').autolist({
+            source: function (req, res) {
+                $.getJSON($.xshelp.genDJPath(gConfig['site_path'] + 'rest', { a: encodeURIComponent(req.term) }), null, function (data) {
+                    var x = $.map(data, function (val, i) {
+                        return {
+                            label: cText(val),
+                            value: $.xshelp.genDJPath(gConfig['site_path'] + 'index', { HelpName: encodeURIComponent(val['name']), group: val['Description'] })
+                        };
+                    });
+                    res(x);
+                });
+            },
+            select: function (event, ui) {
+                var val = $(this).val();
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(val) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = ui.item.value;
+            },
+            directEnter: function (event, ui) {
+                var keyword = $(this).val();
+                if (typeof keyword == 'string' && keyword != '') {
+                    var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                    $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                    window.location = url;
+                }
+            },
+            dataMax: 50
+        });
+
+        $('.inputSearch').click(function () {
+            var keyword = $('.inputarea').val();
+            if (typeof keyword == 'string' && keyword != '') {
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = url;
+            }
+        });
+
+        function cText(obj) {
+            if (/^1/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^(2|3)/.test(obj['categoryid'])) {
+                //                var str = (obj['ename'])? obj['ename'] : obj['abbrev'];
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^4/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+        }
+    })();
+
+</script>
+                <div id="cssmenu">
+    <ul>
+        <li>
+            <a href="javascript:void(0);"><span>檢視紀錄</span></a>
+            <ul></ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>關鍵字</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=SKIPWORD">忽略字</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=CONSTANT">常數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=CONTROLFLOW">流程控制</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=DECLARATION">宣告</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>內建函數</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=GENERALFUNC">一般函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TIMEFUNC">時間函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=DATEFUNC">日期函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STRINGFUNC">字串函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=NUMBERFUNC">數學函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FIELDFUNC">欄位函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYFUNC">陣列函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TRANSACTIONFUNC">交易函數</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>系統函數</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICEGETFUNC">價格取得</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=PRICECULFUNC">價格計算</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICERELFUNC">價格關係</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TECHINDEXFUNC">技術指標</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=DATERELFUNC">日期相關</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRANSACTIONRELFUNC">交易相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STATSFUNC">統計分析</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRENDFUNC">趨勢分析</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=LOGICFUNC">邏輯判斷</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FUTUREFUNC">期權相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FREQUENCYFUNC">跨頻率</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYSYSFUNC">Array函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=VOLUMERELFUNC">量能相關</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>報價欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QOPTION">期權</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QFIVE">五檔統計</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>資料欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TBASIC">基本</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TEVENT">事件</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TOPTION">期權</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>選股欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FBASIC">基本</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=FEVENT">事件</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="javascript:void(0);" class="search_record"><span>搜尋記錄</span></a></li>
+        <li class="last">
+            <a href="https://github.com/sysjust-xq/XScript_Preset" target="_blank">
+                <span title="系統腳本的程式碼集">GitHub</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="/XSHelp/Scripts/menu-jquery.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    (function () {
+        var obj = $.cookie('search_record');
+        if (obj != null && typeof obj == 'string' && obj) {
+            $('.search_record').attr('href', obj);
+        }
+
+        var list = $.cookie($.xshelp.ViewRecookieName);
+        var ary = [];
+        if (list != null) {
+            ary = list.split(",");
+        }
+        ary = $.map(ary, function (n, i) {
+            var item = n.split('*');
+            return { link: $.xshelp.genDJPath('index', { HelpName: encodeURIComponent(item[0]), group: item[1] }), name: item[0] };
+        });
+
+        if (ary.length > 0) {
+            var str = '';
+            $.each(ary, function (i, o) {
+                str += '<li title="' + o['name'] + '"><a href="' + o['link'] + '"><span>' + o['name'] + '</span></a></li>';
+            });
+            $('#cssmenu > ul > li:first').addClass('has-sub').children('ul').append(str);
+        }
+    })();
+</script>
+
+            </div>
+            <div class="result">
+                <div class="content-txt">
+                    
+<h1>XS更新說明(XQ全球贏家_企業版 v7.16.04 & 個人版 v3.16.04)</h1>
+	<h2>新增項目</h2>
+		<h3>指標</h3>
+			<h4>基本面指標</h4>
+				<ul>
+					<li>10年EPS預估之10倍本益比線</li>
+					<li>PB倍數線</li>
+					<li>月營收年增率</li>
+					<li>月營收長期移動平均線</li>
+					<li>年營收年增率</li>
+					<li>自由現金流量</li>
+					<li>行銷費用</li>
+					<li>每股淨值</li>
+					<li>每股營收</li>
+					<li>季營收年增率</li>
+					<li>流動比率</li>
+					<li>盈轉佔股本比重</li>
+					<li>研發費用</li>
+					<li>員工人數</li>
+					<li>速動比率</li>
+					<li>殖利率</li>
+					<li>稅前淨利率</li>
+					<li>稅後淨利率</li>
+					<li>資本支出長期走勢</li>
+					<li>預收款</li>
+					<li>應收帳款週轉率</li>
+					<li>營業毛利率</li>
+					<li>營業利益率</li>
+				</ul>
+			<h4>產業面指標</h4>
+				<ul>
+					<li>整體營收(指定指數代碼)</li>
+					<li>整體營收(執行商品)</li>
+				</ul>
+		<h3>選股欄位</h3>
+				<ul>
+					<li>殖利率、現金股利殖利率、股票股利殖利率，增加支援「年」頻率</li>
+				</ul>
+		<h3>資料欄位</h3>
+				<ul>
+					<li>殖利率，增加支援「年」頻率</li>
+				</ul>
+	<h2>修改項目</h2>
+		<h3>指標</h3>
+			<h4>即時籌碼</h4>
+				<ul>
+					<li>分時買賣力: 拿掉對指數的限制</li>
+				</ul>
+		<h3>內建函數</h3>
+				<ul>
+					<li>extreme: 優化運算效能</li>
+				</ul>
+	</body>
+</html>
+
+
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.16.01 & 個人版 v3.16.01)</font></summary>
+		<h2>新增項目</h2>
+		<h3>指標</h3>
+			<ul>
+				<li>三大法人交易金額</li>
+				<li>外資交易金額</li>
+				<li>投信交易金額</li>
+				<li>自營商交易金額</li>
+				<li>累計淨利(發佈值)</li>
+				<li>累計每股盈餘(發佈值)</li>
+			</ul>
+		<h3>宣告</h3>
+			<ul>
+				<li>Group</li>
+				<li>inputKind:=SymbolGroup</li>
+				<li>Rank</li>
+			</ul>
+		<h3>內建函數</h3>
+			<ul>
+				<li>GroupSize</li>
+				<li>GetSymbolGroup</li>
+				<li>GetField參數: default</li>
+				<li>Checkfield</li>
+				<li>IsSupportField</li>
+				<li>GetFieldPublishDate</li>
+			</ul>
+		</body>
+	</html>
+</details>
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.15.03 & 個人版 v3.15.03)</font></summary>
+	<h2>調整項目</h2>
+	<h3>指標</h3>
+		<ul>
+			<li>寶塔線：能選擇依寶塔線高低點/k棒高低點</li>
+		</ul>
+	<h3>雷達</h3>
+		<ul>
+			<li>一舉跌破多根均線：原腳本邏輯判斷錯誤</li>
+		</ul>
+	<h3>函數</h3>
+		<ul>
+			<li>turnoverrate：GetField("股本(億)","D")指定日頻率</li>
+			<li>ReadTicks：若執行商品為股票，才定義"交易單位"</li>
+			<li>xfMin系列函數：新增支援2、3分鐘</li>
+		</ul>
+		
+	<h2>新增項目</h2>
+		<h3>一般函數</h3>
+			<ul>
+				<li>isfirstcall("RealBar")</li>
+			</ul>
+		<h3>屬性欄位</h3>
+			<ul>
+				<li>賣回權日期</li>
+				<li>賣回權價格</li>
+			</ul>
+		<h3>資料欄位</h3>
+			<ul>
+				<li>累計每股盈餘(發佈值)</li>
+				<li>累計淨利(發佈值)</li>
+			</ul>
+		<h3>選股欄位</h3>
+			<ul>
+				<li>累計每股盈餘(發佈值)</li>
+				<li>累計淨利(發佈值)</li>
+				<li>因子_QMJ安全</li>
+				<li>因子_QMJ獲利</li>
+				<li>因子_一年動能</li>
+				<li>因子_日週轉率流動性</li>
+				<li>因子_月週轉率流動性</li>
+				<li>因子_半年動能因子</li>
+				<li>因子_成交值流動性</li>
+				<li>因子_貝他值</li>
+				<li>因子_股票發行量</li>
+				<li>因子_前一年獲利</li>
+				<li>因子_前三年獲利</li>
+				<li>因子_前兩年獲利</li>
+				<li>因子_特質波動度</li>
+				<li>因子_偏態係數</li>
+				<li>因子_帳面市值比</li>
+				<li>因子_彩券型需求</li>
+				<li>因子_淨營運資產</li>
+				<li>因子_現金流量波動度</li>
+				<li>因子_最高價動能</li>
+				<li>因子_實現損益偏態係數</li>
+				<li>因子_潛在上檔報酬比</li>
+				<li>因子分數_QMJ安全</li>
+				<li>因子分數_QMJ獲利</li>
+				<li>因子分數_一年動能</li>
+				<li>因子分數_日週轉率流動性</li>
+				<li>因子分數_月週轉率流動性</li>
+				<li>因子分數_半年動能因子</li>
+				<li>因子分數_成交值流動性</li>
+				<li>因子分數_貝他值</li>
+				<li>因子分數_股東權益報酬率</li>
+				<li>因子分數_股票發行量</li>
+				<li>因子分數_前一年獲利</li>
+				<li>因子分數_前三年獲利</li>
+				<li>因子分數_前兩年獲利</li>
+				<li>因子分數_特質波動度</li>
+				<li>因子分數_偏態係數</li>
+				<li>因子分數_帳面市值比</li>
+				<li>因子分數_彩券型需求</li>
+				<li>因子分數_淨營運資產</li>
+				<li>因子分數_現金流量波動度</li>
+				<li>因子分數_現金殖利率</li>
+				<li>因子分數_最高價動能</li>
+				<li>因子分數_實現損益偏態係數</li>
+				<li>因子分數_潛在上檔報酬比</li>
+			</ul>
+		</body>
+	</html>
+</details>
+
+
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.15.01 & 個人版 v3.15.01)</font></summary>
+		<h2>新增項目</h2>
+			<h3>指標</h3>
+				<ul>
+					<li>一目均衡表</li>
+					<li>平均K線</li>
+				</ul>
+			
+		<h2>調整項目</h2>
+			<h3>指標</h3>
+				<ul>
+					<li>投資建議評級(%)：更換變數名稱</li>
+				</ul>
+			<h3>雷達</h3>
+			以下腳本，修正呼叫資料的對位邏輯
+				<ul>
+					<li>找起漲點的策略</li>
+					<li>外盤買氣轉強</li>
+					<li>多次到頂而突破</li>
+					<li>突破糾結均線</li>
+					<li>雙KD向上</li>
+					<li>Pivot Point短多策略</li>
+					<li>盤整後跳空走高</li>
+					<li>過去N日有多日跳空且未拉回</li>
+					<li>主力慢慢收集籌碼後攻堅</li>
+					<li>主力慢慢收集籌碼後攻堅</li>
+				</ul>
+			<h3>函數</h3>
+				<ul>
+					<li>Correlation：修正公式錯誤</li>
+				</ul>
+		</body>
+	</html>
+</details>
+
+
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.14.02 & 個人版 v3.14.02)</font></summary>
+		<h2>修改項目</h2>
+			<hr />
+			<h3>XS函數</h3>
+			<ul>
+			  <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=xfMin_GetDTValue&group=FREQUENCYFUNC">xfMin_GetDTValue</a>：調整語法，以便支援台期權商品</li>
+			</ul> 
+
+
+			<h3>XS指標</h3>
+			<ul>
+			  <li>買賣力：拿掉商品與頻率限制</li>
+			  <li>融資：調整指標顏色與順序，與投信外資自營商一致</li>
+			  <li>融券：調整指標顏色與順序，與投信外資自營商一致</li>
+			</ul>
+			
+			<h3>XS選股</h3>
+			<ul>
+			  <li>高檔背離：調整語法以更符合主旨</li>
+			  <li>低檔背離：調整語法以更符合主旨</li>
+			</ul>
+			
+			<h3>XS雷達</h3>
+			將以下腳本有用到function[n]的寫法，改用function賦值給變數、變數[n]的寫法
+			<ul>
+				<li>找起漲點的策略</li>
+				<li>外盤買氣轉強</li>
+				<li>多次到頂而突破</li>
+				<li>突破糾結均線</li>
+				<li>雙KD向上</li>
+				<li>Pivot Point短多策略</li>
+				<li>盤整後跳空走高</li>
+				<li>過去N日有多日跳空且未拉回</li>
+				<li>主力慢慢收集籌碼後攻堅</li>
+				<li>進入上漲軌道</li>
+			</ul>
+		  </body>
+	</html>
+</details>
+
+
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.14.01 & 個人版 v3.14.01)</font></summary>
+	<h2>新增項目</h2>
+		<h3>指標</h3>
+			<ul>
+				<li>寶塔線</li>
+				<li>平均K線</li>
+			</ul>
+		<h3>函數</h3>
+			<ul>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=PlotK&group=GENERALFUNC">PlotK</a></li>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=GetInfo&group=GENERALFUNC">GetInfo("IsTimerMode")</a></li>
+			</ul>
+		<h3>報價欄位</h3>
+			<ul>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E8%A9%A6%E6%90%93%E6%88%90%E4%BA%A4%E5%83%B9&group=QUOTE">GetQuote("試搓成交價")</a></li>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E8%A9%A6%E6%90%93%E6%88%90%E4%BA%A4%E9%87%8F&group=QUOTE">GetQuote("試搓成交量")</a></li>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E8%A9%A6%E6%90%93%E6%88%90%E4%BA%A4%E6%99%82%E9%96%93&group=QUOTE">GetQuote("試搓成交時間")</a></li>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E8%A9%A6%E6%90%93%E6%88%90%E4%BA%A4%E6%97%A5%E6%9C%9F&group=QUOTE">GetQuote("試搓成交日期")</a></li>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E6%92%AE%E5%90%88%E7%8B%80%E6%85%8B&group=QUOTE">GetQuote("撮合狀態")</a></li>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E6%9A%AB%E7%B7%A9%E6%92%AE%E5%90%88%E7%8B%80%E6%85%8B&group=QUOTE">GetQuote("暫緩撮合狀態")</a></li>
+			</ul>
+		
+	<h2>調整項目</h2>
+		<h3>函數</h3>
+			<ul>
+				<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=GetInfo&group=GENERALFUNC">GetInfo("IsRealTime")</a>：因應自動洗價功能上線，調整說明</li>
+			</ul>
+	</body>
+	</html>
+</details>
+
+
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.13.04 & 個人版 v3.13.04)</font></summary>
+	<h2>修改項目</h2>
+		<h3>函數</h3>
+		<ul>	
+			<li>LastDayOfMonth：修正第5行回傳成date，而非指定月份的天數</li>
+		</ul>
+	</body>
+	</html>
+</details>
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.13.01 & 個人版 v3.13.01)</font></summary>
+	<h2>修改項目</h2>
+		<h3>指標</h3>
+		<ul>	
+			<li>買賣成交筆數：修改註解，"委買賣成筆差 = 委賣成交筆數 - 委買成交筆數"</li>
+			<li>股東人數：在CB時的月頻率以下，支援顯示月頻率</li>
+			<li>總持股人數：在CB時的月頻率以下，支援顯示月頻率</li>
+			<li>CB轉換溢價率：修改名稱(原名「可轉債轉換溢價率」)、修改預設顯示設定</li>
+			<li>處置期間：把不會走到的code拿掉</li>
+			<li>大戶持股：修正線圖顏色</li>
+			<li>散戶持股：修正線圖顏色</li>
+		</ul>
+
+
+		<h3>選股</h3>
+		<ul>	
+			<li>營收月增率優於平均：腳本第二行改成value2 = average(GetField("月營收月增率","M"),36);</li>
+		</ul>
+		
+		<h3>函數</h3>
+		<ul>	
+			<li>TechScore：修正錢德動量指標的算法</li>
+			<li>SAR：修正腳本邏輯，在第47、64行插入sar = presar;</li>
+		</ul>
+
+
+		
+	<h2>新增項目</h2>
+		<h3>指標</h3>
+		<ul>	
+			<li>CB剩餘張數</li>
+			<li>投資建議目標價</li>
+			<li>投資建議目標價溢價率</li>
+		</ul>
+
+
+	<h2>下架項目</h2>
+		<h3>指標</h3>
+		<ul>	
+			<li>股票轉換價差</li>
+		</ul>
+
+
+	  </body>
+	</html>
+</details>
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.12.05 & 個人版 v3.12.05)</font></summary>
+	<h2>修改項目</h2>
+		<h3>指標</h3>
+		<ul>	
+			<li>股東人數：支援股票跟可轉債，改用bar的方式來繪製</li>
+			<li>總持股人數：改用bar的方式來繪製</li>
+			<li>CDP：可於參數選單，選擇繪圖顯示「每日」或「當日」</li>
+		</ul>
+		
+		<h3>選股</h3>
+		<ul>
+			<li>近期漲幅不大：修正GetField("法說會日期")指定錯頻率</li>
+		</ul>
+		
+		<h3>警示</h3>
+		<ul>
+			<li>領先大盤創200日新高：將barslast(close=highest(close,period))[1]改以變數[1]的方式撰寫 (原本型態是函數[1])</li>
+		</ul>
+		
+		<h3>函數</h3>
+		<ul>
+			<li>Bias：考慮腳本中分母不為正整數的狀況</li>
+		</ul>
+		
+	<h2>新增項目</h2>
+		<h3>欄位</h3>
+		<ul>	
+			<li>getsymbolinfo轉換價格 ：支援歷史資料</li>
+			<li>getfield轉換價格</li>
+		</ul>
+
+
+		<h3>指標</h3>
+		<ul>	
+			<li>可轉債轉換溢價率</li>
+			<li>股票轉換價差</li>
+		</ul>
+	  </body>
+	</html>
+</details>
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.12.04 & 個人版 v3.12.04)</font></summary>
+	<h2>修改項目</h2>
+		<h3>指標</h3>
+		<ul>	
+			<li>分公司買進賣出家數，買賣數值相反</li>
+			<li>內部人持股異動，增加錯訊:僅支援美股</li>
+			<li>台灣50紅K家數，精簡腳本</li>
+			<li>大戶持股，新增更細的參數選單</li>
+			<li>散戶持股，新增更細的參數選單</li>
+		</ul>
+		
+		<h3>選股</h3>
+		<h5>優化腳本結構（此調整不影響原先選股邏輯與結果）</h4>
+		<ul>
+			<li>千張大戶減少而散戶增加</li>
+			<li>千張大戶增持</li>
+			<li>千張大戶增加而散戶減少（原名:千張大戶暴增）</li>
+			<li>連續大戶進散戶出（原名:大戶進散戶出）</li>
+		</ul>
+	  </body>
+	</html>
+</details>
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.12.01 & 個人版 v3.12.01)</font></summary>		
+	<h2>修改項目</h2>
+
+
+		<h3>指標</h3>
+		<ul>	
+			<li>法人、外資、自營商，使其顯示2011以前的內容</li>
+			<li>官股券商，使其正常顯示數值</li>
+			<li>台灣50相關的11個指標，使其在日頻率上能夠顯示</li>
+		</ul>
+		
+		<h3>選股</h3>
+		<ul>	
+			<li>創百日來新高但距離低點不太遠</li>
+				把原來的「high = highest(close, day-1) and value1 * (1 + percents/100) >= high」<br>
+				改成「close=highest(close,day) and value1 * (1 + percents/100) >= close」<br>
+			<li>創百日新高但距低點不遠</li>
+				將「if close=highest(close,day-1)」與「and high >= value1/1.05」<br>
+				改成「close=highest(close,day)」與「close >= value1/1.05」<br>
+		</ul>
+		
+		<h3>自動交易</h3>
+		<ul>
+			<li>02-SetPosition範例#3(多單1口+空單1口)_1</li>
+				範例內的說明 :<br>
+				{ 如果符合做空情境(short_condition), 則把部位變成-1 (可能是0->-1 or 1->1) }<br>
+				修正↓<br>
+				{ 如果符合做空情境(short_condition), 則把部位變成-1 (可能是0->-1 or 1->-1) }<br>
+		</ul>
+		
+		<h3>函數</h3>
+		以下 16 個函數使用到的Date，改成getFieldDate("Date")
+		<ul>
+			<li>xf_DirectionMovement</li>
+			<li>xf_EMA</li>
+			<li>xf_GetBoolean</li>
+			<li>xf_GetCurrentBar</li>
+			<li>xf_GetValue</li>
+			<li>xf_RSI</li>
+			<li>xf_Stochastic</li>
+			<li>xf_XAverage</li>
+			<li>xfmin_DirectionMovement</li>
+			<li>xfmin_EMA</li>
+			<li>xfmin_GetBoolean</li>
+			<li>xfmin_GetCurrentBar</li>
+			<li>xfmin_GetValue</li>
+			<li>xfmin_RSI</li>
+			<li>xfmin_Stochastic</li>
+			<li>xfmin_XAverage</li>
+		</ul>
+		
+	<h2>新增項目</h2>
+
+
+		<h3>指標</h3>
+		<ul>
+			<li>主圖指標 / 處置期間</li>
+			<li>主圖指標 / CDP</li>
+			<li>主圖指標 / ZigZag</li>
+			<li>主圖指標 / 樂活五線譜_趨勢線</li>
+			<li>商品指標 / 本益比</li>
+			<li>商品指標 / 殖利率</li>
+			<li>商品指標 / 機構持股</li>
+			<li>商品指標 / 內部人持股異動</li>
+			<li>XQ量能指標 / 投資建議評級(%)</li>
+		</ul>
+		
+		<h3>自動交易</h3>
+		<ul>
+			<li>基本語法 / 09-CancelAllOrders</li>
+		</ul>
+		
+	  </body>
+	</html>
+</details>
+<details>
+	<summary><font size=2>XS更新說明(XQ全球贏家_企業版 v7.10.04 & 個人版 v3.10.04)</font></summary>	
+	<h2>修改項目</h2>
+		<h3>XS編輯器，選股類型的系統腳本</h3>
+		以下 4 個系統腳本，調整腳本語法，加上可以持續使用在不同的版本的語法來判斷環境。
+		<ul>	
+			<li>06.籌碼選股「千張大戶減少而散戶增加」</li>
+			<li>06.籌碼選股「千張大戶增持」</li>
+			<li>06.籌碼選股「千張大戶暴增」</li>
+			<li>06.籌碼選股「大戶進散戶出」</li>
+		</ul>
+		
+		以下這個系統腳本，修改腳本語法，以便避免觸發後Condition永遠都是True的情況。
+		<ul>
+			<li>07.月營收選股「月營收大成長的公司」</li>
+		</ul>
+	  </body>
+	</html>
+</details>
+<details>
+	<summary><font size=2><font size=2>XS更新說明(XQ全球贏家_企業版 v7.10.03 & 個人版 v3.10.03)</font></summary>
+	<h2>新增項目</h2>
+		<h3>函數語法</h3>
+		<ul>		
+			<li>新增  <a href="api?a=angleprice&amp;b=sys">angleprice</a> 回傳「用N期至今的角度來計算趨勢線價格」的數值</li>
+			<li>新增  <a href="api?a=ArrayXDaySeries&amp;b=sys">ArrayXDaySeries</a> 回傳「以陣列儲存跨頻率的序列值」的陣列</li>
+			<li>新增  <a href="api?a=DiffBidAskVolumeXL&amp;b=sys">DiffBidAskVolumeXL</a> 回傳「近15分鐘特大單買賣超」的張數</li>
+		</ul>
+	<h2>修改項目</h2>
+		<h3>指標</h3>
+		以下 3 個指標，在「K線日期與交易家數相關資料欄位日期不同，並且成交量=0」的時候，會回傳 0。
+		<ul>	
+			<li>籌碼指標「分公司交易家數差」</li>
+			<li>主圖指標「個股儀表板」</li>
+			<li>籌碼指標「分公司買賣家數指標」</li>
+		</ul>
+	  </body>
+	</html>
+</details>
+<details>
+<summary><font size=2><font size=2>XS更新說明(XQ全球贏家_企業版 v7.10.01 & 個人版 v3.10.01)</font></summary>	
+<h2>新增項目</h2>
+    <h3>選股欄位</h3>
+	<ul>
+		<li>新增 <a href="api?a=新聞聲量分數&amp;b=filter">新聞聲量分數</a> 支援日頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=新聞正向分數&amp;b=filter">新聞正向分數</a> 支援日頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=新聞負向分數&amp;b=filter">新聞負向分數</a> 支援日頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=主力成本&amp;b=filter">主力成本</a> 支援日、週、月、還原日、還原週、還原月、季、半年、年頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=外資成本&amp;b=filter">外資成本</a> 支援日、週、月、還原日、還原週、還原月、季、半年、年頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=投信成本&amp;b=filter">投信成本</a> 支援日、週、月、還原日、還原週、還原月、季、半年、年頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=自營商成本&amp;b=filter">自營商成本</a> 支援日、週、月、還原日、還原週、還原月、季、半年、年頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=每股自由現金流量&amp;b=filter">每股自由現金流量</a> 支援季、年頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=自由現金流量&amp;b=filter">自由現金流量</a> 支援季、年頻率。支援台股商品</li>
+	</ul>
+	<h3>資料欄位</h3>
+	<ul>
+		<li>新增 <a href="api?a=新聞聲量分數&amp;b=ta">新聞聲量分數</a> 支援日頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=新聞正向分數&amp;b=ta">新聞正向分數</a> 支援日頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=新聞負向分數&amp;b=ta">新聞負向分數</a> 支援日頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=主力成本&amp;b=ta">主力成本</a> 支援日、週、月、還原日、還原週、還原月、季、半年、年頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=外資成本&amp;b=filter">外資成本</a> 支援日、週、月、還原日、還原週、還原月、季、半年、年頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=投信成本&amp;b=filter">投信成本</a> 支援日、週、月、還原日、還原週、還原月、季、半年、年頻率。支援台股商品</li>
+        <li>新增 <a href="api?a=自營商成本&amp;b=filter">自營商成本</a> 支援日、週、月、還原日、還原週、還原月、季、半年、年頻率。支援台股商品</li>
+	</ul>
+	<h3>XS指標</h3>
+	<ul>		
+		<li>籌碼指標增加「主力／外資／自營商／投信成本線」</li>
+		<li>XQ量能指標增加「新聞分數」</li>
+		<li>大盤指標增加「外資／投信／自營商／法人／主力買賣超佔市場成交量比」</li>
+	</ul>
+	<h3>函數語法</h3>
+	<ul>		
+		<li>新增  <a href="api?a=DiffBidAskVolumeLxL&amp;b=sys">DiffBidAskVolumeLxL</a> 回傳「近15分鐘大戶買賣超」的數值</li>
+		<li>新增  <a href="api?a=DiffTradeVolumeAtAskBid&amp;b=sys">DiffTradeVolumeAtAskBid</a> 回傳「分時買賣力」的數值</li>
+		<li>新增  <a href="api?a=DiffUpDownVolume&amp;b=sys">DiffUpDownVolume</a> 回傳「分時漲跌成交量」的數值</li>
+		<li>新增  <a href="api?a=ArrayLinearRegSlope&amp;b=sys">ArrayLinearRegSlope</a> 利用陣列來計算的線性迴歸的斜率</li>
+		<li>新增  <a href="api?a=ArrayMASeries&amp;b=sys">ArrayMASeries</a> 將均線數值序列轉成陣列</li>
+		<li>新增  <a href="api?a=ArraySeries&amp;b=sys">ArraySeries</a> 將數值序列轉成陣列</li>
+		<li>新增  <a href="api?a=GetBarOffsetForYears&amp;b=sys">GetBarOffsetForYears</a> 依年份取得相對K棒位置</li>
+		<li>新增  <a href="api?a=SimpleHighestBar&amp;b=sys">SimpleHighestBar</a> 取得區間內數列最大值的K棒位置</li>
+		<li>新增  <a href="api?a=SimpleLowestBar&amp;b=sys">SimpleLowestBar</a> 取得區間內數列最小值的K棒位置</li>
+		<li>新增  <a href="api?a=DownTrend&amp;b=sys">DownTrend</a> 判斷某個序列是否趨勢向下</li>
+		<li>新增  <a href="api?a=NDaysAngle&amp;b=sys">NDaysAngle</a> 計算股價N期走勢的角度</li>
+		<li>新增  <a href="api?a=UpTrend&amp;b=sys">UpTrend</a> 判斷某個數列是否趨勢向上</li>
+	</ul>
+<h2>修改項目</h2>
+	<h3>指標</h3>
+	<ul>	
+		<li>商品指標「營收」新增月增率線、年增率線</li>
+	</ul>
+  </body>
+</html>
+</details>
+<details>
+<summary><font size=2><font size=2>XS更新說明(XQ全球贏家_企業版 v7.09.05 & 個人版 v3.09.05)</font></summary>
+<h2>新增項目</h2>
+	<hr />
+	<h3>函數語法</h3>
+	<ul>
+		<li>新增  <a href="api?a=CurrentTimeMS&amp;b=bif">CurrentTimeMS</a> 回傳含有毫秒的目前電腦的時間</li>
+		<li>新增  <a href="api?a=FilledRecordTimeMS&amp;b=bif">FilledRecordTimeMS</a> 取得某一筆成交紀錄的成交時間，回傳時間格式HHMMSS.fff</li>
+		<li> 
+				<a href="api?a=EncodeTime&amp;b=bif">EncodeTime</a>、
+				<a href="api?a=FormatTime&amp;b=bif">FormatTime</a>、
+				<a href="api?a=TimeValue&amp;b=bif">TimeValue</a>、
+				<a href="api?a=TimeToString&amp;b=bif">TimeToString</a> 、
+				<a href="api?a=StringToTime&amp;b=bif">StringToTime</a>、
+				<a href="api?a=Hour&amp;b=bif">Hour</a>、
+				<a href="api?a=Minute&amp;b=bif">Minute</a>、
+				<a href="api?a=Second&amp;b=bif">Second</a>、
+				<a href="api?a=TimeAdd&amp;b=bif">TimeAdd</a>、
+				<a href="api?a=TimeDiff&amp;b=bif">TimeDiff</a>，這六個時間相關的函數，都新增支援毫秒格式。
+		</li>
+	</ul>
+	<h3>選股欄位</h3>
+	<ul>
+		<li>新增 <a href="api?a=關聯券商買賣超張數&amp;b=filter">關聯券商買賣超張數</a> 支援日頻率。支援台股、類股商品</li>
+	</ul>
+	<h3>資料欄位</h3>
+	<ul>
+		<li>單一頻率欄位，像是 <a href="api?a=除權值&amp;b=ta">除權值</a> 遇到空值的時候，會回傳 0</li>
+	</ul>
+	<h3>商品資訊欄位 <a href="api?a=GetSymbolInfo&amp;b=bif">GetSymbolInfo</a> 語法</h3>
+	<ul>	
+		<li>期貨近月："Future*1"、"期貨近月"，新增支援「台股」商品。回傳字串 e.g. "FICDF09.TF"</li>
+		<li>期貨遠越："Future*2"、"期貨遠月"，新增支援「台股」商品。回傳字串 e.g. "FICDF10.TF"</li>
+	</ul>
+	<h3>指標</h3>
+	<ul>		
+		<li>主力指標增加「總持股人數」</li>
+		<li>主力指標增加「關聯券商買賣超」</li>
+		<li>市場動能「台灣50大戶買賣力」增加支援日線圖頻率</li>
+		<li>籌碼指標增加「主力／法人／外資／投信／自營商買超佔成交量比重」</li>
+	</ul>
+	<h3>自動交易</h3>
+	<ul>		
+		<li>支援選擇音效的 <a href="api?a=PlaySound&amp;b=bif">PlaySound</a> 語法</li>
+	</ul>
+	<h3>選股中心</h3>
+	<ul>		
+		<li>新增 <a href="api?a=關聯券商買賣超張數&amp;b=filter">關聯券商買賣超張數</a> 相關的選股條件與排行規則</li>
+	</ul>
+    <hr />
+<h2>修改項目</h2>
+	<h3>選股中心</h3>
+	<ul>	
+		<li>「借券賣出庫存異動張數」選股欄位名稱改為 <a href="api?a=關聯券商買賣超張數&amp;b=filter">關聯券商買賣超張數</a> 相關的選股條件與排行規則名稱也一併更名</li>
+	</ul>
+  </body>
+</html>
+</details>
+<details>
+<summary><font size=2><font size=2>XS更新說明(XQ全球贏家_企業版 v7.08.09 & 個人版 v7.08.09)</font></summary>
+<h2>新增項目</h2>
+    <hr />
+	<h3>XS選股中心</h3>
+	<ul>		
+		<li> 選股條件新增「（季）股票基金持有檔數大於／小於 N 檔」
+		<li> 排行規則新增「（季）股票基金持有檔數由大到小／由小到大排行前 N 名」</li>
+	</ul>
+
+
+    <hr />
+	<h3>XS商品資訊欄位</h3>
+	<ul>		
+		<li> 新增 <a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=GetSymbolInfo&group=FIELDFUNC">即將處置結束股</a>，當日是否為即將處置結束股（今日為處置股，且明日不為處置股）支援台股、台灣權證與台灣可轉債。回傳布林值。 </li>
+		<li> 新增 <a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=GetSymbolInfo&group=FIELDFUNC">近期處置結束股</a>，當日是否為近期處置結束股，在今日以前七個日曆日內（不包含今日）期間，有即將處置結束的狀態，支援台股、台灣權證與台灣可轉債。回傳布林值。</li>
+    </ul>
+	
+	<h3>XS欄位</h3>
+	
+	以下資料欄位，新增支援「細產業指標」與「主題指標」商品
+	<ul>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E4%BC%B0%E8%A8%88%E9%87%8F&group=TOFTEN">估計量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E9%87%8F%E6%AF%94&group=TVOLUME">量比</a></li>
+    </ul>
+	
+	以下資料與選股欄位，新增支援「細產業指標」與「主題指標」商品
+	<ul>		
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E7%89%B9%E5%A4%A7%E5%96%AE%E9%87%8F">買進特大單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E7%89%B9%E5%A4%A7%E5%96%AE%E9%87%8F">買進特大單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E7%89%B9%E5%A4%A7%E5%96%AE%E9%87%91%E9%A1%8D">買進特大單金額</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E7%89%B9%E5%A4%A7%E5%96%AE%E6%88%90%E4%BA%A4%E6%AC%A1%E6%95%B8">買進特大單成交次數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E7%89%B9%E5%A4%A7%E5%96%AE%E9%87%8F">賣出特大單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E7%89%B9%E5%A4%A7%E5%96%AE%E9%87%91%E9%A1%8D">賣出特大單金額</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E7%89%B9%E5%A4%A7%E5%96%AE%E6%88%90%E4%BA%A4%E6%AC%A1%E6%95%B8">賣出特大單成交次數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E5%A4%A7%E5%96%AE%E9%87%8F">買進大單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E5%A4%A7%E5%96%AE%E9%87%91%E9%A1%8D">買進大單金額</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E5%A4%A7%E5%96%AE%E6%88%90%E4%BA%A4%E6%AC%A1%E6%95%B8">買進大單成交次數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E5%A4%A7%E5%96%AE%E9%87%8F">賣出大單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E5%A4%A7%E5%96%AE%E9%87%91%E9%A1%8D">賣出大單金額</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E5%A4%A7%E5%96%AE%E6%88%90%E4%BA%A4%E6%AC%A1%E6%95%B8">賣出大單成交次數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E4%B8%AD%E5%96%AE%E9%87%8F">買進中單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E4%B8%AD%E5%96%AE%E9%87%91%E9%A1%8D">買進中單金額</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E4%B8%AD%E5%96%AE%E6%88%90%E4%BA%A4%E6%AC%A1%E6%95%B8">買進中單成交次數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E4%B8%AD%E5%96%AE%E9%87%8F">賣出中單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E4%B8%AD%E5%96%AE%E9%87%91%E9%A1%8D">賣出中單金額</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E4%B8%AD%E5%96%AE%E6%88%90%E4%BA%A4%E6%AC%A1%E6%95%B8">賣出中單成交次數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E5%B0%8F%E5%96%AE%E9%87%8F">買進小單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E5%B0%8F%E5%96%AE%E9%87%91%E9%A1%8D">買進小單金額</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B2%B7%E9%80%B2%E5%B0%8F%E5%96%AE%E6%88%90%E4%BA%A4%E6%AC%A1%E6%95%B8">買進小單成交次數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=買進小單成交次數">賣出小單量</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E5%B0%8F%E5%96%AE%E9%87%91%E9%A1%8D">賣出小單金額</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E8%B3%A3%E5%87%BA%E5%B0%8F%E5%96%AE%E6%88%90%E4%BA%A4%E6%AC%A1%E6%95%B8">賣出小單成交次數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E5%88%86%E5%85%AC%E5%8F%B8%E4%BA%A4%E6%98%93%E5%AE%B6%E6%95%B8">分公司交易家數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E5%88%86%E5%85%AC%E5%8F%B8%E6%B7%A8%E8%B2%B7%E8%B6%85%E9%87%91%E9%A1%8D%E5%AE%B6%E6%95%B8">分公司淨買超金額家數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E5%88%86%E5%85%AC%E5%8F%B8%E6%B7%A8%E8%B3%A3%E8%B6%85%E9%87%91%E9%A1%8D%E5%AE%B6%E6%95%B8">分公司淨賣超金額家數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E9%97%9C%E9%8D%B5%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85">關鍵券商買賣超</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E5%9C%B0%E7%B7%A3%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85">地緣券商買賣超</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E5%AE%98%E8%82%A1%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85">官股券商買賣超</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E7%B6%9C%E5%90%88%E5%89%8D%E5%8D%81%E5%A4%A7%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85">綜合前十大券商買賣超</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8">大戶持股人數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8">大戶持股張數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B">大戶持股比例</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8">散戶持股人數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8">散戶持股張數</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B">散戶持股比例</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/search?a=%E7%B8%BD%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8">總持股人數</a></li>
+    </ul>
+	<h3>XS指標</h3>
+	以下指標，新增支援「細產業指標」與「主題指標」商品
+    <ul>
+		<li>營收</li>
+		<li>大戶持股</li>
+		<li>散戶持股</li>
+		<li>分公司交易家數</li>
+		<li>分公司淨買賣金額家數</li>
+		<li>官股券商</li>
+		<li>綜合前十大券商</li>
+    </ul>
+	<h3>XS系統指標腳本</h3>
+	<ul>		
+		<li>OBV(能量潮指標)：共有兩條簡單移動平均線(MA) 預設期數為 5 與 20 期。</li>
+		<li>自訂大戶／散戶買賣力：新增內／外盤量線條，可在下拉式選單小圖示開啟。</li>
+	</ul>
+	<h3>交易回測設定</h3>
+	<ul>		
+		<li>新增「觸發即判斷成交」選項。來決定跑回測當下觸發條件的價格，是否要立即判斷成交。詳細說明如<a href="https://www.xq.com.tw/lesson/xsat/backtest/#ImmediateDeal">連結</a></li>
+	</ul>
+<h2>修改項目</h2>
+    <hr />
+	<h3>XS函數</h3>
+    優化下列函數語法，提高運算速度。
+	<ul>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=Extremes&group=PRICERELFUNC">Extremes</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=Highest&group=PRICEGETFUNC">Highest</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=HighestBar&group=PRICEGETFUNC">HighestBar</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=Lowest&group=PRICEGETFUNC">Lowest</a></li>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=LowestBar&group=PRICEGETFUNC">LowestBar</a></li>
+    </ul>
+	修改以下 BarsLast 語法，將該函數腳本內多餘的程式碼剃除
+	<ul>
+		<li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=Barslast&group=PRICEGETFUNC">Barslast</a></li>
+	</ul>
+    <h3>XS指標</h3>
+    <ul>
+      <li>修改「淨買賣力指標」避免分母為0的狀況，並且將 plot1 名稱改為平均淨買賣力</li>
+	  <li>修改「CCI指標」新增三條基準線，加入副圖後可從副圖指標下拉式Icon開啟</li>
+	  <li>籌碼指標資料夾的「分公司交易家數」指標名稱更名為「分公司交易家數差」</li>
+	  <li>「台指選擇權 Put Call Ratio」指標名稱更名為「台指選倉P／C」</li>
+    </ul>
+	<h3>XS系統警示腳本</h3>
+	<ul>		
+		<li>開盤五分鐘創三新低：將第五行修改為 if barfreq = "Min" 警示與回測才能繼續往下判斷 </li>
+	</ul>
+  </body>
+</html>
+</details>
+<details>
+<summary><font size=2><font size=2>XS更新說明(XQ全球贏家_企業版 v7.06.05 & 個人版 v3.06.05)</font></summary>
+<h2>新增項目</h2>
+    <hr />
+    <h3>XS指標</h3>
+    <ul>
+      <li>新增「流動大戶買賣力」即時籌碼指標</li>
+    </ul>
+<h3>XS函數欄位</h3>
+新增以下函數，語法架構同既有Highest 架構。
+    <ul>
+      <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=FastHighest&group=PRICEGETFUNC">FastHighest</a></li>
+     <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=FastHighestBar&group=PRICERELFUNC">FastHighestBar</a></li>
+ <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=FastLowest&group=PRICEGETFUNC">FastLowest</a></li>
+ <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=FastLowestBar&group=PRICERELFUNC">FastLowestBar</a></li>
+    </ul>
+	
+    <h2>修改項目</h2>
+    <hr />
+    <h3>XS函數</h3>
+    <ul>
+      <li>修改YoY 函數腳本語法修改為用RateOfChange語法撰寫</li>
+      <li>修改 UPLimit 與 DWLimit 語法，修正在「漲停在 1000 元以上，跌停在1000元以下」情境底下的回傳數值</li>
+    </ul> 
+
+
+    <h3>XS指標</h3>
+    <ul>
+      <li>調整「大盤六度空間切割法」，以便求得更精確的運算</li>
+    </ul>
+
+
+   <h3>XS函數欄位</h3>
+將以下的函數調整與 SimpleHighest架構一致，如下連結說明：
+     <ul>
+      <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=Highest&group=PRICEGETFUNC">Highest</a></li>
+     <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=HighestBar&group=PRICERELFUNC">HighestBar</a></li>
+ <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=Lowest&group=PRICEGETFUNC">Lowest</a></li>
+ <li><a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=LowestBar&group=PRICERELFUNC">LowestBar</a></li>
+    </ul>
+  </body>
+</html>
+</details>
+<details>
+<summary><font size=2><font size=2>XS更新說明(XQ全球贏家_企業版 v7.06.04 &amp; 個人版 v3.06.04)1008版本</font></summary>
+<h2>新增項目</h2>
+    <hr />
+    <h3>XS指標</h3>
+    <ul>
+      <li>新增「開盤第N根的每日高低價」主圖指標，以利觀察當日壓力與支撐水平線</li>
+    </ul>
+<h3>XS選股欄位</h3>
+    <ul>
+      <li>新增「<a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E5%A4%96%E8%B3%87%E8%B2%B7%E8%B3%A3%E8%B6%85&group=TCHIP">外資買賣超</a>、<a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E6%8A%95%E4%BF%A1%E8%B2%B7%E8%B3%A3%E8%B6%85&group=TCHIP">投信買賣超</a>、<a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85&group=TCHIP">自營商買賣超</a>、<a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=%E6%B3%95%E4%BA%BA%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&group=TCHIP">法人買賣超張數</a>」共四個選股欄位支援「類股指數」商品</li>
+    </ul>
+	
+    <h2>修改項目</h2>
+    <hr />
+    <h3>XS指標</h3>
+    <ul>
+      <li>修改「樂活五線譜」指標，改用（收盤價 - 迴歸線）數值計算標準差</li>
+      <li>調整「主力與外資累計買賣超」兩個指標，避開運算分母為0的狀況</li>
+    </ul> 
+
+
+    <h3>XS選股</h3>
+    <ul>
+      <li>調整「千張大戶減少而散戶增加、千張大戶增持、千張大戶暴增、大戶進散戶出」共四個選股腳本，避免回測窺視到未來的狀況</li>
+    </ul>
+<h3>XS警示</h3>
+    <ul>
+       <li>將警示系統腳本內GetQuote欄位改為Getfield欄位，共調整 41 個警示腳本</li>
+  </ul> 
+
+
+   <h3>選股中心腳本</h3>
+    <ul>
+       <li>移除「99.舊版選股策略」資料夾內選股策略</li>
+  </ul> 
+
+
+  </body>
+</html>
+</details>
+<details>
+<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.06.01 &amp; 個人版 v3.06.01） </font></summary>
+<h2>新增項目</h2>
+    <hr />
+    <h3>XS函數欄位</h3>
+    <ul>
+      <li>
+      <a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=xfmin_MTM&group=FREQUENCYFUNC">「SetBackBar」</a>新增支援指定頻率調整資料引用筆數</li>
+    </ul>
+<h3>XS指標</h3>
+    <ul>
+      <li>新增「大戶散戶籌碼流向(金額)」即時籌碼 XS 指標</li>
+    </ul>
+	
+    <h2>修改項目</h2>
+    <hr />
+    <h3>XS指標</h3>
+    <ul>
+      <li>修改技術分析副圖「主力進出」大盤支援“週”以上頻率</li>
+      <li>修改技術分析副圖「價差」期貨商品支援分鐘頻率</li>
+      <li>修改 "散戶買賣力、散戶買賣力(金額)、散戶成本線、分時散戶買賣力、分時散戶買賣力(金額)" 定義為“小單” ，原為“中單＋小單”</li>
+    </ul> 
+
+
+    <h3>XS選股欄位</h3>
+    <ul>
+      <li>停用「稅額扣抵比率」欄位，因為稅額扣抵率在2018年稅改之後，各家公司就不再提供</li>
+    </ul>
+
+
+   <h3>XS函數欄位</h3>
+    <ul>
+       <li>調整「ReadTicks」函數註解說明與腳本裡變數名稱</li>
+  </ul> 
+</details>
+<details>
+<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.05.05 &amp; 個人版 v3.05.05） </font></summary>
+ <h2>新增項目</h2>
+ <hr />
+<h3>XS資料欄位：新增“選股欄位”與”排行規則“</h3>
+<ul>
+<table border="0" width="500" valign="top" >
+			<tr>
+				<td text-align: left  valign="top">
+					<li>買進特大單量 </li>
+					<li>買進大單量 </li>
+					<li>買進中單量 </li>
+					<li>買進小單量 </li>
+					<li>買進特大單金額 </li>
+					<li>買進大單金額 </li>
+					<li>買進中單金額 </li>
+					<li>買進小單金額 </li>
+					<li>買進特大單成交次數 </li>
+					<li>買進大單成交次數 </li>
+					<li>買進中單成交次數 </li>
+					<li>買進小單成交次數 </li>
+				
+			</td>
+			<td style="width:100%"  text-align: right valign="top"> 
+				<li>賣出特大單量 </li>
+				<li>賣出大單量</li>
+				<li>賣出中單量 </li>
+				<li>賣出小單量 </li>
+				<li>賣出特大單金額 </li>
+				<li>賣出大單金額 </li>
+				<li>賣出中單金額 </li>
+				<li>賣出小單金額</li>
+				<li>賣出特大單成交次數</li>
+				<li>賣出大單成交次數 </li>
+				<li>賣出中單成交次數 </li>
+				<li>賣出小單成交次數 </li>
+				<li>內盤成交次數 </li>
+				<li>外盤成交次數 </li>
+		　</td>
+</table>
+</ul>
+<h3>XS函數欄位</h3>
+<ul>
+<li>新增 <a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=GetFieldStartOffset&group=FREQUENCYFUNC">「GetFieldStartOffset」</a>判斷欄位起點</li>
+<li>新增
+<a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=GetSymbolFieldStartOffset&group=FREQUENCYFUNC">「GetSymbolFieldStartOffset」</a>在指定標的判斷欄位起點</li>
+</ul>
+
+
+<h2>修改項目</h2>
+<hr />
+ <h3>技術分析副圖：修改“當沖”指標</h3>
+    <ul>
+    <li>修改技術分析副圖「當沖」指標，以利讓當沖率運算數值能夠呈現在大盤商品中。</li>
+    </ul>   
+</details>
+
+
+<details>
+<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.05.04 &amp; 個人版 v3.05.04） </font></summary>
+    <h2>新增項目</h2>
+    <hr />
+    <h3>XScript編輯器：函數-系統-跨頻率</h3>
+    <ul>
+      <li>新增 
+      <a href="https://xshelp.xq.com.tw/XSHelp/?HelpName=xfmin_MTM&group=FREQUENCYFUNC">「xfMin_MTM」</a>跨頻率函數</li>
+    </ul>
+	
+    <h2>修改項目</h2>
+    <hr />
+    <h3>技術分析副圖：第一座標軸修改</h3>
+    <ul>
+      <li>修改技術分析副圖「外資」「投信」「自營商」第一座標軸為：「買賣超(張)」，原為持股(張)</li>
+    </ul>  
+</details>
+	<details>
+		<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.05.03 &amp; 個人版 v3.05.03）</font></summary>
+		<h2>新增項目</h2>
+		<hr />
+		<h3>XScript編輯器：函數-系統-邏輯判斷</h3>
+		<ul>
+		<li>新增 IsXLOrder 判斷成交金額是否是特大單，<a href="https://www.xq.com.tw/%e5%8f%b0%e8%82%a1%e9%80%90%e7%ad%86%e5%8a%9f%e8%83%bd%e8%a1%8c%e6%83%85%e7%ab%af%e7%9b%b8%e9%97%9c%e7%95%b0%e5%8b%95/">級距表請參考連結</a></li>
+		<li>新增 IsXOrder 判斷成交金額是否是大單（大單+特大單）<a href="https://www.xq.com.tw/%e5%8f%b0%e8%82%a1%e9%80%90%e7%ad%86%e5%8a%9f%e8%83%bd%e8%a1%8c%e6%83%85%e7%ab%af%e7%9b%b8%e9%97%9c%e7%95%b0%e5%8b%95/">級距表請參考連結</a></li>
+		</ul>
+		<h2>修改項目</h2>
+		<hr />
+		<h3>XScript編輯器：函數-系統-價格計算</h3>
+		<ul>
+		<li>更新 ReadTicks 函數，新增陣列 11 的總成交金額數值，相關介紹如<a href="https://www.xq.com.tw/lesson/xspractice/%e5%8f%b0%e8%82%a1%e9%80%90%e7%ad%86%e6%92%ae%e5%90%88%e7%9a%84%e7%a9%bf%e5%83%b9tick/">此篇文章連結</a></li>
+		</ul>
+		<h3>XScript編輯器：指標-系統-即時籌碼</h3>
+		<ul>
+		<li>將即時籌碼Folder中有支援日頻率的系統腳本，皆開放支援還原日頻率。</li>
+		</ul>
+		<h3>XS 資料欄位</h3>
+		<ul>
+		<li>撮合序號 更名為 <a href="api?a=撮合群組&amp;b=ta">撮合群組</a></li>
+		</ul>
+		<h3>XS 商品資訊欄位</h3>
+		<ul>
+		<li>警示股 更名為 <a href="api?a=GetSymbolInfo&amp;b=bif">處置股</a></li>
+		</ul>
+	</details>	
+	<details>
+		<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.05.02 &amp; 個人版 v3.05.02）</font></summary>
+		<h2>新增項目</h2>
+		<hr />
+		<h3>XS交易函數，僅支援「交易」腳本類型</h3>
+		<ul>
+		<li>新增 <a href="api?a=SetPosition&amp;b=bif">SetPosition</a> </li>
+		<li>新增 <a href="api?a=Position&amp;b=bif">Position</a> </li>
+		<li>新增 <a href="api?a=Filled&amp;b=bif">Filled</a> </li>
+		<li>新增 <a href="api?a=Buy&amp;b=bif">Buy</a></li>
+		<li>新增 <a href="api?a=Sell&amp;b=bif">Sell</a></li>
+		<li>新增 <a href="api?a=Short&amp;b=bif">Short</a></li>
+		<li>新增 <a href="api?a=Cover&amp;b=bif">Cover</a></li>
+		<li>新增 <a href="api?a=FilledAvgPrice&amp;b=bif">FilledAvgPrice</a></li>
+		<li>新增 <a href="api?a=FilledRecordCount&amp;b=bif">FilledRecordCount</a></li>
+		<li>新增 <a href="api?a=FilledRecordTime&amp;b=bif">FilledRecordTime</a></li>
+		<li>新增 <a href="api?a=FilledRecordPrice&amp;b=bif">FilledRecordPrice</a></li>
+		<li>新增 <a href="api?a=FilledRecordQty&amp;b=bif">FilledRecordQty</a></li>
+		<li>新增 <a href="api?a=FilledRecordBS&amp;b=bif">FilledRecordBS</a></li>
+		<li>新增 <a href="api?a=FilledRecordIsRealtime&amp;b=bif">FilledRecordIsRealtime</a></li>
+		<li>新增 <a href="api?a=AddSpread&amp;b=bif">AddSpread</a></li>
+		<li>新增 <a href="api?a=Alert&amp;b=bif">Alert</a></li>
+		<li>新增 <a href="api?a=DefaultBuyPrice&amp;b=bif">DefaultBuyPrice</a></li>
+		<li>新增 <a href="api?a=DefaultSellPrice&amp;b=bif">DefaultSellPrice</a></li>
+		<li>新增 <a href="api?a=IsMarketPrice&amp;b=bif">IsMarketPrice</a></li>
+		</ul>
+		<h3>XS語法</h3>
+		<ul>
+		<li>新增 <a href="api?a=股票基金持有檔數&amp;b=filter">股票基金持有檔數</a>  支援「季」頻率、支援「台股」商品，計算持有該股票的基金檔數。</li>
+		<li>新增 <a href="api?a=BarAdjusted&amp;b=bif">BarAdjusted</a>  回傳執行腳本資料頻率是否為還原頻率。</li>
+		<li>新增 <a href="article?a=Adjusted">Adjusted</a> 用來設定要讀取的是原始資料，還是還原資料。</li>
+		<li><a href="api?a=File&amp;b=bif">File</a> 新增『[StartTime]參數』讓每次輸出到路徑的 <a href="api?a=Print&amp;b=bif">Print</a> 檔案可以分開在不同目錄。</li>
+		</ul>
+		<h3>XScript編輯器：函數-系統-交易相關</h3>
+		<ul>
+		<li>新增 EnterMarketCloseTime 判斷是否已經進入收盤階段：用來判斷不再進場或平倉當日部位</li>
+		</ul>
+		<h2>修改項目</h2>
+		<hr />
+		<h3>XS語法</h3>
+		<ul>
+		<li><a href="api?a=Print&amp;b=bif">Print</a> 在「交易」類型腳本中，需要搭配 <a href="api?a=File&amp;b=bif">File</a> 指令才能將檔案輸出至路徑中</li>
+		</ul>
+	</details>
+	<details>
+		<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.03.05 &amp; 個人版 v3.03.05）</font></summary>
+		<h2>新增項目</h2>
+		<hr />
+		<h3>XS系統指標</h3>
+		<ul>
+		<li>
+		主圖指標，新增以下4個指標，支援頻率：分鐘與日
+		<ul>
+		<li>大戶成本線 </li>
+		<li>內盤成本線 </li>
+		<li>外盤成本線 </li>
+		<li>散戶成本線</li>
+		</ul>
+		</li>	
+		<li>
+		即時籌碼，新增以下12個指標，支援頻率：分鐘與日
+		<ul>
+		<li>大戶買賣力(金額)</li>
+		<li>散戶買賣力(金額)</li>
+		</ul>
+		</li>
+		</ul>
+		<h3>資料欄位</h3>
+		<ul>
+		<li>
+		<li>
+			統計台灣50成分股的相關資料欄位，新增以下11個，都只支援「TSE50.SJ」商品，且目前都不支援回測：
+			<ul>
+			<li><a href="api?a=TW50價格上漲家數&amp;b=ta">價格上漲家數</a></li>
+			<li><a href="api?a=TW50上昇趨勢家數&amp;b=ta">上昇趨勢家數</a></li>
+			<li><a href="api?a=TW50紅K家數&amp;b=ta">紅K家數</a></li>
+			<li><a href="api?a=TW50創新高家數&amp;b=ta">創新高家數</a></li>
+			<li><a href="api?a=TW50創新低家數&amp;b=ta">創新低家數</a></li>
+			<li><a href="api?a=TW50MTM多空家數&amp;b=ta">MTM多空家數</a></li>
+			<li><a href="api?a=TW50KD多空家數&amp;b=ta">KD多空家數</a></li>
+			<li><a href="api?a=TW50均線多空家數&amp;b=ta">均線多空家數</a></li>
+			<li><a href="api?a=TW50大戶買賣力&amp;b=ta">大戶買賣力</a></li>
+			<li><a href="api?a=TW50大單買進金額&amp;b=ta">大單買進金額</a></li>
+			<li><a href="api?a=TW50大單成交次數&amp;b=ta">大單成交次數</a></li>
+			</ul>
+			</li>
+		</ul>
+		<h2>修改項目</h2>
+		<hr />
+		<h3>XS系統指標</h3>
+		<ul>
+		<li>
+		即時籌碼，修改以下5個指標：
+		<ul>
+		<li>大戶散戶籌碼流向</li>
+		<li>大戶買賣力</li>
+		<li>散戶買賣力</li>
+		<li>買賣力</li>
+		<li>漲跌成交量</li>
+		</ul>
+		</li>
+		</ul>
+	</details>
+	<details>	
+	<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.03.01 &amp; 個人版 v3.03.01）</font></summary>
+	<h2>新增項目</h2>
+	<hr />
+	<h3>商品資訊欄位</h3>
+	<ul>
+	<li>新增 <a href="api?a=GetSymbolInfo&amp;b=bif">累計異常注意股</a> 支援商品類型：台股、台灣權證與台灣可轉債。</li>
+	</ul>
+	<h2>修改項目</h2>
+	<hr />
+	<h3>以下XS系統指標，增加支援「日」頻率：</h3>
+	<ul>
+	<li>當日成本線</li>
+	<li>買賣力</li>
+	<li>分時買賣力</li>
+	<li>漲跌成交量</li>
+	<li>分時漲跌成交量</li>
+	<li>大戶買賣力</li>
+	<li>分時大戶買賣力</li>
+	<li>散戶買賣力</li>
+	<li>大戶散戶籌碼流向</li>
+	<li>買賣成交筆數</li>
+	<li>委買委賣張數</li>
+	<li>委買委賣筆數</li>
+	<li>量比</li>
+	</ul>
+	<h3>商品資訊欄位</h3>
+	<ul>
+	<li>修改 <a href="api?a=GetSymbolInfo&amp;b=bif">警示股</a> 在處置起訖期間內，會回傳布林值為True。</li>
+	</ul>
+	</details>
+	<details>
+	<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.02.01 &amp; 個人版 v3.02.01）</font></summary>
+	<h2>新增項目</h2>
+	<hr />
+	<h3>XS指標</h3>
+	<ul>
+	<li>主圖指標新增 當日成本線 </li>
+	<li>即時籌碼新增 買賣力 </li>
+	<li>即時籌碼新增 分時買賣力 </li>
+	<li>即時籌碼新增 漲跌成交量 </li>
+	<li>即時籌碼新增 分時漲跌成交量 </li>
+	<li>即時籌碼新增 大戶買賣力 </li>
+	<li>即時籌碼新增 分時大戶買賣力 </li>
+	<li>即時籌碼新增 散戶買賣力 </li>
+	<li>即時籌碼新增 大戶散戶籌碼流向 </li>
+	<li>即時籌碼新增 自訂大戶買賣力 </li>
+	<li>即時籌碼新增 自訂散戶買賣力</li>
+	<li>期權指標新增 買賣成交筆數</li>
+	<li>期權指標新增 委買委賣張數</li>
+	<li>期權指標新增 委買委賣筆數</li>
+	<li>量能指標新增 量比</li>
+	</ul>
+	<h3>XS函數</h3>
+	<ul>
+	<li>價格計算新增 ReadTicks 讀取從上次洗價到這次洗價之間的Tick資料 </li>
+	</ul>
+	<h3>資料欄位</h3>
+	<ul>
+	<li>新增 <a href="api?a=參考價&amp;b=ta">參考價</a> </li>
+	<li>新增 <a href="api?a=上漲量&amp;b=ta">上漲量</a> </li>
+	<li>新增 <a href="api?a=下跌量&amp;b=ta">下跌量</a> </li>
+	<li>新增 <a href="api?a=估計量&amp;b=ta">估計量</a> </li>
+	<li>新增 <a href="api?a=量比&amp;b=ta">量比</a> </li>
+	<li>新增 <a href="api?a=隱含波動率&amp;b=ta">隱含波動率</a> </li>
+	<li>新增 <a href="api?a=均價&amp;b=ta">均價</a></li>
+	<li>新增 <a href="api?a=累委買筆&amp;b=ta">累委買筆</a></li>
+	<li>新增 <a href="api?a=累委賣筆&amp;b=ta">累委賣筆</a></li>
+	<li>新增 <a href="api?a=累成交筆&amp;b=ta">累成交筆</a></li>
+	<li>新增 <a href="api?a=累買成筆&amp;b=ta">累買成筆</a></li>
+	<li>新增 <a href="api?a=累賣成筆&amp;b=ta">累賣成筆</a></li>
+	<li>新增 <a href="api?a=內盤成交次數&amp;b=ta">內盤成交次數</a></li>
+	<li>新增 <a href="api?a=外盤成交次數&amp;b=ta">外盤成交次數</a></li>
+	<li>新增 <a href="api?a=買權成交量&amp;b=ta">買權成交量</a></li>
+	<li>新增 <a href="api?a=賣權成交量&amp;b=ta">賣權成交量</a></li>
+	<li>新增 <a href="api?a=買權未平倉量&amp;b=ta">買權未平倉量</a></li>
+	<li>新增 <a href="api?a=賣權未平倉量&amp;b=ta">賣權未平倉量</a></li>
+	<li>新增 <a href="api?a=內盤家數&amp;b=ta">內盤家數</a></li>
+	<li>新增 <a href="api?a=外盤家數&amp;b=ta">外盤家數</a></li>
+	<li>新增 <a href="api?a=內盤金額&amp;b=ta">內盤金額</a></li>
+	<li>新增 <a href="api?a=外盤金額&amp;b=ta">外盤金額</a></li>
+	<li>新增 <a href="api?a=買進特大單量&amp;b=ta">買進特大單量</a></li>
+	<li>新增 <a href="api?a=買進大單量&amp;b=ta">買進大單量</a></li>
+	<li>新增 <a href="api?a=買進中單量&amp;b=ta">買進中單量</a></li>
+	<li>新增 <a href="api?a=買進小單量&amp;b=ta">買進小單量</a></li>
+	<li>新增 <a href="api?a=買進特大單金額&amp;b=ta">買進特大單金額</a></li>
+	<li>新增 <a href="api?a=買進大單金額&amp;b=ta">買進大單金額</a></li>
+	<li>新增 <a href="api?a=買進中單金額&amp;b=ta">買進中單金額</a></li>
+	<li>新增 <a href="api?a=買進小單金額&amp;b=ta">買進小單金額</a></li>
+	<li>新增 <a href="api?a=買進特大單量&amp;b=ta">買進特大單成交次數</a></li>
+	<li>新增 <a href="api?a=買進大單量&amp;b=ta">買進大單成交次數</a></li>
+	<li>新增 <a href="api?a=買進中單量&amp;b=ta">買進中單成交次數</a></li>
+	<li>新增 <a href="api?a=買進小單量&amp;b=ta">買進小單成交次數</a></li>
+	<li>新增 <a href="api?a=賣出特大單量&amp;b=ta">賣出特大單量</a></li>
+	<li>新增 <a href="api?a=賣出大單量&amp;b=ta">賣出大單量</a></li>
+	<li>新增 <a href="api?a=賣出中單量&amp;b=ta">賣出中單量</a></li>
+	<li>新增 <a href="api?a=賣出小單量&amp;b=ta">賣出小單量</a></li>
+	<li>新增 <a href="api?a=賣出特大單金額&amp;b=ta">賣出特大單金額</a></li>
+	<li>新增 <a href="api?a=賣出大單金額&amp;b=ta">賣出大單金額</a></li>
+	<li>新增 <a href="api?a=賣出中單金額&amp;b=ta">賣出中單金額</a></li>
+	<li>新增 <a href="api?a=賣出小單金額&amp;b=ta">賣出小單金額</a></li>
+	<li>新增 <a href="api?a=賣出特大單量&amp;b=ta">賣出特大單成交次數</a></li>
+	<li>新增 <a href="api?a=賣出大單量&amp;b=ta">賣出大單成交次數</a></li>
+	<li>新增 <a href="api?a=賣出中單量&amp;b=ta">賣出中單成交次數</a></li>
+	<li>新增 <a href="api?a=賣出小單量&amp;b=ta">賣出小單成交次數</a></li>
+	</ul>
+	<h3>選股欄位</h3>
+	<ul>
+	<li>新增 <a href="api?a=股利年度&amp;b=filter">股利年度</a></li>
+	<li>新增 <a href="api?a=除權年度&amp;b=filter">除權年度</a></li>
+	<li>新增 <a href="api?a=除息年度&amp;b=filter">除息年度</a></li>
+	<li>新增 <a href="api?a=除權息年度&amp;b=filter">除權息年度</a></li>
+	</ul>
+	<h2>修改項目</h2>
+	<hr />
+	<h3>以下資料欄位，支援「分鐘」頻率</h3>
+	<ul>
+	<li><a href="api?a=成交金額&amp;b=ta">成交金額(元)</a> </li>
+	<li><a href="api?a=內盤量&amp;b=ta">內盤量</a></li>
+	<li><a href="api?a=外盤量&amp;b=ta">外盤量</a></li>
+	<li><a href="api?a=基差&amp;b=ta">基差</a></li>
+	<li><a href="api?a=Delta&amp;b=ta">Delta</a></li>
+	<li><a href="api?a=Gamma&amp;b=ta">Gamma</a></li>
+	<li><a href="api?a=Theta&amp;b=ta">Theta</a></li>
+	<li><a href="api?a=Vega&amp;b=ta">Vega</a></li>
+	<li><a href="api?a=RHO&amp;b=ta">RHO</a></li>
+	<li><a href="api?a=理論價&amp;b=ta">理論價</a> </li>
+	<li><a href="api?a=波動率&amp;b=ta">波動率</a></li>
+	<li><a href="api?a=累計委買&amp;b=ta">累計委買</a></li>
+	<li><a href="api?a=累計委賣&amp;b=ta">累計委賣</a></li>
+	<li><a href="api?a=累計成交&amp;b=ta">累計成交</a></li>
+	<li><a href="api?a=總成交次數&amp;b=ta">總成交次數</a></li>
+	<li><a href="api?a=上漲家數&amp;b=ta">上漲家數</a></li>
+	<li><a href="api?a=下跌家數&amp;b=ta">下跌家數</a></li>
+	<li><a href="api?a=漲停家數&amp;b=ta">漲停家數</a></li>
+	<li><a href="api?a=跌停家數&amp;b=ta">跌停家數</a></li>
+	</ul>
+	</details>
+	<details>
+	<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.00.10 & 個人版 v3.00.10）</font></summary>
+	<h2>修正項目</h2>
+	<hr />
+	<h3>函數</h3>
+	<ul>
+	<li>修正 <a href="api?a=UpLimit&amp;b=sys">UpLimit</a> 以避免股價千元附近運算出來的漲停價有誤。</li>
+	</ul>
+	<h3>以下函數，將 SetBarMode 指定為 Series 函數，方便撰寫相關判斷運算。</h3>
+	<ul>
+	<li><a href="api?a=RSI&amp;b=sys">RSI</a></li>
+	<li><a href="api?a=CommodityChannel&amp;b=sys">CommodityChannel</a></li>
+	<li><a href="api?a=MAM&amp;b=sys">MAM</a></li>
+	<li><a href="api?a=MO&amp;b=sys">MO</a></li>
+	<li><a href="api?a=Momentum&amp;b=sys">Momentum</a></li>
+	<li><a href="api?a=Q指標&amp;b=sys">Q指標</a></li>
+	<li><a href="api?a=RC&amp;b=sys">RC</a></li>
+	<li><a href="api?a=TechScore&amp;b=sys">TechScore</a></li>
+	<li><a href="api?a=VHF&amp;b=sys">VHF</a></li>
+	<li><a href="api?a=VR&amp;b=sys">VR</a></li>
+	</ul>
+	</details>
+	<details>
+	<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v7.00.02 & 個人版 v3.00.02）</font></summary> 
+		<h2>新增項目</h2>
+		<hr />
+		<h3>資料欄位</h3>
+		<ul>
+		<li>新增 <a href="api?a=內外盤&amp;b=ta">內外盤</a> 支援頻率：Tick</li>
+		<li>新增 <a href="api?a=買入價&amp;b=ta">買入價</a> 支援頻率：Tick</li>
+		<li>新增 <a href="api?a=賣出價&amp;b=ta">賣出價</a> 支援頻率：Tick</li>
+		<li>新增 <a href="api?a=當日序號&amp;b=ta">當日序號</a> 支援頻率：Tick</li>
+	</ul>
+	</details>
+	<details>
+	<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.48 & 個人版 v2.48）</font></summary> 
+		<h2>新增項目</h2>
+		<hr />
+		<h3>以下資料欄位，增加 Param:=Call／Put 參數，以利取得「買／賣權」資料</h3>
+		<ul>
+		<li><a href="api?a=十大交易人未沖銷買口&amp;b=ta">十大交易人未沖銷買口</a> 支援頻率：日</li>
+		<li><a href="api?a=十大交易人未沖銷賣口&amp;b=ta">十大交易人未沖銷賣口</a> 支援頻率：日</li>
+		<li><a href="api?a=五大交易人未沖銷買口&amp;b=ta">五大交易人未沖銷買口</a> 支援頻率：日</li>
+		<li><a href="api?a=五大交易人未沖銷賣口&amp;b=ta">五大交易人未沖銷賣口</a> 支援頻率：日</li>
+		<li><a href="api?a=三大法人交易買口&amp;b=ta">三大法人交易買口</a> 支援頻率：日</li>
+		<li><a href="api?a=三大法人交易賣口&amp;b=ta">三大法人交易賣口</a> 支援頻率：日</li>
+		<li><a href="api?a=三大法人買方未平倉&amp;b=ta">三大法人買方未平倉</a> 支援頻率：日</li>
+		<li><a href="api?a=三大法人賣方未平倉&amp;b=ta">三大法人賣方未平倉</a> 支援頻率：日</li>
+		<li><a href="api?a=三大法人買方未平倉金額&amp;b=ta">三大法人買方未平倉金額</a> 支援頻率：日</li>
+		<li><a href="api?a=三大法人賣方未平倉金額&amp;b=ta">三大法人賣方未平倉金額</a> 支援頻率：日</li>
+		<li><a href="api?a=外資交易買口&amp;b=ta">外資交易買口</a> 支援頻率：日</li>
+		<li><a href="api?a=外資交易賣口&amp;b=ta">外資交易賣口</a> 支援頻率：日</li>
+		<li><a href="api?a=外資買方未平倉口數&amp;b=ta">外資買方未平倉口數</a> 支援頻率：日</li>
+		<li><a href="api?a=外資賣方未平倉口數&amp;b=ta">外資賣方未平倉口數</a> 支援頻率：日</li>
+		<li><a href="api?a=外資買方未平倉金額&amp;b=ta">外資買方未平倉金額</a> 支援頻率：日</li>
+		<li><a href="api?a=外資賣方未平倉金額&amp;b=ta">外資賣方未平倉金額</a> 支援頻率：日</li>
+		<li><a href="api?a=投信交易買口&amp;b=ta">投信交易買口</a> 支援頻率：日</li>
+		<li><a href="api?a=投信交易賣口&amp;b=ta">投信交易賣口</a> 支援頻率：日</li>
+		<li><a href="api?a=投信買方未平倉金額&amp;b=ta">投信買方未平倉金額</a> 支援頻率：日</li>
+		<li><a href="api?a=投信賣方未平倉金額&amp;b=ta">投信賣方未平倉金額</a> 支援頻率：日</li>
+		<li><a href="api?a=投信買方未平倉口數&amp;b=ta">投信買方未平倉口數</a> 支援頻率：日</li>
+		<li><a href="api?a=投信賣方未平倉口數&amp;b=ta">投信賣方未平倉口數</a> 支援頻率：日</li>
+		<li><a href="api?a=自營商交易買口&amp;b=ta">自營商交易買口</a> 支援頻率：日</li>
+		<li><a href="api?a=自營商交易賣口&amp;b=ta">自營商交易賣口</a> 支援頻率：日</li>
+		<li><a href="api?a=自營商買方未平倉口數&amp;b=ta">自營商買方未平倉口數</a> 支援頻率：日</li>
+		<li><a href="api?a=自營商賣方未平倉口數&amp;b=ta">自營商賣方未平倉口數</a> 支援頻率：日</li>
+		<li><a href="api?a=自營商買方未平倉金額&amp;b=ta">自營商買方未平倉金額</a> 支援頻率：日</li>
+		<li><a href="api?a=自營商賣方未平倉金額&amp;b=ta">自營商賣方未平倉金額</a> 支援頻率：日</li>
+		</ul>
+		<h3>XS指標</h3>
+		<ul>
+		<li>新增 週轉率 在XS系統範例指標的量能指標資料夾中</li>
+		</ul>
+		<h3>技術分析指標</h3>
+		<ul>
+		<li>新增 地緣券商買賣超 在主力指標資料夾中</li>
+		<li>新增 關鍵券商買賣超 在主力指標資料夾中</li>
+		</ul>
+		<h3>選股中心</h3>
+		<ul>
+		<li>新增 編輯／新增選股策略中的「選股腳本」標籤頁，增加搜尋功能</li>
+		<li>新增 選股中心在不同路徑的資料夾可以有相同名稱的選股策略</li>
+		</ul>
+		<h3>策略雷達</h3>
+		<ul>	
+		<li>新增 策略雷達在不同路徑的資料夾可以有相同名稱的雷達策略</li>
+		</ul>
+		<h3>函數</h3>
+		<ul>
+		<li><a href="api?a=daterange">DateRange</a> 語法，增加支援半年頻率</li>
+		</ul>
+		<h2>修改項目</h2>
+		<hr />
+		<h3>技術分析指標</h3>
+		<ul>
+		<li>修改 現股當沖金額 第一條線的買賣差額柱狀圖拔除，改為「當沖比率」線圖</li>
+	</ul>
+	</details>
+	<details>
+	<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.46 & 個人版 v2.46）</font></summary> 
+		<h2>新增項目</h2>
+		<hr />
+		<h3>資料欄位</h3>
+		<ul>
+		<li>新增 <a href="api?a=營業外收入及支出&amp;b=ta">營業外收入及支出</a> 支援頻率：季、年</li>
+		<li>新增 <a href="api?a=三大法人買方未平倉金額&amp;b=ta">三大法人買方未平倉金額</a> 支援頻率：日</li>
+		<li>新增 <a href="api?a=三大法人賣方未平倉金額&amp;b=ta">三大法人賣方未平倉金額</a> 支援頻率：日</li>
+		<li>新增 <a href="api?a=外資買方未平倉金額&amp;b=ta">外資買方未平倉金額</a> 支援頻率：日</li>
+		<li>新增 <a href="api?a=外資賣方未平倉金額&amp;b=ta">外資賣方未平倉金額</a> 支援頻率：日</li>
+		<li>新增 <a href="api?a=投信買方未平倉金額&amp;b=ta">投信買方未平倉金額</a> 支援頻率：日</li>
+		<li>新增 <a href="api?a=投信賣方未平倉金額&amp;b=ta">投信賣方未平倉金額</a> 支援頻率：日</li>
+		<li>新增 <a href="api?a=自營商買方未平倉金額&amp;b=ta">自營商買方未平倉金額</a> 支援頻率：日</li>
+		<li>新增 <a href="api?a=自營商賣方未平倉金額&amp;b=ta">自營商賣方未平倉金額</a> 支援頻率：日</li>
+		<li>新增 <a href="api?a=估計除息點數&amp;b=ta">估計除息點數</a> 支援頻率：日、週、月</li>
+		</ul>
+		<h3>選股欄位</h3>
+		<ul>
+		<li>新增 <a href="api?a=營業外收入及支出&amp;b=filter">營業外收入及支出</a> 支援頻率：季、年</li>
+		</ul>
+		<h3>商品資訊欄位</h3>
+		<ul>
+		<li>新增 <a href="api?a=GetSymbolInfo&amp;b=bif">GetSymbolInfo</a> 支援選股腳本類型</li>
+		<li>新增 <a href="api?a=GetSymbolInfo&amp;b=bif">執行比例</a> 支援商品類型：台灣權證</li>
+		<li>新增 <a href="api?a=GetSymbolInfo&amp;b=bif">有牛證</a> 支援商品類型：大盤、台股</li>
+		<li>新增 <a href="api?a=GetSymbolInfo&amp;b=bif">有熊證</a> 支援商品類型：大盤、台股</li>
+		<li>新增 <a href="api?a=GetSymbolInfo&amp;b=bif">平可空</a> 支援商品類型：台股</li>
+		</ul>
+		<h3>XS指標</h3>
+		<ul>
+		<li>新增 繪圖樣式增加「線段」樣式</li>
+		</ul>
+		<h3>選股中心</h3>
+		<ul>
+		<li>新增 選股範圍增加「Not」功能</li>
+		<li>新增 選股結果區增加「產業」與「細產業」欄位</li>
+		<li>新增 新增或編輯條件時，增加「選股策略」標籤頁，可將已建立好的選股策略再加入至新的選股策略中</li>
+		</ul>
+		<h3>函數</h3>
+		<ul>
+		<li>新增 <a href="api?a=daterange">DateRange</a> 函數</li>
+		</ul>
+		<h2>修正項目</h2>
+		<hr />
+		<h3>選股中心</h3>
+		<ul>
+		<li>修改 回溯執行，並調整完選股策略參數後，會保持在回溯日的篩選結果</li>
+		</ul>
+		<h3>函數</h3>
+		<ul>
+		<li>修改 <a href="api?a=HighD&amp;b=sys">HighD</a> 依據交易日(TradingDate)取得日最高價</li>
+		<li>修改 <a href="api?a=LowD&amp;b=sys">LowD</a> 依據交易日(TradingDate)取得日最低價</li>
+		</ul>
+	</details>
+    <details>
+	<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.43 & 個人版 v2.43）</font></summary> 
+		<h2>新增項目</h2>
+			<hr />
+			<h3>XS指標</h3>
+			<ul>
+			<li>新增 分鐘與日DMI 支援「跨分鐘與日」頻率：1分鐘、5分鐘、10分鐘、15分鐘、30分鐘、60分鐘、日與還原日</li>
+			<li>新增 分鐘與日DMI-Osc 支援「跨分鐘與日」頻率：1分鐘、5分鐘、10分鐘、15分鐘、30分鐘、60分鐘、日與還原日</li>
+			<li>新增 分鐘與日KD 支援「跨分鐘與日」頻率：1分鐘、5分鐘、10分鐘、15分鐘、30分鐘、60分鐘、日與還原日</li>
+			<li>新增 分鐘與日MACD 支援「跨分鐘與日」頻率：1分鐘、5分鐘、10分鐘、15分鐘、30分鐘、60分鐘、日與還原日</li>
+			<li>新增 分鐘與日RSI 支援「跨分鐘與日」頻率：1分鐘、5分鐘、10分鐘、15分鐘、30分鐘、60分鐘、日與還原日</li>
+			<li>新增 分鐘與日威廉指標 支援「跨分鐘與日」頻率：1分鐘、5分鐘、10分鐘、15分鐘、30分鐘、60分鐘、日與還原日</li>
+			<li>新增 Delta </li>
+			<li>新增 Gamma </li>
+			<li>新增 Theta </li>
+			<li>新增 Vega </li>
+			<li>新增 溢價率 </li>
+			<li>新增 價內外 </li>
+			<li>新增 選擇權理論價 </li>
+			<li>新增 隱含波動率 </li>
+			</ul>
+			<h3>函數</h3>
+			<ul>
+			<li>新增 <a href="api?a=GetSymbolInfo&amp;b=bif">GetSymbolInfo</a> 函數</li>
+			<li>新增 <a href="api?a=inputkind">inputkind</a> 函數</li>
+			<li>新增 <a href="api?a=Array_Sort2d&amp;b=bif">Array_Sort2d</a> 函數</li>
+			<li>新增 <a href="api?a=DateTime&amp;b=sys">DateTime</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_CrossOver&amp;b=sys">xfMin_CrossOver</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_CrossUnder&amp;b=sys">xfMin_CrossUnder</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_DirectionMovement&amp;b=sys">xfMin_DirectionMovement</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_EMA&amp;b=sys">xfMin_EMA</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_GetBoolean&amp;b=sys">xfMin_GetBoolean</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_GetCurrentBar&amp;b=sys">xfMin_GetCurrentBar</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_GetDTValue&amp;b=sys">xfMin_GetDTValue</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_GetValue&amp;b=sys">xfMin_GetValue</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_MACD&amp;b=sys">xfMin_MACD</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_PercentR&amp;b=sys">xfMin_PercentR</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_RSI&amp;b=sys">xfMin_RSI</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_Stochastic&amp;b=sys">xfMin_Stochastic</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_WeightedClose&amp;b=sys">xfMin_WeightedClose</a> 函數</li>
+			<li>新增 <a href="api?a=xfMin_XAverage&amp;b=sys">xfMin_XAverage</a> 函數</li>
+			</ul>
+			<h2>修正項目</h2>
+			<hr />
+			<h3>XS指標</h3>
+			<ul>
+			<li>修改 繪圖樣式(點) 可以匯入自訂圖示</li>
+			<li>修改 若同一個指標的所有plot的日期都是同一天的話, 僅會標示一個日期, 以便節省空間</li>
+			</ul>
+			<h3>策略雷達</h3>
+			<ul>
+			<li>修改 系統策略可以直接執行</li>
+			<li>修改 系統策略提供「複製」</li>
+			<li>修改 雷達的執行紀錄標籤頁, 保留固定筆數顯示</li>
+			</ul>
+			<h3>選股中心</h3>
+			<ul>
+			<li>修改 選股如果有執行錯誤的商品, 會在介面上秀出圖示提醒</li>
+			</ul>
+			<h3>函數</h3>
+			<ul>
+			<li>修正 <a href="api?a=VR&amp;b=sys">VR</a> 函數，避開函數計算時會有分母為0的狀況。 </li>
+			</ul>	
+    </details>
+    <details>
+	<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.40 & 個人版 v2.40）</font></summary> 
+		<h2 id="新增項目"><a class="anchor hidden-xs" href="#新增項目" title="新增項目"><span class="octicon octicon-link"></span></a>新增項目</h2><hr><h3 id="策略雷達"><a class="anchor hidden-xs" href="#策略雷達" title="策略雷達"><span class="octicon octicon-link"></span></a>策略雷達</h3><ul>
+		<li>新增 <a href="https://www.xq.com.tw/lesson/sensor/%E7%AD%96%E7%95%A5%E9%9B%B7%E9%81%94%E8%A7%B8%E7%99%BC%E4%B8%8B%E5%96%AE%E5%8A%9F%E8%83%BD%EF%BC%9A%E3%80%8C%E4%B8%8B%E5%96%AE%E5%8F%83%E6%95%B8%E3%80%8D%E8%AA%AA%E6%98%8E/" target="_blank">下單設定：證券支援「現股當沖先賣」</a></li>
+		<li>新增 <a href="https://www.xq.com.tw/lesson/sensor/%E7%AD%96%E7%95%A5%E9%9B%B7%E9%81%94%E8%A7%B8%E7%99%BC%E4%B8%8B%E5%96%AE%E5%8A%9F%E8%83%BD%EF%BC%9A%E3%80%8C%E4%B8%8B%E5%96%AE%E5%8F%83%E6%95%B8%E3%80%8D%E8%AA%AA%E6%98%8E/" target="_blank">下單設定：證券下單價格，支援「漲停價」「跌停價」「市價」</a></li>
+		<li>新增 <a href="https://www.xq.com.tw/lesson/sensor/%E7%AD%96%E7%95%A5%E9%9B%B7%E9%81%94%E8%A7%B8%E7%99%BC%E4%B8%8B%E5%96%AE%E5%8A%9F%E8%83%BD%EF%BC%9A%E3%80%8C%E4%B8%8B%E5%96%AE%E5%8F%83%E6%95%B8%E3%80%8D%E8%AA%AA%E6%98%8E/" target="_blank">下單設定：期權下單價格，支援「範圍市價」</a></li>
+		<li>新增 <a href="http://www.xq.com.tw/LessonPreview?p=5163&amp;post_type=lesson&amp;preview=true#%E4%B8%89%E3%80%81%E7%AD%96%E7%95%A5%E9%9B%B7%E9%81%94%E5%9B%9E%E6%B8%AC%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%94%AF%E6%8F%B4%E2%80%9C%E9%81%B8%E8%82%A1%E2%80%9D" target="_blank">回測：執行範圍支援「選股」</a></li>
+		<li>新增 <a href="https://www.xq.com.tw/lesson/sensor/%E7%AD%96%E7%95%A5%E9%9B%B7%E9%81%94%E5%9B%9E%E6%B8%AC%E5%8A%9F%E8%83%BD%EF%BC%9A%E3%80%8C%E5%9B%9E%E6%B8%AC%E5%8F%83%E6%95%B8%E3%80%8D%E8%AA%AA%E6%98%8E/" target="_blank">回測：進/出場價格可選「下期開盤價」或「當期收盤價」</a></li>
+		<li>新增 <a href="https://www.xq.com.tw/lesson/sensor/%E7%AD%96%E7%95%A5%E9%9B%B7%E9%81%94%E5%9B%9E%E6%B8%AC%E5%8A%9F%E8%83%BD%EF%BC%9A%E3%80%8C%E5%9B%9E%E6%B8%AC%E5%8F%83%E6%95%B8%E3%80%8D%E8%AA%AA%E6%98%8E/" target="_blank">回測：「最大持有時間」在分鐘頻率下，支援以「天」為單位(模擬當沖)</a></li>
+		</ul><h3 id="選股中心"><a class="anchor hidden-xs" href="#選股中心" title="選股中心"><span class="octicon octicon-link"></span></a>選股中心</h3><ul>
+		<li>新增 <a href="http://www.xq.com.tw/lesson/filter/%E6%AF%8F%E6%97%A5%E9%81%B8%E8%82%A1%E6%B8%85%E5%96%AE%E7%9A%84%E5%A6%99%E7%94%A8/" target="_blank">每日自動執行優化：增加總表統計項目</a></li>
+		<li>新增 <a href="http://www.xq.com.tw/LessonPreview?p=5163&amp;post_type=lesson&amp;preview=true" target="_blank">選股策略支援「回溯功能」</a></li>
+		<li>新增 <a href="http://www.xq.com.tw/LessonPreview?p=5163&amp;post_type=lesson&amp;preview=true" target="_blank">選股策略可以回測</a></li>
+		</ul><h3 id="資料欄位"><a class="anchor hidden-xs" href="#資料欄位" title="資料欄位"><span class="octicon octicon-link"></span></a>資料欄位</h3><ul>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%97%9C%E9%8D%B5%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=TCHIP" target="_blank">關鍵券商買賣超張數</a> 支援頻率：日、還原日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%9C%B0%E7%B7%A3%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=TCHIP" target="_blank">地緣券商買賣超張數</a> 支援頻率：日、還原日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%AE%98%E8%82%A1%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=TCHIP" target="_blank">官股券商買賣超張數</a> 支援頻率：日、還原日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%B6%9C%E5%90%88%E5%89%8D%E5%8D%81%E5%A4%A7%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=TCHIP" target="_blank">綜合前十大券商買賣超張數</a> 支援頻率：日、還原日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%AC%8A%E6%97%A5%E6%9C%9F&amp;group=TTIME" target="_blank">除權日期</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%81%AF%E6%97%A5%E6%9C%9F&amp;group=TTIME" target="_blank">除息日期</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%AC%8A%E6%81%AF%E6%97%A5%E6%9C%9F&amp;group=TTIME" target="_blank">除權息日期</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%AC%8A%E5%80%BC&amp;group=TCHIP" target="_blank">除權值</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%81%AF%E5%80%BC&amp;group=TCHIP" target="_blank">除息值</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%AC%8A%E6%81%AF%E5%80%BC&amp;group=TCHIP" target="_blank">除權息值</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%B8%9B%E8%B3%87%E6%AF%94%E4%BE%8B&amp;group=TCHIP" target="_blank">減資比例</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%B8%9B%E8%B3%87%E6%9C%80%E5%BE%8C%E9%81%8E%E6%88%B6%E6%97%A5&amp;group=TTIME" target="_blank">減資最後過戶日</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%B8%9B%E8%B3%87%E6%96%B0%E8%82%A1%E4%B8%8A%E5%B8%82%E6%97%A5&amp;group=TTIME" target="_blank">減資新股上市日</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E8%82%A1%E6%9C%AC%28%E5%84%84%29&amp;group=TCHIP" target="_blank">股本(億)</a> 支援頻率：日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E8%82%A1%E6%9C%AC%28%E5%85%83%29&amp;group=TCHIP" target="_blank">股本(元)</a> 支援頻率：日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%99%BC%E8%A1%8C%E5%BC%B5%E6%95%B8%28%E5%BC%B5%29&amp;group=TCHIP" target="_blank">發行張數(張)</a> 支援頻率：日、週、月、季、半年、年</li>
+		</ul><h3 id="選股欄位"><a class="anchor hidden-xs" href="#選股欄位" title="選股欄位"><span class="octicon octicon-link"></span></a>選股欄位</h3><ul>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%97%9C%E9%8D%B5%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP" target="_blank">關鍵券商買賣超張數</a> 支援頻率：日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%9C%B0%E7%B7%A3%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP" target="_blank">地緣券商買賣超張數</a> 支援頻率：日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%AE%98%E8%82%A1%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP" target="_blank">官股券商買賣超張數</a> 支援頻率：日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%B6%9C%E5%90%88%E5%89%8D%E5%8D%81%E5%A4%A7%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP" target="_blank">綜合前十大券商買賣超張數</a> 支援頻率：日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%AC%8A%E5%80%BC&amp;group=FCHIP" target="_blank">除權值</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%81%AF%E5%80%BC&amp;group=FCHIP" target="_blank">除息值</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E9%99%A4%E6%AC%8A%E6%81%AF%E5%80%BC&amp;group=FCHIP" target="_blank">除權息值</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%B8%9B%E8%B3%87%E6%AF%94%E4%BE%8B&amp;group=FCHIP" target="_blank">減資比例</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%B8%9B%E8%B3%87%E6%9C%80%E5%BE%8C%E9%81%8E%E6%88%B6%E6%97%A5&amp;group=FCHIP" target="_blank">減資最後過戶日</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%B8%9B%E8%B3%87%E6%96%B0%E8%82%A1%E4%B8%8A%E5%B8%82%E6%97%A5&amp;group=FCHIP" target="_blank">減資新股上市日</a> 支援頻率：最新</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E8%82%A1%E6%9C%AC(%E5%85%83)&amp;group=FBASIC" target="_blank">股本(元)</a> 支援頻率：日</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%B8%BD%E5%B8%82%E5%80%BC(%E5%85%83)&amp;group=FOFTEN" target="_blank">總市值(元)</a> 支援頻率：日、週、月、季、年</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%88%90%E4%BA%A4%E9%87%91%E9%A1%8D(%E5%85%83)&amp;group=FOFTEN" target="_blank">成交金額(元)</a> 支援頻率：日、週、月、季、年</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%99%BC%E8%A1%8C%E5%BC%B5%E6%95%B8(%E5%BC%B5)&amp;group=FTRADE" target="_blank">發行張數(張)</a> 支援頻率：日、週、月、季、年</li>
+		</ul><h3 id="函數"><a class="anchor hidden-xs" href="#函數" title="函數"><span class="octicon octicon-link"></span></a>函數</h3><ul>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=PercentB&amp;group=FREQUENCYFUNC" target="_blank">%b指標</a> 函數</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=TurnOverRate&amp;group=FREQUENCYFUNC" target="_blank">周轉率</a> 函數</li>
+		<li>新增 <a href="https://xshelp.xq.com.tw/index?HelpName=BollingerBandWidth&amp;group=FREQUENCYFUNC" target="_blank">布林帶寬度指標</a> 函數</li>
+		</ul><h2 id="修正項目"><a class="anchor hidden-xs" href="#修正項目" title="修正項目"><span class="octicon octicon-link"></span></a>修正項目</h2><hr><h3 id="XScript"><a class="anchor hidden-xs" href="#XScript" title="XScript"><span class="octicon octicon-link"></span></a>XScript</h3><ul>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=GetBarOffset&amp;group=GENERALFUNC" target="_blank">GetBarOffset</a>改為系統函數，增加執行效率</li>
+		<li>修正「拉尾盤」警示系統腳本語法，改為 barfreq &lt;&gt; “Min”</li>
+		<li>刪除 1個選股系統腳本：土地成本佔股本比例高</li>
+		<li>刪除 1個指標系統腳本：力度指標</li>
+		<li>搬移 3個指標系統腳本至「大盤指標」資料夾：反脆弱指標、本土天王平均、軍火商指數</li>
+		</ul><h3 id="策略雷達1"><a class="anchor hidden-xs" href="#策略雷達1" title="策略雷達1"><span class="octicon octicon-link"></span></a>策略雷達</h3><ul>
+		<li>刪除 3個系統策略：月KD高檔鈍化且日KD黃金交叉、日週線的均線都黃金交叉、中小型爆量剛起漲</li>
+		<li>修正 執行策略雷達時，成交量為0的K棒會納入計算，但是不會觸發</li>
+		</ul><h3 id="選股中心1"><a class="anchor hidden-xs" href="#選股中心1" title="選股中心1"><span class="octicon octicon-link"></span></a>選股中心</h3><ul>
+		<li>修正 腳本參數為直式排列，每個參數為一列</li>
+		<li>修正 選股系統策略標上多/空方向</li>
+		<li>刪除 19個系統策略：308.投信的新歡、310.投信都押了還跌、03.07投信的新歡、415.業外損失變小、623.董監選股題材可能發酵股，以及「雲端策略中心」資料夾14個系統策略</li>
+		<li>刪除 2個相關選股條件：股票基金持有檔數、營業外支出</li>
+		</ul><h3 id="資料欄位1"><a class="anchor hidden-xs" href="#資料欄位1" title="資料欄位1"><span class="octicon octicon-link"></span></a>資料欄位</h3><ul>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=TCHIP" target="_blank">大戶持股比例</a> 增加10以上、50以上的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8&amp;group=TCHIP" target="_blank">大戶持股張數</a> 增加10以上、50以上的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8&amp;group=TCHIP" target="_blank">大戶持股人數</a> 增加10以上、50以上的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=TCHIP" target="_blank">散戶持股比例</a> 增加10以下、50以下的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8&amp;group=TCHIP" target="_blank">散戶持股張數</a> 增加10以下、50以下的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8&amp;group=TCHIP" target="_blank">散戶持股人數</a> 增加10以下、50以下的級距，取消日線頻率</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E8%B2%A1%E5%A0%B1%E8%82%A1%E6%9C%AC(%E5%84%84)&amp;group=TCHIP" target="_blank">財報股本(億)</a> 單位為億元</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%B8%BD%E5%B8%82%E5%80%BC(%E5%85%83)&amp;group=TSTATS" target="_blank">總市值(元)</a> 單位為元</li>
+		</ul><h3 id="選股欄位1"><a class="anchor hidden-xs" href="#選股欄位1" title="選股欄位1"><span class="octicon octicon-link"></span></a>選股欄位</h3><ul>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP" target="_blank">大戶持股比例</a> 增加10以上、50以上的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8&amp;group=FCHIP" target="_blank">大戶持股張數</a> 增加10以上、50以上的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8&amp;group=FCHIP" target="_blank">大戶持股人數</a> 增加10以上、50以上的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP" target="_blank">散戶持股比例</a> 增加10以下、50以下的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8&amp;group=FCHIP" target="_blank">散戶持股張數</a> 增加10以下、50以下的級距，取消日線頻率</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8&amp;group=FCHIP" target="_blank">散戶持股人數</a> 增加10以下、50以下的級距，取消日線頻率</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E8%82%A1%E6%9C%AC(%E5%84%84)&amp;group=FBASIC" target="_blank">股本(億)</a> 單位為億元</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E8%B2%A1%E5%A0%B1%E8%82%A1%E6%9C%AC(%E5%84%84)&amp;group=FBASIC" target="_blank">財報股本(億)</a> 單位為億元</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%B8%BD%E5%B8%82%E5%80%BC(%E5%84%84)&amp;group=FOFTEN" target="_blank">總市值(億)</a> 單位為億元</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%88%90%E4%BA%A4%E9%87%91%E9%A1%8D(%E5%84%84)&amp;group=FOFTEN" target="_blank">成交金額(億)</a> 單位為億元</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%99%BC%E8%A1%8C%E5%BC%B5%E6%95%B8(%E8%90%AC%E5%BC%B5)&amp;group=FTRADE" target="_blank">發行張數(萬張)</a> 單位為萬張</li>
+		<li>刪除 2個選股欄位資料：股票基金持有檔數、營業外支出</li>
+		</ul><h3 id="報價欄位"><a class="anchor hidden-xs" href="#報價欄位" title="報價欄位"><span class="octicon octicon-link"></span></a>報價欄位</h3><ul>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E8%82%A1%E6%9C%AC(%E5%84%84)&amp;group=QINFO" target="_blank">股本(億)</a> 單位為億元</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E7%B8%BD%E5%B8%82%E5%80%BC(%E5%84%84)&amp;group=QINFO" target="_blank">總市值(億)</a> 單位為億元</li>
+		<li>更名 <a href="https://xshelp.xq.com.tw/index?HelpName=%E6%88%90%E4%BA%A4%E9%87%91%E9%A1%8D(%E5%85%83)&amp;group=QQUANTITY" target="_blank">成交金額(元)</a> 單位為元</li>
+		</ul><h3 id="函數1"><a class="anchor hidden-xs" href="#函數1" title="函數1"><span class="octicon octicon-link"></span></a>函數</h3><ul>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=HighestBar&amp;group=PRICERELFUNC" target="_blank">區間最大值位置</a> setbarmode(1)修改為setbarmode(2)</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=LowestBar&amp;group=PRICERELFUNC" target="_blank">區間最小值位置</a> setbarmode(1)修改為setbarmode(2)</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=OpenD&amp;group=PRICEGETFUNC" target="_blank">日開盤價</a>、<a href="https://xshelp.xq.com.tw/index?HelpName=HighD&amp;group=PRICEGETFUNC" target="_blank">日最高價</a>、<a href="https://xshelp.xq.com.tw/index?HelpName=LowD&amp;group=PRICEGETFUNC" target="_blank">日最低價</a>、<a href="https://xshelp.xq.com.tw/index?HelpName=CloseD&amp;group=PRICEGETFUNC" target="_blank">日收盤價</a> 改成都用getfield取資料（週、月、季、半年、年的開高低收價皆有做此部分修改）</li>
+		<li>修正 <a href="https://xshelp.xq.com.tw/index?HelpName=GetBarOffset&amp;group=GENERALFUNC" target="_blank">取得相對K棒位置</a> 拔除此系統函數腳本，改成系統 BIF 函數類型</li>
+		</ul>		
+    </details>
+    <details>
+        <summary><font size=2><font size=2>IFRS影響說明</font></summary>
+				<p>因應上市櫃、興櫃及公開發行公司於107年1月1日開始適用IFRS 15。 XS部份財報相關欄位同步進行以下調整：</p>
+				<h2 id="-">刪除欄位</h2>
+				<p>針對IFRS財報不再提供的項目，刪除以下欄位：</p>
+				<hr>
+				<ul>
+				<li>土地成本</li><li>土地增值稅準備</li><li>房屋及建築成本</li><li>機器及儀器設備成本</li><li>其他設備成本</li><li>固定資產重估價值</li><li>固定資產累積折舊</li><li>固定資產損失準備</li><li>什項資產</li><li>什項負債</li><li>應付費用</li><li>各項損失準備</li><li>其他負債及準備</li><li>增資準備</li><li>長期投資評價損失</li><li>投資損失</li><li>其他損失</li><li>營業外支出合計</li><li>存貨之原料及物料</li><li>存貨之半成品及在製品</li><li>存貨之商品及製成品</li><li>其他存貨之在途存貨</li><li>存貨備抵跌價損失</li><li>存貨之土地</li><li>存貨之在建房屋</li><li>存貨之成屋待售</li><li>質押定存之其他資產</li><li>質押定存之其他流動資產</li><li>短期借款之非金融機構</li></ul>
+				<h2 id="-">異動項目</h2>
+				<h2 id="-ifrs-">針對IFRS財報內容調整的項目，更新以下欄位：</h2>
+				<ul>
+				<li><a href="api?a=加權平均股數&amp;b=filter">加權平均股數</a> 原本欄位為“加權平均股本”，依照財報科目修改為“加權平均股數”</li></ul>
+    </details>
+    <details>
+        <summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.33 & 個人版 v2.33）</font></summary> 
+				<h2>新增項目</h2>
+				<hr />
+				<h3>XScript</h3>
+				<ul>
+				<li>新增 XS編輯器：內建 <strong>三週學會程式交易</strong> 書上的範例腳本(可參考 <a href="https://xstrader.net/%E5%9C%A8xs%E7%B7%A8%E8%BC%AF%E5%99%A8%E6%90%9C%E5%B0%8B%E6%9B%B8%E4%B8%AD%E6%89%80%E8%BF%B0%E7%9A%84%E7%A8%8B%E5%BC%8F%E7%A2%BC/">在XS編輯器搜尋書中所述的程式碼</a> 搜尋相關腳本)</li>
+				</ul>
+				<h3>自訂函數</h3>
+				<ul>
+				<li>新增 <a href="api?a=WMA&amp;b=sys">WMA</a> 價格計算_系統函數</li>
+				<li>新增 <a href="api?a=xf_GetBoolean&amp;b=sys">xf_GetBoolean</a> 跨頻率_系統函數</li>
+				<li>新增 <a href="api?a=TSELSindex&amp;b=sys">TSELSindex</a> 趨勢分析_系統函數</li>
+				<li>新增 <a href="api?a=TSEMFI&amp;b=sys">TSEMFI</a> 趨勢分析_系統函數</li>
+				<li>新增 <a href="api?a=UpShadow&amp;b=sys">UpShadow</a> 趨勢分析_系統函數</li>
+				<li>新增 <a href="api?a=KO成交量擺盪指標&amp;b=sys">KO成交量擺盪指標</a> 技術指標_系統函數</li>
+				<li>新增 <a href="api?a=Q指標&amp;b=sys">Q指標</a> 技術指標_系統函數</li>
+				<li>新增 <a href="api?a=KST確認指標&amp;b=sys">KST確認指標</a> 技術指標_系統函數</li>
+				</ul>
+    </details>
+    <details>
+		<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.30 & 個人版 v2.30）</font></summary> 
+				<h2>新增項目</h2>
+				<hr />
+				<h3>XScript</h3>
+				<ul>
+				<li>新增 <a href="article?a=RetSound">RetSound</a>宣告，指定觸發時的提醒音效</li>
+				<li>新增 XS編輯器：關鍵字搜尋支援邊打邊搜尋</li>
+				</ul>
+				<h3>自訂指標</h3>
+				<ul>
+				<li>繪圖樣式：柱圖增加 【漲/跌】 樣式。</li>
+				<li>繪圖樣式：點的樣式，增加最近、自訂與圖示大小功能。</li>
+				</ul>
+				<h3>自訂函數</h3>
+				<ul>
+				<li>新增 <a href="api?a=input&amp;b=keyword">Input的預設值</a>，支援函數Input有預設值</li>
+				</ul>
+				<h3>資料欄位</h3>
+				<ul>
+				<li>新增 <a href="api?a=大戶持股比例&amp;b=ta">大戶持股比例</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=散戶持股比例&amp;b=ta">散戶持股比例</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=大戶持股張數&amp;b=ta">大戶持股張數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=大戶持股人數&amp;b=ta">大戶持股人數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=散戶持股張數&amp;b=ta">散戶持股張數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=散戶持股人數&amp;b=ta">散戶持股人數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=總持股人數&amp;b=ta">總持股人數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=吉尼係數&amp;b=ta">吉尼係數</a> 支援台股；支援頻率：日</li>
+				</ul>
+				<h3>選股欄位</h3>
+				<ul>
+				<li>新增 <a href="api?a=大戶持股比例&amp;b=filter">大戶持股比例</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=散戶持股比例&amp;b=filter">散戶持股比例</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=大戶持股張數&amp;b=filter">大戶持股張數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=大戶持股人數&amp;b=filter">大戶持股人數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=散戶持股張數&amp;b=filter">散戶持股張數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=散戶持股人數&amp;b=filter">散戶持股人數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=總持股人數&amp;b=filter">總持股人數</a> 支援台股；支援頻率：日、週、月、季、半年、年</li>
+				<li>新增 <a href="api?a=吉尼係數&amp;b=filter">吉尼係數</a> 支援台股；支援頻率：日</li>
+				</ul>
+				<h2>修正項目</h2>
+				<hr />
+				<h3>XScript</h3>
+				<ul>
+				<li>XS編輯器：腳本類型Icon修改，並用顏色區分</li>
+				</ul>
+				<h3>自訂指標</h3>
+				<ul>
+				<li>XS主圖指標：外資成本、投信成本、自營商成本、融資成本、融券成本，改名為外資均價線、投信均價線、自營商均價線、融資均價線、融券均價線</li>
+				<li>繪圖樣式：柱圖的雙色樣式，改名為 【正/負】 樣式</li>
+				</ul>
+				<h3>雲端策略中心</h3>
+				<ul>
+				<li>拿掉策略中心的警示、選股及腳本，改成線上下載</li>
+				</ul>
+    </details>
+    <details>
+		<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.20 & 個人版 v2.20）</font></summary> 
+				<h2 id="-">新增項目</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>新增<a href="api?a=xf_PercentR&amp;b=sys">xf_PercentR</a>系統函數，計算指定頻率的PercentR指標</li><li>新增<a href="api?a=CallFunction&amp;b=bif">CallFunction</a>系統函數，用來呼叫中文函數</li></ul>
+				<h3 id="-">自訂指標</h3>
+				<ul>
+				<li>新增週威廉指標</li></ul>
+				<h3 id="-">策略雷達</h3>
+				<ul>
+				<li>新增 手機傳送功能，使用者能將觸發內容傳送至手機</li></ul>
+				<h3 id="-">選股中心</h3>
+				<ul>
+				<li>新增 自訂排行功能，使用者能直接使用函數的回傳值自訂排行榜</li></ul>
+				<h2 id="-">重要調整</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>新增支援中文函數名稱。為了讓函數更易於識別，現在函數名稱可以直接使用中文。<ul>
+				<li>在中文函數中，回傳值請用<strong>retval=回傳值</strong>。（英文函數仍可使用<strong>函數名稱=回傳值</strong>）。</li><li>要其他腳本要使用中文函數時，請利用<a href="api?a=CallFunction&amp;b=bif">CallFunction</a>呼叫。</li></ul>
+				</li><li>調整<a href="api?a=BarFreq&amp;b=bif">BarFreq</a>系統函數，現在可以區分目前是否為還原頻率。還原日=AD、還原週=AW、還原月=AM；原本僅回傳D/W/M。</li></ul>
+    </details>
+    <details>
+		<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.10 & 個人版 v2.10）</font></summary> 
+				<h2 id="-">新增項目</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>新增<a href="api?a=xf_DirectionMovement&amp;b=sys">xf_DirectionMovement</a>系統函數，計算指定頻率的DMI指標</li><li><a href="api?a=File&amp;b=bif">File</a>內建函數，新增[Date]參數轉換八碼日期</li></ul>
+				<h3 id="-">自訂指標</h3>
+				<ul>
+				<li>新增週DMI</li><li>新增週DMI-Osc</li><li>新增期貨散戶多空比</li></ul>
+				<h2 id="-">修正項目</h2>
+				<hr>
+				<h3 id="-">報價欄位</h3>
+				<ul>
+				<li>修正 <a href="api?a=億元市值&amp;b=quote">億元市值</a> 港股資料異常</li></ul>
+    </details>
+    <details>
+        <summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v6.00 & 個人版 v2.00）</font></summary> 
+				<h2 id="-">新增項目</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>新增<a href="api?a=GetSymbolField&amp;b=bif">GetSymbolField</a>系統函數，支援取得指定商品的欄位資料</li><li>新增<a href="api?a=SetFirstBarDate&amp;b=bif">SetFirstBarDate</a>、<a href="api?a=GetFirstBarDate&amp;b=bif">GetFirstBarDate</a>系統函數，在腳本中可以指定（取得）計算的起始日期</li><li>新增<a href="api?a=GetTotalBar&amp;b=bif">GetTotalBar</a>系統函數</li><li>新增<a href="api?a=GetBarBack&amp;b=bif">GetBarBack（GetBackBar）</a>系統函數</li><li>新增<a href="api?a=IsLastBar&amp;b=bif">IsLastBar</a>系統函數，判斷目前K棒是否為最新一根</li><li>新增<a href="api?a=GetInfo&amp;b=bif">GetInfo</a>系統函數，可以取得一些腳本執行的狀態資料</li><li>新增<a href="api?a=BlackScholesModel&amp;b=sys">BlackScholesModel</a>系統函數，Black Scholes選擇權評價公式</li><li>新增<a href="api?a=BSPrice&amp;b=sys">BSPrice</a>系統函數，計算選擇權理論價</li><li>新增<a href="api?a=BSDelta&amp;b=sys">BSDelta</a>系統函數，計算選擇權Delta</li><li>新增<a href="api?a=BSGamma&amp;b=sys">BSGamma</a>系統函數，計算選擇權Gamma</li><li>新增<a href="api?a=BSTheta&amp;b=sys">BSTheta</a>系統函數，計算選擇權Theta</li><li>新增<a href="api?a=BSVega&amp;b=sys">BSVega</a>系統函數，計算選擇權Vega</li><li>新增<a href="api?a=DaysToExpirationTF&amp;b=sys">DaysToExpirationTF</a>系統函數，計算台指期貨、選擇權剩餘天數</li><li>新增<a href="api?a=HVolatility&amp;b=sys">HVolatility</a>系統函數，計算商品歷史波動率</li><li>新增<a href="api?a=IVolatility&amp;b=sys">IVolatility</a>系統函數，計算選擇權隱含波動率</li><li>新增<a href="api?a=NormSDist&amp;b=sys">NormSDist</a>系統函數，標準常態累加分配函數。</li></ul>
+				<h3 id="-">自訂指標</h3>
+				<ul>
+				<li>新增台指選Delta</li><li>新增台指選IV</li><li>新增台股指數近月外資未平倉</li><li>新增台股指數近月投信未平倉</li><li>新增台股指數近月自營商未平倉</li><li>新增摩台近月未平倉</li></ul>
+				<h3 id="-">報價欄位</h3>
+				<ul>
+				<li>新增 <a href="api?a=估計量&amp;b=quote">估計量</a></li></ul>
+				<h3 id="-">資料欄位</h3>
+				<ul>
+				<li>新增 <a href="api?a=漲停價&amp;b=ta">漲停價</a></li><li>新增 <a href="api?a=跌停價&amp;b=ta">跌停價</a></li><li>新增 <a href="api?a=參考價&amp;b=ta">參考價</a></li></ul>
+				<h3 id="-">選股欄位</h3>
+				<ul>
+				<li>新增 <a href="api?a=員工人數&amp;b=filter">員工人數</a> 支援頻率：季</li><li>新增 <a href="api?a=庫藏股開始日期&amp;b=filter">庫藏股開始日期</a> 支援頻率：單一</li><li>新增 <a href="api?a=庫藏股結束日期&amp;b=filter">庫藏股結束日期</a> 支援頻率：單一</li><li>新增 <a href="api?a=庫藏股預計買回張數&amp;b=filter">庫藏股預計買回張數</a> 支援頻率：單一</li><li>新增 <a href="api?a=庫藏股實際買回張數&amp;b=filter">庫藏股實際買回張數</a> 支援頻率：單一</li><li>新增 <a href="api?a=參考價&amp;b=filter">參考價</a> 支援頻率：日</li><li>新增 <a href="api?a=借券張數&amp;b=filter">借券張數</a> 增加支援頻率：週、月</li><li>新增 <a href="api?a=還券張數&amp;b=filter">還券張數</a> 增加支援頻率：週、月</li><li>新增 <a href="api?a=借券餘額張數&amp;b=filter">借券餘額張數</a> 增加支援頻率：週、月</li><li>新增 <a href="api?a=借券賣出餘額張數&amp;b=filter">借券賣出餘額張數</a> 增加支援頻率：週、月</li><li>新增 <a href="api?a=借券賣出張數&amp;b=filter">借券賣出張數</a> 增加支援頻率：週、月</li><li>新增 <a href="api?a=借券賣出庫存異動張數&amp;b=filter">借券賣出庫存異動張數</a> 增加支援頻率：週、月</li></ul>
+				<h2 id="-">修正項目</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>修改<a href="api?a=GetBarOffset&amp;b=sys">GetBarOffset</a>系統函數，新增支援週線與月線</li><li>修改<a href="api?a=Extremes&amp;b=sys">Extremes</a>系統函數，修正錯誤</li><li>修改<a href="api?a=ExtremesArray&amp;b=sys">ExtremesArray</a>系統函數，參數陣列從傳址改為傳值</li><li>修改<a href="api?a=HighestArray&amp;b=sys">HighestArray</a>系統函數，參數陣列從傳址改為傳值</li><li>修改<a href="api?a=LowestArray&amp;b=sys">LowestArray</a>系統函數，參數陣列從傳址改為傳值</li><li>修改<a href="api?a=NthHighestArray&amp;b=sys">NthHighestArray</a>系統函數，參數陣列從傳址改為傳值</li><li>修改<a href="api?a=NthLowestArray&amp;b=sys">NthLowestArray</a>系統函數，參數陣列從傳址改為傳值</li></ul>
+				<h3 id="-">選股欄位</h3>
+				<ul>
+				<li>修改 <a href="api?a=漲停價&amp;b=filter">漲停價</a> 僅支援<strong>日</strong>頻率</li><li>修改 <a href="api?a=跌停價&amp;b=filter">跌停價</a> 僅支援<strong>日</strong>頻率</li><li>修改 <a href="api?a=分公司買進家數&amp;b=filter">分公司買進家數</a> 僅支援<strong>日</strong>頻率</li><li>修改 <a href="api?a=分公司賣出家數&amp;b=filter">分公司賣出家數</a> 僅支援<strong>日</strong>頻率</li><li>修改 <a href="api?a=買進公司家數&amp;b=filter">買進公司家數</a> 僅支援<strong>日</strong>頻率</li><li>修改 <a href="api?a=賣出公司家數&amp;b=filter">賣出公司家數</a> 僅支援<strong>日</strong>頻率</li><li>修改 <a href="api?a=分公司淨買超金額家數&amp;b=filter">分公司淨買超金額家數</a> 僅支援<strong>日</strong>頻率</li><li>修改 <a href="api?a=分公司淨賣超金額家數&amp;b=filter">分公司淨賣超金額家數</a> 僅支援<strong>日</strong>頻率</li><li>修改 <a href="api?a=分公司交易家數&amp;b=filter">分公司交易家數</a> 僅支援<strong>日</strong>頻率</li></ul>
+				<h3 id="-">策略雷達</h3>
+				<ul>
+				<li>修改 均線多頭排列 腳本錯誤更正</li></ul>
+				<h2 id="-">重要調整</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>資料讀取（TB）與最大引用（BB）調整。<br>在之前的版本，指標、雷達、選股在執行的時都需要使用者指定資料讀取和最大引用二個參數。<br>有部份使用者反應過於複雜。我們在v6.00做了一些調整，希望能幫使用者更容易使用XS。<br>最大引用在指標、雷達及選股都改成系統自行決定。<br>同時，指標的資料讀取會以全部資料計算，這也解決了之前指標值會因為畫面捲動而有差異的問題。<br>詳細說明請參考<a href="http://www.xq.com.tw/lesson/xspractice/資料讀取範圍與腳本執行的關係/">資料讀取範圍與腳本執行的關係</a></li></ul>
+    </details>
+    <details>
+		<summary><font size=2><font size=2>XS更新說明（XQ全球贏家_企業版 v5.60 & 個人版 v1.10）</font></summary> 
+				<h2 id="-">新增項目</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>新增<a href="api?a=EMA&amp;b=sys">EMA</a>系統函數，對應XQ的EMA均線</li><li>新增<a href="api?a=GetBarOffset&amp;b=sys">GetBarOffset</a>系統函數</li><li>新增<a href="api?a=BarsLast&amp;b=sys">BarsLast</a>系統函數</li><li>新增<a href="api?a=Filter&amp;b=sys">Filter</a>系統函數</li><li><a href="api?a=input&amp;b=keyword">input</a>新增宣告方式，現在可以在宣告變數的同時指定參數設定畫面顯示的中文名稱。</li><li><a href="api?a=outputfield&amp;b=bif">outputfield</a>新增宣告方式，現在可以同時指定輸出欄位的內容及名稱。</li></ul>
+				<h3 id="xscript-">XScript編輯器</h3>
+				<ul>
+				<li>指標腳本新增右鍵功能：新增主圖疊圖、新增副圖指標。可以直接由指標腳本開啟技術分析mode並加入寫好的自訂指標。</li><li>插入欄位（F7）視窗，新增支援商品類型資訊，並可以直接連結至說明網頁瀏覽詳細說明。</li><li>導覽區自訂資料夾新增個數顯示。</li></ul>
+				<h3 id="-">自訂指標</h3>
+				<ul>
+				<li>新增主圖指標EMA</li><li>新增主圖指標肯特納通道</li></ul>
+				<h3 id="-">策略雷達</h3>
+				<ul>
+				<li>新增 <strong>訊號觸發帶下單</strong>功能</li></ul>
+				<h3 id="-">報價欄位</h3>
+				<ul>
+				<li>新增 <a href="api?a=累買成筆&amp;b=quote">累買成筆</a></li><li>新增 <a href="api?a=開盤委買&amp;b=quote">開盤委買</a></li><li>新增 <a href="api?a=開盤買筆&amp;b=quote">開盤買筆</a></li><li>新增 <a href="api?a=開盤買均&amp;b=quote">開盤買均</a></li><li>新增 <a href="api?a=累賣成筆&amp;b=quote">累賣成筆</a></li><li>新增 <a href="api?a=開盤委賣&amp;b=quote">開盤委賣</a></li><li>新增 <a href="api?a=開盤賣筆&amp;b=quote">開盤賣筆</a></li><li>新增 <a href="api?a=開盤賣均&amp;b=quote">開盤賣均</a></li></ul>
+				<h3 id="-">資料欄位</h3>
+				<ul>
+				<li>新增 <a href="api?a=外資買賣超張數&amp;b=ta">外資買賣超張數</a> 支援股票及類股指數</li><li>新增 <a href="api?a=投信買賣超張數&amp;b=ta">投信買賣超張數</a> 支援股票及類股指數</li><li>新增 <a href="api?a=自營商買賣超張數&amp;b=ta">自營商買賣超張數</a> 支援股票及類股指數</li><li>新增 <a href="api?a=法人買賣超&amp;b=ta">法人買賣超</a> 支援股票、大盤及類股指數</li><li>新增 <a href="api?a=法人買賣超金額&amp;b=ta">法人買賣超金額</a> 支援大盤指數</li><li>新增 <a href="api?a=法人買進金額&amp;b=ta">法人買進金額</a> 支援大盤指數</li><li>新增 <a href="api?a=法人賣出金額&amp;b=ta">法人賣出金額</a> 支援大盤指數</li><li>新增 <a href="api?a=融資增減&amp;b=ta">融資增減</a> 支援股票、大盤及類股指數</li><li>新增 <a href="api?a=融資增減金額&amp;b=ta">融資增減金額</a> 支援大盤指數</li><li>新增 <a href="api?a=融資買進金額&amp;b=ta">融資買進金額</a> 支援大盤指數</li><li>新增 <a href="api?a=融資賣出金額&amp;b=ta">融資賣出金額</a> 支援大盤指數</li><li>新增 <a href="api?a=融資餘額&amp;b=ta">融資餘額</a> 支援股票及大盤</li><li>新增 <a href="api?a=融資餘額金額&amp;b=ta">融資餘額金額</a> 支援大盤指數</li><li>新增 <a href="api?a=現股當沖買進金額&amp;b=ta">現股當沖買進金額</a> 支援股票及大盤，對應XQ當日沖銷金額指標中的當沖買進</li><li>新增 <a href="api?a=現股當沖賣出金額&amp;b=ta">現股當沖賣出金額</a> 支援股票及大盤，對應XQ當日沖銷金額指標中的當沖賣出</li><li>新增 <a href="api?a=累計委買&amp;b=ta">累計委買</a> 支援大盤、期貨及選擇權</li><li>新增 <a href="api?a=累計委賣&amp;b=ta">累計委賣</a> 支援大盤、期貨及選擇權</li><li>新增 <a href="api?a=委買均&amp;b=ta">委買均</a> 支援大盤、期貨及選擇權</li><li>新增 <a href="api?a=委賣均&amp;b=ta">委賣均</a> 支援大盤、期貨及選擇權</li></ul>
+				<h3 id="-">選股欄位</h3>
+				<ul>
+				<li>新增 <a href="api?a=除權息日期&amp;b=filter">除權息日期</a></li><li>新增 <a href="api?a=當日沖銷張數&amp;b=filter">當日沖銷張數</a>：現股當沖張數 + （資券）當沖張數</li><li>新增 <a href="api?a=現股當沖買進金額&amp;b=filter">現股當沖買進金額</a>：XQ當日沖銷金額指標中的當沖買進</li><li>新增 <a href="api?a=現股當沖賣出金額&amp;b=filter">現股當沖賣出金額</a>：XQ當日沖銷金額指標中的當沖賣出</li></ul>
+				<h2 id="-">修正項目</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>修改<a href="api?a=UpLimit&amp;b=sys">UpLimit</a>系統函數，2015/6/1後改10%漲跌幅計算</li><li>修改<a href="api?a=DwLimit&amp;b=sys">DwLimit</a>系統函數，2015/6/1後改10%漲跌幅計算</li><li>修改<a href="api?a=XAverage&amp;b=sys">XAverage</a>系統函數，調整在variable宣告的寫法，以免出現除以0的錯誤</li><li>修改<a href="api?a=Angle&amp;b=sys">Angle</a>系統函數，改用<a href="api?a=GetBarOffset&amp;b=sys">GetBarOffset</a>計算，可支援傳入<a href="api?a=Date">Date</a>變數</li><li>修改系統函數<a href="api?a=NthDayofMonth&amp;b=sys">NthDayofMonth</a>、<a href="api?a=GetLastTradeDate&amp;b=sys">GetLastTradeDate</a>、<a href="api?a=DaysToExpiration&amp;b=sys">DaysToExpiration</a>的寫法，改用內建函數dateadd計算</li><li>修改<a href="api?a=KeltnerMA&amp;b=sys">KeltnerMA</a>、<a href="api?a=KeltnerUB&amp;b=sys">KeltnerUB</a>、<a href="api?a=KeltnerLB&amp;b=sys">KeltnerLB</a>的公式，改用Linda Bradford Raschke於1980年代所出的修正版本</li><li>修改系統函數<a href="api?a=CrossOver&amp;b=sys">CrossOver</a>、<a href="api?a=CrossUnder&amp;b=sys">CrossUnder</a>的寫法，允許正式交叉前出現最多五期的雙線重疊</li></ul>
+				<h3 id="-">策略雷達</h3>
+				<ul>
+				<li>修改 14.投信強買發動 除以0的error</li></ul>
+				<h3 id="-">報價欄位</h3>
+				<ul>
+				<li>修改 即時每股盈餘 更名為<a href="api?a=每股盈餘&amp;b=quote">每股盈餘</a></li><li>修改 即期股東報酬率% 更名為<a href="api?a=股東權益報酬率&amp;b=quote">股東權益報酬率</a></li><li>修改 即時資金流向 更名為<a href="api?a=成交比重&amp;b=quote">成交比重</a></li><li>修改 累計買筆 更名為<a href="api?a=累委買筆&amp;b=quote">累委買筆</a></li><li>修改 累計賣筆 更名為<a href="api?a=累委賣筆&amp;b=quote">累委賣筆</a></li><li>修改 即時委買張數 更名為<a href="api?a=累計委買&amp;b=quote">累計委買</a></li><li>修改 即時委賣張數 更名為<a href="api?a=累計委賣&amp;b=quote">累計委賣</a></li><li>修改 即時成交張數 更名為<a href="api?a=累計成交&amp;b=quote">累計成交</a></li><li>修改 即時上漲家數 更名為<a href="api?a=上漲家數&amp;b=quote">上漲家數</a></li><li>修改 即時下跌家數 更名為<a href="api?a=下跌家數&amp;b=quote">下跌家數</a></li><li>修改 即時漲停家數 更名為<a href="api?a=漲停家數&amp;b=quote">漲停家數</a></li><li>修改 即時跌停家數 更名為<a href="api?a=跌停家數&amp;b=quote">跌停家數</a></li><li>修改 當日漲幅% 更名為<a href="api?a=漲跌幅&amp;b=quote">漲跌幅</a></li><li>修改 當日振幅 更名為<a href="api?a=振幅&amp;b=quote">振幅</a></li><li>修改 當日內盤量 更名為<a href="api?a=內盤量&amp;b=quote">內盤量</a></li><li>修改 當日外盤量 更名為<a href="api?a=外盤量&amp;b=quote">外盤量</a></li><li>修改 今日漲停價 更名為<a href="api?a=漲停價&amp;b=quote">漲停價</a></li><li>修改 今日跌停價 更名為<a href="api?a=跌停價&amp;b=quote">跌停價</a></li><li>修改 標的漲幅百分比 更名為<a href="api?a=標的漲跌幅&amp;b=quote">標的漲跌幅</a></li></ul>
+				<h3 id="-">資料欄位</h3>
+				<ul>
+				<li>修改 <a href="api?a=現股當沖張數&amp;b=ta">現股當沖張數</a>：新增支援大盤及類股指數</li></ul>
+				<h3 id="-">選股欄位</h3>
+				<ul>
+				<li>修改 <a href="api?a=總成交次數&amp;b=filter">總成交次數</a>的英文名稱：欄位舊名為<strong>NormalDayTrades</strong>，新名稱為<strong>TotalTicks</strong>，調整和報價、警示欄位一致。</li><li>修改 <a href="api?a=總成交筆數&amp;b=filter">總成交筆數</a>的英文名稱：欄位舊名為<strong>TotalTicks</strong>、<strong>Transaction</strong>，新名稱為<strong>TotalTransaction</strong>。<br><a href="api?a=&amp;b=filter"></a></li></ul>
+				<h2 id="-">重要調整</h2>
+				<hr>
+				<h3 id="xscript">XScript</h3>
+				<ul>
+				<li>刪除<a href="api?a=TTIndicator&amp;b=sys">TTIndicator</a>系統函數，此函數和VR函數重複。<br><a href="api?a=&amp;b=sys"></a></li></ul>
+				<h3 id="-">報價欄位</h3>
+				<ul>
+				<li>刪除 當日總成交筆數、NormalDayTrades、q_NormalDayTrades</li><li>刪除 最佳委買：原欄位和<a href="api?a=委買&amp;b=quote">委買</a>重複</li><li>刪除 最佳委賣：原欄位和<a href="api?a=委賣&amp;b=quote">委賣</a>重複<br><a href="api?a=&amp;b=quote"></a></li></ul>
+				<h3 id="-">資料欄位</h3>
+				<ul>
+				<li>刪除 <a href="api?a=當沖金額&amp;b=ta">當沖金額</a></li><li>刪除 <a href="api?a=期權開盤委買&amp;b=ta">期權開盤委買</a>、<a href="api?a=期權開盤委賣&amp;b=ta">期權開盤委賣</a>：欄位和<a href="api?a=開盤委買&amp;b=ta">開盤委買</a>、<a href="api?a=開盤委賣&amp;b=ta">開盤委賣</a>重複</li><li>刪除 <a href="api?a=委買張數&amp;b=ta">委買張數</a>、<a href="api?a=委買口數&amp;b=ta">委買口數</a>、<a href="api?a=委賣張數&amp;b=ta">委賣張數</a>、<a href="api?a=委賣口數&amp;b=ta">委賣口數</a>：原有欄位資料合併至<a href="api?a=累計委買&amp;b=ta">累計委買</a>及<a href="api?a=累計委賣&amp;b=ta">累計委賣</a></li><li>刪除 <a href="api?a=均買張數&amp;b=ta">均買張數</a>、<a href="api?a=均買口數&amp;b=ta">均買口數</a>、<a href="api?a=均賣張數&amp;b=ta">均賣張數</a>、<a href="api?a=均賣口數&amp;b=ta">均賣口數</a>：原有欄位資料合併至<a href="api?a=委買均&amp;b=ta">委買均</a>及<a href="api?a=委賣均&amp;b=ta">委賣均</a></li><li>刪除 <a href="api?a=內盤金額&amp;b=ta">內盤金額</a>、<a href="api?a=外盤金額&amp;b=ta">外盤金額</a>：原有欄位資料合併至<a href="api?a=內盤量&amp;b=ta">內盤量</a>及<a href="api?a=外盤量&amp;b=ta">外盤量</a></li><li>修改 <a href="api?a=總成交次數&amp;b=ta">總成交次數</a>的中文名稱：欄位舊名為<strong>當日總成交筆數</strong>，新名稱為<strong>總成交次數</strong>，調整和報價、選股欄位一致</li><li>修改 <a href="api?a=資券互抵張數&amp;b=ta">資券互抵張數</a>的欄位名稱：欄位舊名為<strong>當沖張數（DayTradeUnit）</strong>，新名稱為<strong>資券互抵張數（MarginTrades）</strong>，調整和選股欄位一致</li><li>修改 <a href="api?a=券資比&amp;b=ta">券資比</a>的欄位名稱：欄位舊名為<strong>資券比（MSRatio）</strong>，新名稱為<strong>券資比（ShortSale／Margin）</strong>，調整和選股欄位一致</li><li>修改 <a href="api?a=累計成交&amp;b=ta">累計成交</a>的欄位名稱：欄位舊名為<strong>成交張數</strong>，新名稱為<strong>累計成交</strong>，調整和報價欄位一致</li><li>修改 <a href="api?a=波動率&amp;b=ta">波動率</a>的數值：調整為百分比值（例如原值為0.21、新值為21），和選股欄位一致</li><li>修改 <a href="api?a=隱含波動率&amp;b=ta">隱含波動率</a>的數值：調整為百分比值（例如原值為0.21、新值為21）</li><li>修改 <a href="api?a=法人買進比重&amp;b=ta">法人買進比重</a>、<a href="api?a=法人賣出比重&amp;b=ta">法人賣出比重</a>的數值：調整為百分比值（例如原值為0.3、新值為30）<br><a href="api?a=&amp;b=ta"></a></li></ul>
+				<h3 id="-">選股欄位</h3>
+				<ul>
+				<li>修改 <a href="api?a=外資持股比例&amp;b=filter">外資持股比例</a>的欄位名稱：欄位舊名為<strong>外資持股比重（ExgFsharesheld／Capital）</strong>，新名稱為<strong>外資持股比例（Fsharesheldratio）</strong>，調整和資料欄位一致。</li><li>刪除 <a href="api?a=外資持股比&amp;b=filter">外資持股比重</a>。</li><li>修改 期別為單一的日期相關欄位，當資料更新導致無資料時，改為回傳0。原本是回傳NA，會造成腳本中斷執行。以<strong>除息日期</strong>為例，若今年無除息，GetField(&quot;除息日期&quot;)=0。</li></ul>
+    </details>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+    <center>
+        <div class="footer">
+            <div class="footer_div">
+                <div class="flogo">
+                    <img src="/XSHelp/Content/Images/png-00-header-xqlite-180-60.png">
+                </div>
+                <div class="ftext">
+                    客服電話：0800-006-098 客服信箱：<a href="mailto:XQservice@XQ.com.tw">XQservice@XQ.com.tw</a><br>
+                    最佳瀏覽模式：解析度1024*768以上；瀏覽器建議使用 IE9.0以上。<br>
+                    本站內容僅供參考，本公司不負任何法律責任，投資人若依此以為買賣依據，須自負盈虧之責。<br>
+                    版權所有嘉實資訊股份有限公司，未經合法授權請勿翻載。 與本網站有關一切糾紛與法律問題，<br>均依中華民國相關法令解釋及適用之。<br>
+                </div>
+            </div>
+        </div>
+    </center>
+</footer>
+
+    <script type="text/javascript">
+        $(function () {
+            var deheight = document.documentElement.clientHeight;
+            var dheight = document.body.clientHeight;
+            if (deheight > dheight)
+                $('#help-main').css('min-height', deheight - 237);
+            else
+                $('#help-main').css('min-height', dheight - 237);
+        });
+    </script>
+</body>
+</html>

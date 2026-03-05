@@ -1,0 +1,1919 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async=async src="https://www.googletagmanager.com/gtag/js?id=GTM-NHPFZR5F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'GTM-NHPFZR5F');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta property="og:type" Content="website" />
+    <meta property="og:site_name" Content="XS語法" />
+    <meta property="og:image" content="https://xshelp.xq.com.tw/XSHelp/Content/Images/png-07-xs-155-90.png" />
+    <meta property="og:title" Content="選股欄位 - 財務 - XS語法" />
+    <meta property="og:description" Content="選股欄位 - 財務" />
+    <link href="/XSHelp/Content/Images/favicon.ico" rel="icon" type="image/ico" />
+    <link href="/XSHelp/Content/css?v=MmAetLgQWTpj53h5C1K54227FFaG9xOGVb-qgk1DRGE1" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        // todo: js 參數替換
+        gConfig = {
+            site_path: "/XSHelp/",
+            site_url: "http://xshelp.xq.com.tw/",
+            djsite_url: "http://jv-testweb/",
+            url_suffix: "",
+            runat_asp: "1",
+            d: ""
+        };
+    </script>
+    <script src="/XSHelp/bundles/jquery?v=14H8EzIR27VT10jKdQjUdjivbIr5qhF08VKu4RwT7rI1"></script>
+
+</head>
+<body>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WMXRLD"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WMXRLD');</script>
+    <!-- End Google Tag Manager -->
+    <div id="container" class="clearfix">
+        <div id="help-main">
+            <div class="menu_side">
+                <div class="xq_logo">
+                    <a href="https://www.xq.com.tw/">
+                        <img src="/XSHelp/Content/Images/png-xsh-180-60.png" />
+                    </a>
+                </div>
+                <div class="help_logo">
+                    <img src="/XSHelp/Content/Images/png-07-xs-155-90.png" />
+                </div>
+                <script type="text/javascript" src="/XSHelp/Scripts/util.string.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/jmoneyui.autolist.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onPos.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onRange.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/XSHelp/Content/jmoneyui.autolist.css" type="text/css" />
+
+<div class="search">
+    <input type="text" class="inputarea default" value="函數、關鍵字或欄位" />
+    <button class="inputSearch"></button>
+</div>
+<script type="text/javascript">
+    (function () {
+        var cookie_key = 'search_record';
+        $('.inputarea').autolist({
+            source: function (req, res) {
+                $.getJSON($.xshelp.genDJPath(gConfig['site_path'] + 'rest', { a: encodeURIComponent(req.term) }), null, function (data) {
+                    var x = $.map(data, function (val, i) {
+                        return {
+                            label: cText(val),
+                            value: $.xshelp.genDJPath(gConfig['site_path'] + 'index', { HelpName: encodeURIComponent(val['name']), group: val['Description'] })
+                        };
+                    });
+                    res(x);
+                });
+            },
+            select: function (event, ui) {
+                var val = $(this).val();
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(val) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = ui.item.value;
+            },
+            directEnter: function (event, ui) {
+                var keyword = $(this).val();
+                if (typeof keyword == 'string' && keyword != '') {
+                    var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                    $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                    window.location = url;
+                }
+            },
+            dataMax: 50
+        });
+
+        $('.inputSearch').click(function () {
+            var keyword = $('.inputarea').val();
+            if (typeof keyword == 'string' && keyword != '') {
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = url;
+            }
+        });
+
+        function cText(obj) {
+            if (/^1/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^(2|3)/.test(obj['categoryid'])) {
+                //                var str = (obj['ename'])? obj['ename'] : obj['abbrev'];
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^4/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+        }
+    })();
+
+</script>
+                <div id="cssmenu">
+    <ul>
+        <li>
+            <a href="javascript:void(0);"><span>檢視紀錄</span></a>
+            <ul></ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>關鍵字</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=SKIPWORD">忽略字</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=CONSTANT">常數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=CONTROLFLOW">流程控制</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=DECLARATION">宣告</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>內建函數</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=GENERALFUNC">一般函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TIMEFUNC">時間函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=DATEFUNC">日期函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STRINGFUNC">字串函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=NUMBERFUNC">數學函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FIELDFUNC">欄位函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYFUNC">陣列函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TRANSACTIONFUNC">交易函數</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>系統函數</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICEGETFUNC">價格取得</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=PRICECULFUNC">價格計算</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICERELFUNC">價格關係</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TECHINDEXFUNC">技術指標</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=DATERELFUNC">日期相關</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRANSACTIONRELFUNC">交易相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STATSFUNC">統計分析</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRENDFUNC">趨勢分析</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=LOGICFUNC">邏輯判斷</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FUTUREFUNC">期權相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FREQUENCYFUNC">跨頻率</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYSYSFUNC">Array函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=VOLUMERELFUNC">量能相關</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>報價欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QOPTION">期權</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QFIVE">五檔統計</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>資料欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TBASIC">基本</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TEVENT">事件</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TOPTION">期權</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>選股欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FBASIC">基本</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=FEVENT">事件</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="javascript:void(0);" class="search_record"><span>搜尋記錄</span></a></li>
+        <li class="last">
+            <a href="https://github.com/sysjust-xq/XScript_Preset" target="_blank">
+                <span title="系統腳本的程式碼集">GitHub</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="/XSHelp/Scripts/menu-jquery.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    (function () {
+        var obj = $.cookie('search_record');
+        if (obj != null && typeof obj == 'string' && obj) {
+            $('.search_record').attr('href', obj);
+        }
+
+        var list = $.cookie($.xshelp.ViewRecookieName);
+        var ary = [];
+        if (list != null) {
+            ary = list.split(",");
+        }
+        ary = $.map(ary, function (n, i) {
+            var item = n.split('*');
+            return { link: $.xshelp.genDJPath('index', { HelpName: encodeURIComponent(item[0]), group: item[1] }), name: item[0] };
+        });
+
+        if (ary.length > 0) {
+            var str = '';
+            $.each(ary, function (i, o) {
+                str += '<li title="' + o['name'] + '"><a href="' + o['link'] + '"><span>' + o['name'] + '</span></a></li>';
+            });
+            $('#cssmenu > ul > li:first').addClass('has-sub').children('ul').append(str);
+        }
+    })();
+</script>
+
+            </div>
+            <div class="result">
+                <div class="content-txt">
+                    
+<div class="content-txt">
+    <h2>選股欄位&nbsp;-&nbsp;財務</h2>
+    <hr />
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="field-head nowrap">欄位名稱</th>
+                <th class="field-head nowrap">欄位說明</th>
+                <th class="field-head nowrap">支援商品</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%28%E5%AD%98%E8%B2%A8%2B%E6%87%89%E6%94%B6%E5%B8%B3%E6%AC%BE%29%EF%BC%8F%E7%87%9F%E6%94%B6&amp;group=FFINANCE">(存貨+應收帳款)／營收</a></td>
+                    <td class="field-value">計算公式: (存貨+應收帳款及票據)／營業收入淨額*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=10%E5%B9%B4%E5%B9%B4%E5%8C%96%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">10年年化報酬率</a></td>
+                    <td class="field-value">近10年年化報酬率，計算方式包含配息，以及配息再投入。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=1%E5%B9%B4%E5%B9%B4%E5%8C%96%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">1年年化報酬率</a></td>
+                    <td class="field-value">近1年年化報酬率，計算方式包含配息，以及配息再投入。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=1%E5%B9%B4%E5%A4%8F%E6%99%AE%E6%8C%87%E6%95%B8&amp;group=FFINANCE">1年夏普指數</a></td>
+                    <td class="field-value">Sharpe指標衡量投資相對於其風險所帶來的超額回報率，即投資回報超過無風險利率部分的表現。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=3%E5%B9%B4%E5%B9%B4%E5%8C%96%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">3年年化報酬率</a></td>
+                    <td class="field-value">近3年年化報酬率，計算方式包含配息，以及配息再投入。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=5%E5%B9%B4%E5%B9%B4%E5%8C%96%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">5年年化報酬率</a></td>
+                    <td class="field-value">近5年年化報酬率，計算方式包含配息，以及配息再投入。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=EPS%E6%B3%95%E8%AA%AA%E5%85%AC%E4%BD%88%E5%80%BC&amp;group=FFINANCE">EPS法說公佈值</a></td>
+                    <td class="field-value">公司在財報法說會上發佈的季度EPS數值。<br />美股股票才適用本欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=EPS%E9%A0%90%E4%BC%B0%E5%80%BC&amp;group=FFINANCE">EPS預估值</a></td>
+                    <td class="field-value">市場機構對個股的季度EPS預估值。<br />美股股票才適用本欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%80%E5%B9%B4%E5%85%A7%E5%88%B0%E6%9C%9F%E9%95%B7%E6%9C%9F%E8%B2%A0%E5%82%B5&amp;group=FFINANCE">一年內到期長期負債</a></td>
+                    <td class="field-value">「資產負債表」中「流動負債」的「一年內到期長期負債」項目。<br />金融、壽險、產險股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%8A%A0%E6%AC%8A%E5%B9%B3%E5%9D%87%E8%82%A1%E6%95%B8&amp;group=FFINANCE">加權平均股數</a></td>
+                    <td class="field-value">「損益表」中「加權平均股數」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%96%E5%B9%A3%E6%8F%9B%E7%AE%97%E8%AA%BF%E6%95%B4%E6%95%B8&amp;group=FFINANCE">外幣換算調整數</a></td>
+                    <td class="field-value">「資產負債表」股東權益項目中的「國外機構報表換算差額」。<br />金融、壽險、產險、證券股才適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%96%E9%8A%B7%E6%AF%94%E7%8E%87&amp;group=FFINANCE">外銷比率</a></td>
+                    <td class="field-value">外銷占營收的比例。<br />單位為％，例如：外銷比率為90%，則回傳90。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%B8%82%E7%A0%94%E7%8E%87&amp;group=FFINANCE">市研率</a></td>
+                    <td class="field-value">計算公式: 研發費用 / 總市值*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%B8%82%E5%80%BC%E7%87%9F%E6%94%B6%E6%AF%94&amp;group=FFINANCE">市值營收比</a></td>
+                    <td class="field-value">計算公式: 市值 / 當期營業收入淨額。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%B9%B3%E5%9D%87%E6%94%B6%E5%B8%B3%E5%A4%A9%E6%95%B8&amp;group=FFINANCE">平均收帳天數</a></td>
+                    <td class="field-value">財務比率表上的"平均收帳天數"欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%B9%B3%E5%9D%87%E5%94%AE%E8%B2%A8%E5%A4%A9%E6%95%B8&amp;group=FFINANCE">平均售貨天數</a></td>
+                    <td class="field-value">單期財務比率表上的"平均售貨天數"欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%AC%E6%9C%9F%E7%A8%85%E5%BE%8C%E6%B7%A8%E5%88%A9&amp;group=FFINANCE">本期稅後淨利</a></td>
+                    <td class="field-value">「損益表」中「歸屬母公司淨利（損）」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%AA%E5%88%86%E9%85%8D%E7%9B%88%E9%A4%98&amp;group=FFINANCE">未分配盈餘</a></td>
+                    <td class="field-value">「資產負債表」股東權益項目中的「未分配盈餘」。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%AA%E5%AE%8C%E5%B7%A5%E7%A8%8B%E5%8F%8A%E9%A0%90%E4%BB%98%E6%AC%BE&amp;group=FFINANCE">未完工程及預付款</a></td>
+                    <td class="field-value">「資產負債表」中「非流動資產」項內的「預付設備款」項目。<br />金融、壽險、產險、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%94%A8%E4%BA%BA%E8%B2%BB%E7%94%A8%E7%8E%87&amp;group=FFINANCE">用人費用率</a></td>
+                    <td class="field-value">財務比率表上的「用人費用率」欄位。<br />提供單季與年度資料。<br />單位為%，例如：用人費用率為15%，則回傳15。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%BC%81%E6%A5%AD%E5%83%B9%E5%80%BC&amp;group=FFINANCE">企業價值</a></td>
+                    <td class="field-value">計算公式: 總市值 ＋ 負債總額 － 現金及約當現金。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%BC%81%E6%A5%AD%E5%83%B9%E5%80%BC%E7%87%9F%E6%94%B6%E6%AF%94&amp;group=FFINANCE">企業價值營收比</a></td>
+                    <td class="field-value">計算方式: (總市值 + 負債總額－現金及約當現金) / 營業收入淨額 *100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_QMJ%E5%AE%89%E5%85%A8&amp;group=FFINANCE">因子_QMJ安全</a></td>
+                    <td class="field-value">從六個指標(貝他因子、負債比率、股東權益報酬率的波動度、特質波動度、Altman’s Z分數、以及Ohlson's O分數)個別找出每項指標中某檔股票在整體市場的排名，將這六個排名的標準化數值平均，即為該檔股票的綜合安全評分。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_QMJ%E7%8D%B2%E5%88%A9&amp;group=FFINANCE">因子_QMJ獲利</a></td>
+                    <td class="field-value">從六個指標(應計項目佔資產比率、自由現金流量佔總資產比率、毛利佔資產比率、毛利佔營收比率、資產報酬率、股東權益報酬率)個別找出每項指標中某檔股票在整體市場的排名，將這六個排名的標準化數值平均，即為該檔股票的綜合獲利能力評分。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E4%B8%80%E5%B9%B4%E5%8B%95%E8%83%BD&amp;group=FFINANCE">因子_一年動能</a></td>
+                    <td class="field-value">股票在過去1年內(不包含當月，共計11個月)的漲跌幅度。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E6%97%A5%E9%80%B1%E8%BD%89%E7%8E%87%E6%B5%81%E5%8B%95%E6%80%A7&amp;group=FFINANCE">因子_日週轉率流動性</a></td>
+                    <td class="field-value">過去一個月的日週轉率平均值。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E6%9C%88%E9%80%B1%E8%BD%89%E7%8E%87%E6%B5%81%E5%8B%95%E6%80%A7&amp;group=FFINANCE">因子_月週轉率流動性</a></td>
+                    <td class="field-value">自然對數(標準差(股票過去36個月的月週轉率))。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E5%8D%8A%E5%B9%B4%E5%8B%95%E8%83%BD%E5%9B%A0%E5%AD%90&amp;group=FFINANCE">因子_半年動能因子</a></td>
+                    <td class="field-value">股票在過去1年至過去半年這段期間內(12個月前至7個月前)的漲跌幅度。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E6%88%90%E4%BA%A4%E5%80%BC%E6%B5%81%E5%8B%95%E6%80%A7&amp;group=FFINANCE">因子_成交值流動性</a></td>
+                    <td class="field-value">自然對數(過去一個月成交金額加總)。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E8%B2%9D%E4%BB%96%E5%80%BC&amp;group=FFINANCE">因子_貝他值</a></td>
+                    <td class="field-value">過去一年的日報酬率和市場報酬率之共變異數/市場報酬率之變異數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E8%82%A1%E7%A5%A8%E7%99%BC%E8%A1%8C%E9%87%8F&amp;group=FFINANCE">因子_股票發行量</a></td>
+                    <td class="field-value">自然對數(當期股票面額/上季股票面額/前一季流通在外股數)。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E5%89%8D%E4%B8%80%E5%B9%B4%E7%8D%B2%E5%88%A9&amp;group=FFINANCE">因子_前一年獲利</a></td>
+                    <td class="field-value">一年前的營業利益/三年前的帳面權益。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E5%89%8D%E4%B8%89%E5%B9%B4%E7%8D%B2%E5%88%A9&amp;group=FFINANCE">因子_前三年獲利</a></td>
+                    <td class="field-value">三年前的營業利益/三年前的帳面權益。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E5%89%8D%E5%85%A9%E5%B9%B4%E7%8D%B2%E5%88%A9&amp;group=FFINANCE">因子_前兩年獲利</a></td>
+                    <td class="field-value">兩年前的營業利益/三年前的帳面權益。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E7%89%B9%E8%B3%AA%E6%B3%A2%E5%8B%95%E5%BA%A6&amp;group=FFINANCE">因子_特質波動度</a></td>
+                    <td class="field-value">透過對歷史股票報酬與市場報酬進行Fama French三因子統計迴歸分析，並計算迴歸殘差值的標準差，即為特質波動度因子。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E5%81%8F%E6%85%8B%E4%BF%82%E6%95%B8&amp;group=FFINANCE">因子_偏態係數</a></td>
+                    <td class="field-value">日報酬率序列的三階主動差/日報酬率序列的二階主動差的1.5次方根。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E5%B8%B3%E9%9D%A2%E5%B8%82%E5%80%BC%E6%AF%94&amp;group=FFINANCE">因子_帳面市值比</a></td>
+                    <td class="field-value">自然對數(帳面價值/市場價值)。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E5%BD%A9%E5%88%B8%E5%9E%8B%E9%9C%80%E6%B1%82&amp;group=FFINANCE">因子_彩券型需求</a></td>
+                    <td class="field-value">過去一個月中最大五筆日報酬率的簡單算數平均。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E6%B7%A8%E7%87%9F%E9%81%8B%E8%B3%87%E7%94%A2&amp;group=FFINANCE">因子_淨營運資產</a></td>
+                    <td class="field-value">淨營運資產/去年同期總資產。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F%E6%B3%A2%E5%8B%95%E5%BA%A6&amp;group=FFINANCE">因子_現金流量波動度</a></td>
+                    <td class="field-value">標準差(過去16季之營業現金流量/營業收入)。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E6%9C%80%E9%AB%98%E5%83%B9%E5%8B%95%E8%83%BD&amp;group=FFINANCE">因子_最高價動能</a></td>
+                    <td class="field-value">當前收盤價與過去52週內最高價的比值。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E5%AF%A6%E7%8F%BE%E6%90%8D%E7%9B%8A%E5%81%8F%E6%85%8B%E4%BF%82%E6%95%B8&amp;group=FFINANCE">因子_實現損益偏態係數</a></td>
+                    <td class="field-value">偏態係數分子/偏態係數分母。<br />偏態係數分子=過去一個月對數日報酬率的平方加總，再開3/2次方根。<br />偏態係數分母=過去一個月對數日報酬率的三次方加總，並乘以上個月交易天數的平方根。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90_%E6%BD%9B%E5%9C%A8%E4%B8%8A%E6%AA%94%E5%A0%B1%E9%85%AC%E6%AF%94&amp;group=FFINANCE">因子_潛在上檔報酬比</a></td>
+                    <td class="field-value">將過去1年的日報酬率隨機抽樣1000筆，以正報酬率的加總與過去1年日交易天數的比值作為分子，以負報酬率的平方加總與過去1年日交易天數的比值平方根作為分母，得到的比率即為潛在上檔報酬比率因子。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_QMJ%E5%AE%89%E5%85%A8&amp;group=FFINANCE">因子分數_QMJ安全</a></td>
+                    <td class="field-value">QMJ安全因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_QMJ%E7%8D%B2%E5%88%A9&amp;group=FFINANCE">因子分數_QMJ獲利</a></td>
+                    <td class="field-value">QMJ獲利因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E4%B8%80%E5%B9%B4%E5%8B%95%E8%83%BD&amp;group=FFINANCE">因子分數_一年動能</a></td>
+                    <td class="field-value">動能因子(以前11個月報酬為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E6%97%A5%E9%80%B1%E8%BD%89%E7%8E%87%E6%B5%81%E5%8B%95%E6%80%A7&amp;group=FFINANCE">因子分數_日週轉率流動性</a></td>
+                    <td class="field-value">流動性因子(以平均日週轉率為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E6%9C%88%E9%80%B1%E8%BD%89%E7%8E%87%E6%B5%81%E5%8B%95%E6%80%A7&amp;group=FFINANCE">因子分數_月週轉率流動性</a></td>
+                    <td class="field-value">流動性因子(以股票月週轉率標準差為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E5%8D%8A%E5%B9%B4%E5%8B%95%E8%83%BD%E5%9B%A0%E5%AD%90&amp;group=FFINANCE">因子分數_半年動能因子</a></td>
+                    <td class="field-value">動能因子(以前7~12月報酬為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E6%88%90%E4%BA%A4%E5%80%BC%E6%B5%81%E5%8B%95%E6%80%A7&amp;group=FFINANCE">因子分數_成交值流動性</a></td>
+                    <td class="field-value">流動性因子(以成交值為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E8%B2%9D%E4%BB%96%E5%80%BC&amp;group=FFINANCE">因子分數_貝他值</a></td>
+                    <td class="field-value">貝他因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E8%82%A1%E6%9D%B1%E6%AC%8A%E7%9B%8A%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">因子分數_股東權益報酬率</a></td>
+                    <td class="field-value">股東權益報酬率因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E8%82%A1%E7%A5%A8%E7%99%BC%E8%A1%8C%E9%87%8F&amp;group=FFINANCE">因子分數_股票發行量</a></td>
+                    <td class="field-value">股票發行量因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E5%89%8D%E4%B8%80%E5%B9%B4%E7%8D%B2%E5%88%A9&amp;group=FFINANCE">因子分數_前一年獲利</a></td>
+                    <td class="field-value">獲利因子(以前一年獲利為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E5%89%8D%E4%B8%89%E5%B9%B4%E7%8D%B2%E5%88%A9&amp;group=FFINANCE">因子分數_前三年獲利</a></td>
+                    <td class="field-value">獲利因子(以前三年獲利為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E5%89%8D%E5%85%A9%E5%B9%B4%E7%8D%B2%E5%88%A9&amp;group=FFINANCE">因子分數_前兩年獲利</a></td>
+                    <td class="field-value">獲利因子(以前兩年獲利為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E7%89%B9%E8%B3%AA%E6%B3%A2%E5%8B%95%E5%BA%A6&amp;group=FFINANCE">因子分數_特質波動度</a></td>
+                    <td class="field-value">特質波動度因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E5%81%8F%E6%85%8B%E4%BF%82%E6%95%B8&amp;group=FFINANCE">因子分數_偏態係數</a></td>
+                    <td class="field-value">偏態係數因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E5%B8%B3%E9%9D%A2%E5%B8%82%E5%80%BC%E6%AF%94&amp;group=FFINANCE">因子分數_帳面市值比</a></td>
+                    <td class="field-value">帳面市值比因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E5%BD%A9%E5%88%B8%E5%9E%8B%E9%9C%80%E6%B1%82&amp;group=FFINANCE">因子分數_彩券型需求</a></td>
+                    <td class="field-value">彩券型需求因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E6%B7%A8%E7%87%9F%E9%81%8B%E8%B3%87%E7%94%A2&amp;group=FFINANCE">因子分數_淨營運資產</a></td>
+                    <td class="field-value">淨營運資產因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F%E6%B3%A2%E5%8B%95%E5%BA%A6&amp;group=FFINANCE">因子分數_現金流量波動度</a></td>
+                    <td class="field-value">現金流量波動度因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E7%8F%BE%E9%87%91%E6%AE%96%E5%88%A9%E7%8E%87&amp;group=FFINANCE">因子分數_現金殖利率</a></td>
+                    <td class="field-value">現金殖利率因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E6%9C%80%E9%AB%98%E5%83%B9%E5%8B%95%E8%83%BD&amp;group=FFINANCE">因子分數_最高價動能</a></td>
+                    <td class="field-value">動能因子(以前52週高價為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E5%AF%A6%E7%8F%BE%E6%90%8D%E7%9B%8A%E5%81%8F%E6%85%8B%E4%BF%82%E6%95%B8&amp;group=FFINANCE">因子分數_實現損益偏態係數</a></td>
+                    <td class="field-value">偏態係數因子(以實現損益為基準)經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%A0%E5%AD%90%E5%88%86%E6%95%B8_%E6%BD%9B%E5%9C%A8%E4%B8%8A%E6%AA%94%E5%A0%B1%E9%85%AC%E6%AF%94&amp;group=FFINANCE">因子分數_潛在上檔報酬比</a></td>
+                    <td class="field-value">潛在上檔報酬比率因子經過過濾因子極端值、流動性不足及交易天數不足的商品後的優化排名分數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AD%98%E8%B2%A8&amp;group=FFINANCE">存貨</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項內的「存貨」項目。<br />金融、壽險、產險、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AD%98%E8%B2%A8%E5%8F%8A%E6%87%89%E6%94%B6%E5%B8%B3%E6%AC%BE%EF%BC%8F%E6%B7%A8%E5%80%BC&amp;group=FFINANCE">存貨及應收帳款／淨值</a></td>
+                    <td class="field-value">財務比率表上的「存貨及應收帳款/淨值」欄位。<br />提供單季與年度資料。<br />單位為%，例如：存貨及應收帳款/淨值為5%，則回傳5。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AD%98%E8%B2%A8%E9%80%B1%E8%BD%89%E7%8E%87%28%E6%AC%A1%29&amp;group=FFINANCE">存貨週轉率(次)</a></td>
+                    <td class="field-value">財務比率表上的「存貨週轉率(次)」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AD%98%E8%B2%A8%E7%87%9F%E6%94%B6%E6%AF%94&amp;group=FFINANCE">存貨營收比</a></td>
+                    <td class="field-value">計算公式: 存貨之商品及製成品 / 營業收入淨額*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%B9%B4%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">年報酬率</a></td>
+                    <td class="field-value">僅支援台/美ETF商品.<br />統計近N年報酬率, 計算方式包含配息, 以及配息再投入.<br />欄位提供參數, 可以傳入年度, 支援1,3,5,10，預設是 1。<br />(如欲計算股票的報酬率, 可以使用還原股價直接計算, 系統會提供內建函數)</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%89%E6%81%AF%E8%B2%A0%E5%82%B5%E5%88%A9%E7%8E%87&amp;group=FFINANCE">有息負債利率</a></td>
+                    <td class="field-value">財務比率表上的「有息負債利率」欄位。<br />提供單季與年度資料。<br />單位為%，例如：有息負債利率為1.5%，則回傳1.5。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%89%E6%95%88%E7%A8%85%E7%8E%87&amp;group=FFINANCE">有效稅率</a></td>
+                    <td class="field-value">財務比率表上的「稅率(A)」欄位。<br />提供單季與年度資料。<br />若稅前淨利或所得稅費用為負或0、所得稅費用大於稅前淨利等特殊情況，資料會呈現為0。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%94%B1%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F&amp;group=FFINANCE">自由現金流量</a></td>
+                    <td class="field-value">現金流量表中的「"來自營運之現金流量" + "購置不動產廠房設備（含預付）－CFI" + "支付利息－CFF"」。<br />正值表示現金流入，負值表示現金流出。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%94%B1%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F%E7%87%9F%E6%94%B6%E6%AF%94&amp;group=FFINANCE">自由現金流量營收比</a></td>
+                    <td class="field-value">計算公式: 自由現金流量／營業收入淨額*100%。<br />提供單季與年度資料。<br />單位為%，例如：欄位數值為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%8C%E6%8F%9B%E7%9B%88%E7%9B%8A&amp;group=FFINANCE">兌換盈益</a></td>
+                    <td class="field-value">「損益表」中「外幣兌換利益」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%8C%E6%8F%9B%E6%90%8D%E5%A4%B1&amp;group=FFINANCE">兌換損失</a></td>
+                    <td class="field-value">「損益表」中「外幣兌換損失」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%A9%E6%81%AF%E6%94%AF%E5%87%BA&amp;group=FFINANCE">利息支出</a></td>
+                    <td class="field-value">「損益表」財務報表項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%A9%E6%81%AF%E6%94%AF%E5%87%BA%E7%8E%87&amp;group=FFINANCE">利息支出率</a></td>
+                    <td class="field-value">財務比率表上的「利息支出率」欄位。<br />提供單季與年度資料。<br />只支援證券、期貨與金控個股。不提供此欄位的公司，輸出值會以零表示。<br />單位為%，例如：利息支出率為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%A9%E6%81%AF%E6%94%B6%E5%85%A5&amp;group=FFINANCE">利息收入</a></td>
+                    <td class="field-value">「損益表」中「利息收入」項目。<br />證券股不適用此欄位。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%A9%E6%81%AF%E4%BF%9D%E9%9A%9C%E5%80%8D%E6%95%B8&amp;group=FFINANCE">利息保障倍數</a></td>
+                    <td class="field-value">財務比率表上的「利息保障倍數」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E8%B3%87%E6%B4%BB%E5%8B%95%E4%B9%8B%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F&amp;group=FFINANCE">投資活動之現金流量</a></td>
+                    <td class="field-value">現金流量表上的「投資活動之現金流量」欄位。<br />正值表示現金流入，負值表示現金流出。<br />提供單季與年度資料。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E8%B3%87%E8%B7%8C%E5%83%B9%E6%90%8D%E5%A4%B1&amp;group=FFINANCE">投資跌價損失</a></td>
+                    <td class="field-value">「損益表」中「金融資產減損損失」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E8%B3%87%E8%B7%8C%E5%83%B9%E6%90%8D%E5%A4%B1%E5%9B%9E%E8%BD%89&amp;group=FFINANCE">投資跌價損失回轉</a></td>
+                    <td class="field-value">「損益表」中「金融資產減損迴轉利益」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9D%9C%E9%82%A6%E5%9E%8BROA&amp;group=FFINANCE">杜邦型ROA</a></td>
+                    <td class="field-value">計算公式: 總資產週轉率(次) * 稅後淨利率。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9D%9C%E9%82%A6%E5%9E%8BROE&amp;group=FFINANCE">杜邦型ROE</a></td>
+                    <td class="field-value">計算公式: 總資產週轉率(次) * 稅後淨利率 * (資產總額 / 股東權益總額)。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E4%BA%BA%E7%87%9F%E6%A5%AD%E5%88%A9%E7%9B%8A&amp;group=FFINANCE">每人營業利益</a></td>
+                    <td class="field-value">財務比率表上的「每人營業利益」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E8%82%A1%E8%87%AA%E7%94%B1%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F&amp;group=FFINANCE">每股自由現金流量</a></td>
+                    <td class="field-value">計算公式：自由現金流量／加權平均股數</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E8%82%A1%E6%B5%81%E5%8B%95%E6%B7%A8%E8%B3%87%E7%94%A2&amp;group=FFINANCE">每股流動淨資產</a></td>
+                    <td class="field-value">計算公式: (流動資產－全部負債) ／ 普通股股數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E8%82%A1%E6%B7%A8%E5%80%BC%28%E5%85%83%29&amp;group=FFINANCE">每股淨值(元)</a></td>
+                    <td class="field-value">台股，是財務比率表的「每股淨值(F)(TSE公告數)」項目。<br />美股，是財務比率表上的「每股淨值」項目。<br />提供單季與年度資料。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E8%82%A1%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F&amp;group=FFINANCE">每股現金流量</a></td>
+                    <td class="field-value">財務比率表上的「每股現金流量」欄位。<br />提供單季與年度資料。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E8%82%A1%E7%A8%85%E5%89%8D%E6%B7%A8%E5%88%A9%28%E5%85%83%29&amp;group=FFINANCE">每股稅前淨利(元)</a></td>
+                    <td class="field-value">財務比率表上的「每股稅前淨利(元)」欄位。<br />提供單季與年度資料。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E8%82%A1%E7%A8%85%E5%BE%8C%E6%B7%A8%E5%88%A9%28%E5%85%83%29&amp;group=FFINANCE">每股稅後淨利(元)</a></td>
+                    <td class="field-value">台股，是損益表上的「每股盈餘」項目。<br />美股，是損益表上的「基本每股盈餘(由淨利計算)」項目。<br />提供單季與年度資料。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E8%82%A1%E7%87%9F%E6%A5%AD%E5%88%A9%E7%9B%8A%28%E5%85%83%29&amp;group=FFINANCE">每股營業利益(元)</a></td>
+                    <td class="field-value">財務比率表上的「每股營業利益(元)」欄位。<br />提供單季與年度資料。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%AF%8F%E8%82%A1%E7%87%9F%E6%A5%AD%E9%A1%8D%28%E5%85%83%29&amp;group=FFINANCE">每股營業額(元)</a></td>
+                    <td class="field-value">財務比率表上的「每股營業額(元)」欄位。<br />提供單季與年度資料。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%BE%86%E8%87%AA%E7%87%9F%E9%81%8B%E4%B9%8B%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F&amp;group=FFINANCE">來自營運之現金流量</a></td>
+                    <td class="field-value">現金流量表上的「來自營運之現金流量」欄位。<br />正值表示現金流入，負值表示現金流出。<br />提供單季與年度資料。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%B6%E4%BB%96%E6%94%B6%E5%85%A5&amp;group=FFINANCE">其他收入</a></td>
+                    <td class="field-value">「損益表」中「其他收入－其他」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%B6%E4%BB%96%E6%B5%81%E5%8B%95%E8%B2%A0%E5%82%B5&amp;group=FFINANCE">其他流動負債</a></td>
+                    <td class="field-value">「資產負債表」中「流動負債」的「其他流動負債」項目。<br />金融、壽險、產險股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%B6%E4%BB%96%E6%B5%81%E5%8B%95%E8%B3%87%E7%94%A2&amp;group=FFINANCE">其他流動資產</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項內的「其他流動資產」項目。<br />金融、壽險、產險股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%B6%E4%BB%96%E8%B3%87%E7%94%A2&amp;group=FFINANCE">其他資產</a></td>
+                    <td class="field-value">一般、證券股:「資產負債表」中的「其他非流動資產」項目。<br />金融、壽險、產險:「資產負債表」中的「其他資產」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%B6%E4%BB%96%E6%87%89%E4%BB%98%E6%AC%BE&amp;group=FFINANCE">其他應付款</a></td>
+                    <td class="field-value">「資產負債表」中負債項的「其他應付款」或「應付款項」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%B6%E4%BB%96%E6%87%89%E6%94%B6%E6%AC%BE&amp;group=FFINANCE">其他應收款</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項內的「其他應收款」項目。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%BA%E5%AE%9A%E8%B3%87%E7%94%A2&amp;group=FFINANCE">固定資產</a></td>
+                    <td class="field-value">台股:「資產負債表」中的「不動產及設備淨額」項目。<br />美股: 「資產負債表」中的「財產，機器及設備淨額」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%BA%E5%AE%9A%E8%B3%87%E7%94%A2%E6%88%90%E9%95%B7%E7%8E%87&amp;group=FFINANCE">固定資產成長率</a></td>
+                    <td class="field-value">固定資產，是資產負債表中非流動資產項下的"不動產廠房及設備"。<br />固定資產成長率，表示當期"不動產廠房及設備"較去年同期的成長幅度。<br />提供季度與年度資料。<br />單位為%，例如：固定資產成長率為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%BA%E5%AE%9A%E8%B3%87%E7%94%A2%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">固定資產報酬率</a></td>
+                    <td class="field-value">計算公式: 稅後淨利／固定資產*100%。<br />取單期財報數值來計算。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9B%BA%E5%AE%9A%E8%B3%87%E7%94%A2%E9%80%B1%E8%BD%89%E7%8E%87%28%E6%AC%A1%29&amp;group=FFINANCE">固定資產週轉率(次)</a></td>
+                    <td class="field-value">財務比率表上的「固定資產週轉次數」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%88%96%E6%9C%89%E8%B2%A0%E5%82%B5%E6%AF%94%E7%8E%87&amp;group=FFINANCE">或有負債比率</a></td>
+                    <td class="field-value">財務比率表上的「或有負債/淨值」欄位。<br />只提供年度資料。<br />單位為%，例如：或有負債比率為150%，則回傳150。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%89%80%E5%BE%97%E7%A8%85%E8%B2%BB%E7%94%A8&amp;group=FFINANCE">所得稅費用</a></td>
+                    <td class="field-value">「損益表」中「所得稅費用」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B3%95%E5%AE%9A%E7%9B%88%E9%A4%98%E5%85%AC%E7%A9%8D&amp;group=FFINANCE">法定盈餘公積</a></td>
+                    <td class="field-value">「資產負債表」股東權益項目中的「法定盈餘公積」。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%82%A1%E5%88%A9%E6%94%B6%E5%85%A5&amp;group=FFINANCE">股利收入</a></td>
+                    <td class="field-value">「損益表」中「股利收入」項目。<br />壽險、產險、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%82%A1%E6%9D%B1%E6%AC%8A%E7%9B%8A%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">股東權益報酬率</a></td>
+                    <td class="field-value">台股，是財務比率表的「ROE(A)─稅後」項目。<br />美股，是財務比率表上的「股東權益報酬率」項目。<br />提供單季與年度資料。<br />單位為%，例如：股東權益報酬率為30%，則回傳30。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%82%A1%E6%9D%B1%E6%AC%8A%E7%9B%8A%E7%B8%BD%E9%A1%8D&amp;group=FFINANCE">股東權益總額</a></td>
+                    <td class="field-value">「資產負債表」財務報表項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%82%A1%E5%83%B9%E8%87%AA%E7%94%B1%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F%E6%AF%94&amp;group=FFINANCE">股價自由現金流量比</a></td>
+                    <td class="field-value">計算公式: 股價 / 每股自由現金流量。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%95%B7%E6%9C%9F%E6%8A%95%E8%B3%87&amp;group=FFINANCE">長期投資</a></td>
+                    <td class="field-value">資產負債表的4項資料加總 <br />1.透過損益按公允價值衡量之金融資產－非流動 <br />2.透過其他綜合損益按公允價值衡量之金融資產－非流動 <br />3.按攤銷後成本衡量之金融資產－非流動 <br />4.採權益法之長期股權投資</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%95%B7%E6%9C%9F%E8%B2%A0%E5%82%B5&amp;group=FFINANCE">長期負債</a></td>
+                    <td class="field-value">台股:「資產負債表」中「非流動負債」項目。<br />美股:「資產負債表」中「非流動負債」項內「長期借款」項目。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%95%B7%E6%9C%9F%E8%B3%87%E9%87%91%E9%81%A9%E5%90%88%E7%8E%87&amp;group=FFINANCE">長期資金適合率</a></td>
+                    <td class="field-value">財務比率表上的「長期資金適合率」欄位。<br />提供單季與年度資料。<br />單位為%，例如：長期資金適合率為160%，則回傳160。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%95%B7%E7%9F%AD%E6%9C%9F%E8%B2%A0%E5%82%B5%E6%AF%94%E7%8E%87&amp;group=FFINANCE">長短期負債比率</a></td>
+                    <td class="field-value">計算公式: 流動負債／負債總額 *100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B5%81%E5%8B%95%E6%AF%94%E7%8E%87&amp;group=FFINANCE">流動比率</a></td>
+                    <td class="field-value">財務比率表上的「流動比率」欄位。<br />提供季度與年度資料。<br />單位為%，例如：流動比率為250%，則回傳250。<br />不提供此欄位的公司，輸出值會以零表示。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B5%81%E5%8B%95%E8%B2%A0%E5%82%B5&amp;group=FFINANCE">流動負債</a></td>
+                    <td class="field-value">「資產負債表」中「流動負債」項目。<br />台股中金融、壽險、產險股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B5%81%E5%8B%95%E8%B3%87%E7%94%A2&amp;group=FFINANCE">流動資產</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項目。<br />台股中金融、壽險、產險股不適用此欄位。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9B%88%E9%A4%98%E6%88%90%E9%95%B7%E4%BF%82%E6%95%B8&amp;group=FFINANCE">盈餘成長係數</a></td>
+                    <td class="field-value">計算公式: 本益比 / 盈餘成長率 *100%，其中盈餘成長率 = (1-股利合計/EPS) * ROE。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9B%88%E9%A4%98%E6%AE%96%E5%88%A9%E7%8E%87&amp;group=FFINANCE">盈餘殖利率</a></td>
+                    <td class="field-value">計算公式: 稅前息前淨利 / (總市值+負債總額)*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9B%88%E9%A4%98%E7%87%9F%E6%94%B6%E6%88%90%E9%95%B7%E7%8E%87%E6%AF%94&amp;group=FFINANCE">盈餘營收成長率比</a></td>
+                    <td class="field-value">計算公式: 本期稅後淨利年成長率 / 營業收入淨額年成長率 *100%<br />提供單季與年度資料。<br />單位為%，例如：欄位數值為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A0%94%E7%99%BC%E8%B2%BB%E7%94%A8&amp;group=FFINANCE">研發費用</a></td>
+                    <td class="field-value">「損益表」中「研究發展費」項目。<br />金融、壽險、產險、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A0%94%E7%99%BC%E8%B2%BB%E7%94%A8%E7%8E%87&amp;group=FFINANCE">研發費用率</a></td>
+                    <td class="field-value">財務比率表上的「研究發展費用率」欄位。<br />提供單季與年度資料。<br />單位為%，例如：研發費用率為15%，則回傳15。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%83%8C%E6%9B%B8%E4%BF%9D%E8%AD%89%E4%BD%94%E6%B7%A8%E5%80%BC%E6%AF%94&amp;group=FFINANCE">背書保證佔淨值比</a></td>
+                    <td class="field-value">計算公式：背書保證餘額／股東權證總額*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%83%8C%E6%9B%B8%E4%BF%9D%E8%AD%89%E9%A4%98%E9%A1%8D&amp;group=FFINANCE">背書保證餘額</a></td>
+                    <td class="field-value">背書保證累計餘額。<br />資料來源為公開資訊觀測站。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B2%A0%E5%82%B5%E5%8F%8A%E8%82%A1%E6%9D%B1%E6%AC%8A%E7%9B%8A%E7%B8%BD%E9%A1%8D&amp;group=FFINANCE">負債及股東權益總額</a></td>
+                    <td class="field-value">「資產負債表」財務報表項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B2%A0%E5%82%B5%E6%AF%94%E7%8E%87&amp;group=FFINANCE">負債比率</a></td>
+                    <td class="field-value">財務比率表上的「負債比率」欄位。<br />提供季度與年度資料。<br />單位為%，例如：負債比率為30%，則回傳30。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B2%A0%E5%82%B5%E5%B0%8D%E6%B7%A8%E5%80%BC%E6%AF%94%E7%8E%87&amp;group=FFINANCE">負債對淨值比率</a></td>
+                    <td class="field-value">財務比率表上的「總負債/總淨值」欄位。<br />提供季度與年度資料。<br />單位為％，例如：負債對淨值比率為60%，則回傳60。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B2%A0%E5%82%B5%E7%B8%BD%E9%A1%8D&amp;group=FFINANCE">負債總額</a></td>
+                    <td class="field-value">「資產負債表」財務報表項目。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%80%9F%E6%AC%BE%E4%BE%9D%E5%AD%98%E5%BA%A6&amp;group=FFINANCE">借款依存度</a></td>
+                    <td class="field-value">財務比率表上的「借款依存度」欄位。<br />提供單季與年度資料。<br />單位為%，例如：借款依存度為150%，則回傳150。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%93%A1%E5%B7%A5%E5%B9%B3%E5%9D%87%E7%87%9F%E6%A5%AD%E9%A1%8D%28%E5%8D%83%E5%85%83%29&amp;group=FFINANCE">員工平均營業額(千元)</a></td>
+                    <td class="field-value">財務比率表內的「每人營收」欄位。<br />計算公式  : 營業收入／平均員工人數</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%BA%AB%E8%97%8F%E8%82%A1%E7%A5%A8%E5%B8%B3%E9%9D%A2%E5%80%BC&amp;group=FFINANCE">庫藏股票帳面值</a></td>
+                    <td class="field-value">「資產負債表」股東權益項目中的「庫藏股票帳面值」。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%89%B9%E5%88%A5%E8%82%A1%E8%82%A1%E6%9C%AC&amp;group=FFINANCE">特別股股本</a></td>
+                    <td class="field-value">「資產負債表」股東權益項目中的「特別股股本」。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%89%B9%E5%88%A5%E7%9B%88%E9%A4%98%E5%85%AC%E7%A9%8D&amp;group=FFINANCE">特別盈餘公積</a></td>
+                    <td class="field-value">「資產負債表」股東權益項目中的「特別盈餘公積」。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%80%80%E4%BC%91%E9%87%91%E6%BA%96%E5%82%99&amp;group=FFINANCE">退休金準備</a></td>
+                    <td class="field-value">「資產負債表」中「應計退休金負債」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%81%9C%E6%A5%AD%E9%83%A8%E9%96%80%E6%90%8D%E7%9B%8A&amp;group=FFINANCE">停業部門損益</a></td>
+                    <td class="field-value">「損益表」中「停業單位損益」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%B8%B8%E7%BA%8C%E6%80%A7%E5%88%A9%E7%9B%8A%28%E7%A8%85%E5%BE%8C%29&amp;group=FFINANCE">常續性利益(稅後)</a></td>
+                    <td class="field-value">「損益表」中「常續性稅後淨利」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8E%A8%E9%8A%B7%E8%B2%BB%E7%94%A8&amp;group=FFINANCE">推銷費用</a></td>
+                    <td class="field-value">「損益表」中「推銷費用」項目。<br />金融、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B7%A8%E5%80%BC%E6%88%90%E9%95%B7%E7%8E%87&amp;group=FFINANCE">淨值成長率</a></td>
+                    <td class="field-value">財務比率表上的「淨值成長率」欄位。表示當期股東權益總額較去年同期股東權益總額的成長幅度。<br />提供季度與年度資料。<br />單位為%，例如：淨值成長率為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B7%A8%E5%80%BC%E8%87%AA%E7%94%B1%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F%E6%AF%94&amp;group=FFINANCE">淨值自由現金流量比</a></td>
+                    <td class="field-value">計算公式: 股東權益總額 / 自由現金流量*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B7%A8%E5%80%BC%E9%80%B1%E8%BD%89%E7%8E%87&amp;group=FFINANCE">淨值週轉率</a></td>
+                    <td class="field-value">財務比率表上的「淨值週轉率(次)」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B7%A8%E7%87%9F%E6%A5%AD%E9%80%B1%E6%9C%9F&amp;group=FFINANCE">淨營業週期</a></td>
+                    <td class="field-value">財務比率表上的"淨營業週期(日)"欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%90%86%E8%B2%A1%E6%B4%BB%E5%8B%95%E4%B9%8B%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F&amp;group=FFINANCE">理財活動之現金流量</a></td>
+                    <td class="field-value">現金流量表上的「籌資活動之現金流量」欄位。<br />正值表示現金流入，負值表示現金流出。<br />提供單季與年度資料。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E9%87%91%E5%8F%8A%E7%B4%84%E7%95%B6%E7%8F%BE%E9%87%91&amp;group=FFINANCE">現金及約當現金</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項內的「現金及約當現金」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E9%87%91%E5%86%8D%E6%8A%95%E8%B3%87%EF%BC%85&amp;group=FFINANCE">現金再投資％</a></td>
+                    <td class="field-value">財務比率表上的"現金再投資%"欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F%E5%85%81%E7%95%B6%EF%BC%85&amp;group=FFINANCE">現金流量允當％</a></td>
+                    <td class="field-value">計算公式 : 最近5年度來自營運之現金流量/ 最近5年度(長期投資(新增)+固定資產(購置)+存貨(增)減+支付現金股利) *100%。<br />只提供年度頻率資料。<br />單位為%，例如：欄位數值105%，則回傳105。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F%E6%AF%94%E7%8E%87&amp;group=FFINANCE">現金流量比率</a></td>
+                    <td class="field-value">財務比率表上的「現金流量比率」欄位。<br />提供單季與年度資料。<br />例如：現金流量比率為30%，單位為%，則回傳30。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E9%87%91%E6%B4%BE%E6%81%AF%E6%AF%94%E7%8E%87&amp;group=FFINANCE">現金派息比率</a></td>
+                    <td class="field-value">計算公式: 現金股利 / 每股盈餘*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%99%95%E5%88%86%E6%8A%95%E8%B3%87%E5%88%A9%E5%BE%97&amp;group=FFINANCE">處分投資利得</a></td>
+                    <td class="field-value">「損益表」中「處分投資利益」項目。<br />金融、壽險、產險、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%99%95%E5%88%86%E6%8A%95%E8%B3%87%E6%90%8D%E5%A4%B1&amp;group=FFINANCE">處分投資損失</a></td>
+                    <td class="field-value">「損益表」中「處分投資損失」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%99%95%E5%88%86%E8%B3%87%E7%94%A2%E5%88%A9%E5%BE%97&amp;group=FFINANCE">處分資產利得</a></td>
+                    <td class="field-value">「損益表」中「處分不動產、廠房及設備利益」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%99%95%E5%88%86%E8%B3%87%E7%94%A2%E6%90%8D%E5%A4%B1&amp;group=FFINANCE">處分資產損失</a></td>
+                    <td class="field-value">「損益表」中「處分不動產、廠房及設備損失」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%80%9F%E5%8B%95%E6%AF%94%E7%8E%87&amp;group=FFINANCE">速動比率</a></td>
+                    <td class="field-value">財務比率表上的「速動比率」欄位。<br />提供季度與年度資料。<br />單位為%，例如：速動比率為150%，則回傳150。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%99%AE%E9%80%9A%E8%82%A1%E8%82%A1%E6%9C%AC&amp;group=FFINANCE">普通股股本</a></td>
+                    <td class="field-value">台股:「資產負債表」股東權益項目中的「普通股股本」。<br />美股:「資產負債表」股東權益項目中的「普通股股東權益」。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%84%A1%E5%BD%A2%E8%B3%87%E7%94%A2&amp;group=FFINANCE">無形資產</a></td>
+                    <td class="field-value">台股:「資產負債表」中「非流動資產」項內「其他無形資產淨額」項目。<br />美股:「資產負債表」中「非流動資產」項內「商譽與無形資產淨額」項目。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9F%AD%E6%9C%9F%E6%8A%95%E8%B3%87&amp;group=FFINANCE">短期投資</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項內的「"透過損益按公允價值衡量之金融資產－流動" + "透過其他綜合損益按公允價值衡量之金融資產－流動" + "按攤銷後成本衡量之金融資產－流動"」三個項目加總。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9F%AD%E6%9C%9F%E5%80%9F%E6%94%AF&amp;group=FFINANCE">短期借支</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項內的「資金貸予他人－流動」項目。<br />金融、壽險、產險、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9F%AD%E6%9C%9F%E5%80%9F%E6%AC%BE&amp;group=FFINANCE">短期借款</a></td>
+                    <td class="field-value">「資產負債表」中「流動負債」項內「短期借款」項目。<br />金融、壽險、產險股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A8%85%E5%89%8D%E6%81%AF%E5%89%8D%E6%8A%98%E8%88%8A%E5%89%8D%E6%B7%A8%E5%88%A9&amp;group=FFINANCE">稅前息前折舊前淨利</a></td>
+                    <td class="field-value">「損益表」中「稅前息前折舊前淨利」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A8%85%E5%89%8D%E6%81%AF%E5%89%8D%E6%B7%A8%E5%88%A9&amp;group=FFINANCE">稅前息前淨利</a></td>
+                    <td class="field-value">「損益表」中「稅前息前淨利」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A8%85%E5%89%8D%E6%B7%A8%E5%88%A9&amp;group=FFINANCE">稅前淨利</a></td>
+                    <td class="field-value">「損益表」中「稅前淨利」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A8%85%E5%89%8D%E6%B7%A8%E5%88%A9%E6%88%90%E9%95%B7%E7%8E%87&amp;group=FFINANCE">稅前淨利成長率</a></td>
+                    <td class="field-value">財務比率表上的「稅前淨利成長率」欄位。表示當期稅前淨利較去年同期稅前淨利的成長幅度。<br />提供單季與年度資料。<br />單位為%，例如：稅前淨利成長率為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A8%85%E5%89%8D%E6%B7%A8%E5%88%A9%E7%8E%87&amp;group=FFINANCE">稅前淨利率</a></td>
+                    <td class="field-value">財務比率表上的「稅前淨利率」欄位。<br />提供單季與年度資料。<br />單位為%，例如：稅前淨利率為30%，則回傳30。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A8%85%E5%BE%8C%E6%B7%A8%E5%88%A9%E6%88%90%E9%95%B7%E7%8E%87&amp;group=FFINANCE">稅後淨利成長率</a></td>
+                    <td class="field-value">財務比率表上的「稅後淨利成長率」欄位。表示當期稅後淨利較去年同期稅後淨利的成長幅度。<br />提供單季與年度資料。<br />單位為%，例如：稅後淨利成長率為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A8%85%E5%BE%8C%E6%B7%A8%E5%88%A9%E7%8E%87&amp;group=FFINANCE">稅後淨利率</a></td>
+                    <td class="field-value">財務比率表上的「稅後淨利率」欄位。<br />提供單季與年度資料。<br />單位為%，例如：稅後淨利率為30%，則回傳30。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%A8%80%E9%87%8B%E5%BE%8C%E6%AF%8F%E8%82%A1%E6%B7%A8%E5%88%A9&amp;group=FFINANCE">稀釋後每股淨利</a></td>
+                    <td class="field-value">損益表的"稀釋後每股盈餘"項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%95%B6%E6%9C%9F%E8%B2%A1%E5%A0%B1%E6%88%AA%E6%AD%A2%E6%97%A5&amp;group=FFINANCE">當期財報截止日</a></td>
+                    <td class="field-value">回傳每個公司的財報截止日，格式為YYYYMMDD.<br />美股股票才支援此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%B6%93%E5%B8%B8%E5%88%A9%E7%9B%8A&amp;group=FFINANCE">經常利益</a></td>
+                    <td class="field-value">「損益表」中「繼續營業單位損益」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%AA%A0%E4%BF%A1%E6%8C%87%E6%A8%99&amp;group=FFINANCE">誠信指標</a></td>
+                    <td class="field-value"></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%87%E6%9C%AC%E5%85%AC%E7%A9%8D&amp;group=FFINANCE">資本公積</a></td>
+                    <td class="field-value">「資產負債表」股東權益項目中的「資本公積合計」。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%87%E6%9C%AC%E6%94%AF%E5%87%BA%E9%87%91%E9%A1%8D&amp;group=FFINANCE">資本支出金額</a></td>
+                    <td class="field-value">現金流量表內的"購置不動產廠房設備（含預付）－CFI"項目。現金流量表以負值表示支出。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%87%E6%9C%AC%E6%94%AF%E5%87%BA%E7%87%9F%E6%94%B6%E6%AF%94&amp;group=FFINANCE">資本支出營收比</a></td>
+                    <td class="field-value">計算公式 : 現金流量表中 購置不動產廠房設備（含預付）/營業收入淨額*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%87%E9%87%91%E8%B2%B8%E6%94%BE%E4%BD%94%E6%B7%A8%E5%80%BC%E6%AF%94&amp;group=FFINANCE">資金貸放佔淨值比</a></td>
+                    <td class="field-value">計算公式：資金貸放餘額／股東權證總額*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%87%E9%87%91%E8%B2%B8%E6%94%BE%E9%A4%98%E9%A1%8D&amp;group=FFINANCE">資金貸放餘額</a></td>
+                    <td class="field-value">資金貸放餘額。<br />資料來源為公開資訊觀測站。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%87%E7%94%A2%E5%A0%B1%E9%85%AC%E7%8E%87&amp;group=FFINANCE">資產報酬率</a></td>
+                    <td class="field-value">台股，是財務比率表的「ROA(A)稅後息前」項目。<br />美股，是財務比率表上的「資產報酬率」項目。<br />提供單季與年度資料。<br />單位為%，例如：資產報酬率為30%，則回傳30。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%87%E7%94%A2%E7%B8%BD%E9%A1%8D&amp;group=FFINANCE">資產總額</a></td>
+                    <td class="field-value">「資產負債表」財務報表項目。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%A0%90%E4%BB%98%E8%B2%BB%E7%94%A8%E5%8F%8A%E9%A0%90%E4%BB%98%E6%AC%BE&amp;group=FFINANCE">預付費用及預付款</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項內的「預付費用及預付款」項目。<br />金融股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%A0%90%E6%94%B6%E8%82%A1%E6%AC%BE&amp;group=FFINANCE">預收股款</a></td>
+                    <td class="field-value">「資產負債表」股東權益項目中的「預收股款」。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%A0%90%E6%94%B6%E6%AC%BE%E9%A0%85&amp;group=FFINANCE">預收款項</a></td>
+                    <td class="field-value">「資產負債表」中「預收款項」項目。<br />金融股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%AE%A1%E7%90%86%2B%E9%8A%B7%E5%94%AE%E8%B2%BB%E7%94%A8%EF%BC%8F%E7%87%9F%E6%94%B6&amp;group=FFINANCE">管理+銷售費用／營收</a></td>
+                    <td class="field-value">計算公式 : (營業費用的推銷費用 + 管理費用) / 營業收入淨額*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%AE%A1%E7%90%86%E8%B2%BB%E7%94%A8&amp;group=FFINANCE">管理費用</a></td>
+                    <td class="field-value">「損益表」中「管理費用」項目。<br />金融、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%AE%A1%E7%90%86%E8%B2%BB%E7%94%A8%EF%BC%8F%E5%AD%A3%E7%87%9F%E6%94%B6&amp;group=FFINANCE">管理費用／季營收</a></td>
+                    <td class="field-value">計算公式: 營業費用的管理費用/營業收入淨額*100%。<br />提供單季與年度資料。<br />單位為%，例如：欄位數值5%，則回傳5。不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%81%9E%E5%BB%B6%E6%89%80%E5%BE%97%E7%A8%85&amp;group=FFINANCE">遞延所得稅</a></td>
+                    <td class="field-value">「資產負債表」中「遞延所得稅負債」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%81%9E%E5%BB%B6%E8%B2%B8%E9%A0%85&amp;group=FFINANCE">遞延貸項</a></td>
+                    <td class="field-value">「資產負債表」中「遞延貸項」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%81%9E%E5%BB%B6%E8%B3%87%E7%94%A2&amp;group=FFINANCE">遞延資產</a></td>
+                    <td class="field-value">「資產負債表」中「非流動資產」項內的「遞延資產合計」項目。<br />金融、壽險、產險、證券股不適用此欄位。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%8A%B7%E5%94%AE%E8%B2%BB%E7%94%A8%E6%AF%94&amp;group=FFINANCE">銷售費用比</a></td>
+                    <td class="field-value">計算公式: 銷售費用/營業成本<br />提供單季與年度資料。<br />單位為%，例如：欄位數值5%，則回傳5。不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%87%89%E4%BB%98%E5%95%86%E6%A5%AD%E6%9C%AC%E7%A5%A8&amp;group=FFINANCE">應付商業本票</a></td>
+                    <td class="field-value">「資產負債表」中「流動負債」項內「應付商業本票∕承兌匯票」項目。<br />金融、壽險、產險股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%87%89%E4%BB%98%E5%B8%B3%E6%AC%BE%E5%8F%8A%E7%A5%A8%E6%93%9A&amp;group=FFINANCE">應付帳款及票據</a></td>
+                    <td class="field-value">「資產負債表」中「應付帳款及票據」項目。<br />金融股不適用此欄位。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%87%89%E4%BB%98%E5%B8%B3%E6%AC%BE%E4%BB%98%E7%8F%BE%E5%A4%A9%E6%95%B8&amp;group=FFINANCE">應付帳款付現天數</a></td>
+                    <td class="field-value">財務比率表上的「應付帳款付現天數」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%87%89%E6%94%B6%E5%B8%B3%E6%AC%BE%E5%8F%8A%E7%A5%A8%E6%93%9A&amp;group=FFINANCE">應收帳款及票據</a></td>
+                    <td class="field-value">「資產負債表」中「流動資產」項內的「應收帳款及票據」項目。<br />銀行與金控股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%87%89%E6%94%B6%E5%B8%B3%E6%AC%BE%E9%80%B1%E8%BD%89%E6%AC%A1%E6%95%B8&amp;group=FFINANCE">應收帳款週轉次數</a></td>
+                    <td class="field-value">財務比率表上的"應收帳款週轉次"欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%87%89%E6%94%B6%E5%B8%B3%E6%AC%BE%E9%80%B1%E8%BD%89%E7%8E%87%28%E6%AC%A1%29&amp;group=FFINANCE">應收帳款週轉率(次)</a></td>
+                    <td class="field-value">財務比率表上的「應收帳款週轉次」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%94%B6%E6%88%90%E9%95%B7%E7%8E%87&amp;group=FFINANCE">營收成長率</a></td>
+                    <td class="field-value">財務比率表上的「營收成長率」欄位。表示當期營收較去年同期營收的成長幅度。<br />提供單季與年度資料。<br />單位為%，例如：營收成長率為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E6%AF%9B%E5%88%A9&amp;group=FFINANCE">營業毛利</a></td>
+                    <td class="field-value">「損益表」中「營業毛利」項目。<br />台股中金融、證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E6%AF%9B%E5%88%A9%E7%8E%87&amp;group=FFINANCE">營業毛利率</a></td>
+                    <td class="field-value">財務比率表上的「營業毛利率」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。<br />單位是％，例如：營業毛利率為30%，則回傳30。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E5%A4%96%E6%94%B6%E5%85%A5%E5%8F%8A%E6%94%AF%E5%87%BA&amp;group=FFINANCE">營業外收入及支出</a></td>
+                    <td class="field-value">「綜合損益表」財務報表項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E5%A4%96%E6%94%B6%E5%85%A5%E5%90%88%E8%A8%88&amp;group=FFINANCE">營業外收入合計</a></td>
+                    <td class="field-value">「損益表」中「其他收入」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E6%88%90%E6%9C%AC&amp;group=FFINANCE">營業成本</a></td>
+                    <td class="field-value">「損益表」財務報表項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E6%94%B6%E5%85%A5%E6%B7%A8%E9%A1%8D&amp;group=FFINANCE">營業收入淨額</a></td>
+                    <td class="field-value">「損益表」財務報表項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E5%88%A9%E7%9B%8A&amp;group=FFINANCE">營業利益</a></td>
+                    <td class="field-value">「損益表」中「營業利益」項目。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E5%88%A9%E7%9B%8A%E6%88%90%E9%95%B7%E7%8E%87&amp;group=FFINANCE">營業利益成長率</a></td>
+                    <td class="field-value">財務比率表上的「營業利益成長率」欄位。表示當期營業利益較去年同期營業利益的成長幅度。<br />提供單季與年度資料。<br />單位為%，例如：營業利益成長率為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E5%88%A9%E7%9B%8A%E7%8E%87&amp;group=FFINANCE">營業利益率</a></td>
+                    <td class="field-value">財務比率表上的「營業利益率」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。<br />單位為%，例如：營業利益率為30%，則回傳30。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E7%8F%BE%E9%87%91%E6%B5%81%E9%87%8F%EF%BC%8F%E7%87%9F%E6%A5%AD%E5%88%A9%E7%9B%8A&amp;group=FFINANCE">營業現金流量／營業利益</a></td>
+                    <td class="field-value">計算公式: 營業現金流量／營業利益*100%。<br />提供單季與年度資料。<br />單位為%，例如：數值為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E8%B2%BB%E7%94%A8&amp;group=FFINANCE">營業費用</a></td>
+                    <td class="field-value">「損益表」中「營業費用」項目。<br />證券股不適用此欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E6%A5%AD%E8%B2%BB%E7%94%A8%E7%8E%87&amp;group=FFINANCE">營業費用率</a></td>
+                    <td class="field-value">財務比率表上的「營業費用率」欄位。<br />提供單季與年度資料。<br />單位為%，例如：營業費用率為15%，則回傳15。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%87%9F%E9%81%8B%E8%B3%87%E9%87%91&amp;group=FFINANCE">營運資金</a></td>
+                    <td class="field-value">計算公式  : 流動資產 - 流動負債</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%B8%BD%E6%B5%81%E9%80%9A%E5%9C%A8%E5%A4%96%E8%82%A1%E6%95%B8&amp;group=FFINANCE">總流通在外股數</a></td>
+                    <td class="field-value">「資產負債表」中「流通在外股數」項目。<br />美股股票才適用本欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%B8%BD%E8%B3%87%E7%94%A2%E6%88%90%E9%95%B7%E7%8E%87&amp;group=FFINANCE">總資產成長率</a></td>
+                    <td class="field-value">財務比率表上的「總資產成長率」欄位。表示當期資產總額較去年同期資產總額的成長幅度。<br />提供季度與年度資料。<br />單位為%，例如：總資產成長率為25%，則回傳25。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%B8%BD%E8%B3%87%E7%94%A2%E9%80%B1%E8%BD%89%E7%8E%87%28%E6%AC%A1%29&amp;group=FFINANCE">總資產週轉率(次)</a></td>
+                    <td class="field-value">財務比率表上的「總資產週轉次數」欄位。<br />提供單季與年度資料。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%81%AF%E5%B1%AC%E5%85%AC%E5%8F%B8%E9%96%93%E6%9C%AA%E5%AF%A6%E7%8F%BE%E9%8A%B7%E8%B2%A8&amp;group=FFINANCE">聯屬公司間未實現銷貨</a></td>
+                    <td class="field-value">「損益表」中「聯屬公司已（未）實現銷貨利益」項目。<br />不提供此欄位的公司，輸出值會以零表示。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+    <center>
+        <div class="footer">
+            <div class="footer_div">
+                <div class="flogo">
+                    <img src="/XSHelp/Content/Images/png-00-header-xqlite-180-60.png">
+                </div>
+                <div class="ftext">
+                    客服電話：0800-006-098 客服信箱：<a href="mailto:XQservice@XQ.com.tw">XQservice@XQ.com.tw</a><br>
+                    最佳瀏覽模式：解析度1024*768以上；瀏覽器建議使用 IE9.0以上。<br>
+                    本站內容僅供參考，本公司不負任何法律責任，投資人若依此以為買賣依據，須自負盈虧之責。<br>
+                    版權所有嘉實資訊股份有限公司，未經合法授權請勿翻載。 與本網站有關一切糾紛與法律問題，<br>均依中華民國相關法令解釋及適用之。<br>
+                </div>
+            </div>
+        </div>
+    </center>
+</footer>
+
+    <script type="text/javascript">
+        $(function () {
+            var deheight = document.documentElement.clientHeight;
+            var dheight = document.body.clientHeight;
+            if (deheight > dheight)
+                $('#help-main').css('min-height', deheight - 237);
+            else
+                $('#help-main').css('min-height', dheight - 237);
+        });
+    </script>
+</body>
+</html>

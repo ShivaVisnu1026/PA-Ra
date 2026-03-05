@@ -1,0 +1,1 @@
+Market函數用來取得目前商品的市價，並搭配SetPosition的語法送單。

@@ -1,0 +1,747 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async=async src="https://www.googletagmanager.com/gtag/js?id=GTM-NHPFZR5F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'GTM-NHPFZR5F');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta property="og:type" Content="website" />
+    <meta property="og:site_name" Content="XS語法" />
+    <meta property="og:image" content="https://xshelp.xq.com.tw/XSHelp/Content/Images/png-07-xs-155-90.png" />
+    <meta property="og:title" Content="系統函數 - 技術指標 - XS語法" />
+    <meta property="og:description" Content="系統函數 - 技術指標" />
+    <link href="/XSHelp/Content/Images/favicon.ico" rel="icon" type="image/ico" />
+    <link href="/XSHelp/Content/css?v=MmAetLgQWTpj53h5C1K54227FFaG9xOGVb-qgk1DRGE1" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        // todo: js 參數替換
+        gConfig = {
+            site_path: "/XSHelp/",
+            site_url: "http://xshelp.xq.com.tw/",
+            djsite_url: "http://jv-testweb/",
+            url_suffix: "",
+            runat_asp: "1",
+            d: ""
+        };
+    </script>
+    <script src="/XSHelp/bundles/jquery?v=14H8EzIR27VT10jKdQjUdjivbIr5qhF08VKu4RwT7rI1"></script>
+
+</head>
+<body>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WMXRLD"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WMXRLD');</script>
+    <!-- End Google Tag Manager -->
+    <div id="container" class="clearfix">
+        <div id="help-main">
+            <div class="menu_side">
+                <div class="xq_logo">
+                    <a href="https://www.xq.com.tw/">
+                        <img src="/XSHelp/Content/Images/png-xsh-180-60.png" />
+                    </a>
+                </div>
+                <div class="help_logo">
+                    <img src="/XSHelp/Content/Images/png-07-xs-155-90.png" />
+                </div>
+                <script type="text/javascript" src="/XSHelp/Scripts/util.string.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/jmoneyui.autolist.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onPos.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onRange.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/XSHelp/Content/jmoneyui.autolist.css" type="text/css" />
+
+<div class="search">
+    <input type="text" class="inputarea default" value="函數、關鍵字或欄位" />
+    <button class="inputSearch"></button>
+</div>
+<script type="text/javascript">
+    (function () {
+        var cookie_key = 'search_record';
+        $('.inputarea').autolist({
+            source: function (req, res) {
+                $.getJSON($.xshelp.genDJPath(gConfig['site_path'] + 'rest', { a: encodeURIComponent(req.term) }), null, function (data) {
+                    var x = $.map(data, function (val, i) {
+                        return {
+                            label: cText(val),
+                            value: $.xshelp.genDJPath(gConfig['site_path'] + 'index', { HelpName: encodeURIComponent(val['name']), group: val['Description'] })
+                        };
+                    });
+                    res(x);
+                });
+            },
+            select: function (event, ui) {
+                var val = $(this).val();
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(val) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = ui.item.value;
+            },
+            directEnter: function (event, ui) {
+                var keyword = $(this).val();
+                if (typeof keyword == 'string' && keyword != '') {
+                    var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                    $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                    window.location = url;
+                }
+            },
+            dataMax: 50
+        });
+
+        $('.inputSearch').click(function () {
+            var keyword = $('.inputarea').val();
+            if (typeof keyword == 'string' && keyword != '') {
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = url;
+            }
+        });
+
+        function cText(obj) {
+            if (/^1/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^(2|3)/.test(obj['categoryid'])) {
+                //                var str = (obj['ename'])? obj['ename'] : obj['abbrev'];
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^4/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+        }
+    })();
+
+</script>
+                <div id="cssmenu">
+    <ul>
+        <li>
+            <a href="javascript:void(0);"><span>檢視紀錄</span></a>
+            <ul></ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>關鍵字</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=SKIPWORD">忽略字</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=CONSTANT">常數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=CONTROLFLOW">流程控制</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=DECLARATION">宣告</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>內建函數</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=GENERALFUNC">一般函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TIMEFUNC">時間函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=DATEFUNC">日期函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STRINGFUNC">字串函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=NUMBERFUNC">數學函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FIELDFUNC">欄位函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYFUNC">陣列函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TRANSACTIONFUNC">交易函數</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>系統函數</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICEGETFUNC">價格取得</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=PRICECULFUNC">價格計算</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICERELFUNC">價格關係</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TECHINDEXFUNC">技術指標</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=DATERELFUNC">日期相關</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRANSACTIONRELFUNC">交易相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STATSFUNC">統計分析</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRENDFUNC">趨勢分析</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=LOGICFUNC">邏輯判斷</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FUTUREFUNC">期權相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FREQUENCYFUNC">跨頻率</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYSYSFUNC">Array函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=VOLUMERELFUNC">量能相關</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>報價欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QOPTION">期權</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QFIVE">五檔統計</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>資料欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TBASIC">基本</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TEVENT">事件</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TOPTION">期權</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>選股欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FBASIC">基本</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=FEVENT">事件</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="javascript:void(0);" class="search_record"><span>搜尋記錄</span></a></li>
+        <li class="last">
+            <a href="https://github.com/sysjust-xq/XScript_Preset" target="_blank">
+                <span title="系統腳本的程式碼集">GitHub</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="/XSHelp/Scripts/menu-jquery.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    (function () {
+        var obj = $.cookie('search_record');
+        if (obj != null && typeof obj == 'string' && obj) {
+            $('.search_record').attr('href', obj);
+        }
+
+        var list = $.cookie($.xshelp.ViewRecookieName);
+        var ary = [];
+        if (list != null) {
+            ary = list.split(",");
+        }
+        ary = $.map(ary, function (n, i) {
+            var item = n.split('*');
+            return { link: $.xshelp.genDJPath('index', { HelpName: encodeURIComponent(item[0]), group: item[1] }), name: item[0] };
+        });
+
+        if (ary.length > 0) {
+            var str = '';
+            $.each(ary, function (i, o) {
+                str += '<li title="' + o['name'] + '"><a href="' + o['link'] + '"><span>' + o['name'] + '</span></a></li>';
+            });
+            $('#cssmenu > ul > li:first').addClass('has-sub').children('ul').append(str);
+        }
+    })();
+</script>
+
+            </div>
+            <div class="result">
+                <div class="content-txt">
+                    
+<div class="content-txt">
+    <h2>系統函數&nbsp;-&nbsp;技術指標</h2>
+    <hr />
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="field-head nowrap">函數名稱</th>
+                <th class="field-head nowrap">函數中文名稱</th>
+                <th class="field-head nowrap">語法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=ACC&amp;group=TECHINDEXFUNC">ACC</a>
+                </td>
+                <td class="field-value">加速量指標</td>
+                <td class="field-value">ACC加速量指標(Acceleration)。用來觀察行情價格變化的加速度幅度。<br />回傳數值=ACC(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=ADI&amp;group=TECHINDEXFUNC">ADI</a>
+                </td>
+                <td class="field-value">累積分配指標</td>
+                <td class="field-value">計算累積分配指標值。<br />回傳數值=ADI</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=ADO&amp;group=TECHINDEXFUNC">ADO</a>
+                </td>
+                <td class="field-value">聚散擺盪指標</td>
+                <td class="field-value">計算聚散擺盪指標值。<br />回傳數值=ADO</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=AR&amp;group=TECHINDEXFUNC">AR</a>
+                </td>
+                <td class="field-value">買賣氣勢強度指標</td>
+                <td class="field-value">計算人氣指標值，買賣氣勢強度的測試指標，觀察開盤後對股價的現實反應。<br />回傳數值=AR(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=ATR&amp;group=TECHINDEXFUNC">ATR</a>
+                </td>
+                <td class="field-value">平均真實區間</td>
+                <td class="field-value">計算平均真實區間指標值。<br />回傳數值=ATR(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=Bias&amp;group=TECHINDEXFUNC">Bias</a>
+                </td>
+                <td class="field-value">乖離率</td>
+                <td class="field-value">計算一段時間內的收盤價與均線的乖離程度。<br />回傳數值=Bias(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=BiasDiff&amp;group=TECHINDEXFUNC">BiasDiff</a>
+                </td>
+                <td class="field-value">乖離率差</td>
+                <td class="field-value">計算長短期乖離率的差值。<br />回傳數值=BiasDiff(短期期數,長期期數)<br />傳入二個參數:<br />- 第一個參數是較短的期數。<br />- 第二個參數是較長的期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=BollingerBand&amp;group=TECHINDEXFUNC">BollingerBand</a>
+                </td>
+                <td class="field-value">布林通道</td>
+                <td class="field-value">計算包寧傑通道線。<br />回傳數值=BollingerBand(數列,期數,標準差倍數)<br />傳入三個參數:<br />- 第一個參數是數列，通常是開高低收的價格數列。<br />- 第二個參數是計算均線的期數。<br />- 第三個參數是決定通道寬度的標準差倍數，輸入正值時為計算上通道，輸入負值時為計算下通道。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=BR&amp;group=TECHINDEXFUNC">BR</a>
+                </td>
+                <td class="field-value">買賣願指標</td>
+                <td class="field-value">計算意願指標值，用來觀察開盤前對股價的預期心理。<br />回傳數值=BR(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=CCI&amp;group=TECHINDEXFUNC">CCI</a>
+                </td>
+                <td class="field-value">商品通道指標</td>
+                <td class="field-value">計算CCI技術指標值。<br />回傳數值=CCI(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=CommodityChannel&amp;group=TECHINDEXFUNC">CommodityChannel</a>
+                </td>
+                <td class="field-value">CCI指標</td>
+                <td class="field-value">計算CCI技術指標值。<br />回傳數值=CommodityChannel(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=D_Value&amp;group=TECHINDEXFUNC">D_Value</a>
+                </td>
+                <td class="field-value">隨機指標慢速平均值</td>
+                <td class="field-value">計算KD指標中的D值。<br />回傳數值=D_Value(資料期數,D值平滑期數)<br />傳入二個參數:<br />- 第一個參數是資料期數，指定計算的區間長度。<br />- 第二個參數是D值平滑期數，指定計算D值所用的平滑期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=DIF&amp;group=TECHINDEXFUNC">DIF</a>
+                </td>
+                <td class="field-value">移動平均線差離值</td>
+                <td class="field-value">計算MACD中的DIF值。<br />回傳數值=DIF(短期數,長期數)<br />傳入二個參數:<br />- 第一個參數是計算快速線（短期）的期數。<br />- 第二個參數是計算慢速線（長期）的期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=DirectionMovement&amp;group=TECHINDEXFUNC">DirectionMovement</a>
+                </td>
+                <td class="field-value">動向指標</td>
+                <td class="field-value">計算DMI指標。<br />回傳數值=DirectionMovement(期數,輸出+DI值,輸出-DI值,輸出ADX值)<br />傳入四個參數:<br />- 第一個參數是計算期數。<br />- 第二個參數是輸出計算完的+DI值。<br />- 第三個參數是輸出計算完的-DI值。<br />- 第四個參數是輸出計算完的ADX值。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=DMO&amp;group=TECHINDEXFUNC">DMO</a>
+                </td>
+                <td class="field-value">方向性移動振盪指標</td>
+                <td class="field-value">計算DMO指標。<br />回傳數值=DMO(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=DPO&amp;group=TECHINDEXFUNC">DPO</a>
+                </td>
+                <td class="field-value">非趨勢價格擺盪</td>
+                <td class="field-value">計算DPO指標。<br />回傳數值=DPO(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=EMP&amp;group=TECHINDEXFUNC">EMP</a>
+                </td>
+                <td class="field-value">Empty Line指標</td>
+                <td class="field-value">計算Empty Line指標值<br />回傳數值=EMP</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=ERC&amp;group=TECHINDEXFUNC">ERC</a>
+                </td>
+                <td class="field-value">變動率移動平均值</td>
+                <td class="field-value">計算價格變動率的指數移動平均。<br />回傳數值=ERC(資料期數,平滑期數)<br />傳入二個參數:<br />- 第一個參數是計算RC的資料期數。<br />- 第二個參數是計算ERC的平滑期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=HL_Osc&amp;group=TECHINDEXFUNC">HL_Osc</a>
+                </td>
+                <td class="field-value">高低振盪指標</td>
+                <td class="field-value">計算HL-Osc指標。<br />回傳數值=HL_Osc</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=K_Value&amp;group=TECHINDEXFUNC">K_Value</a>
+                </td>
+                <td class="field-value">隨機指標快速平均值</td>
+                <td class="field-value">計算KD指標中的K值。<br />回傳數值=K_Value(資料期數,K值平滑期數)<br />傳入二個參數:<br />- 第一個參數是資料期數，指定計算的區間長度。<br />- 第二個參數是K值平滑期數，指定計算K值所用的平滑期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=KeltnerLB&amp;group=TECHINDEXFUNC">KeltnerLB</a>
+                </td>
+                <td class="field-value">肯特納通道下通道線（支撐線）</td>
+                <td class="field-value">計算肯特納通道的下通道線（支撐線）。<br />回傳數值=KeltnerLB(通道倍數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=KeltnerMA&amp;group=TECHINDEXFUNC">KeltnerMA</a>
+                </td>
+                <td class="field-value">肯特納通道中心線</td>
+                <td class="field-value">計算肯特納通道的中心線。<br />回傳數值=KeltnerMA(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=KeltnerUB&amp;group=TECHINDEXFUNC">KeltnerUB</a>
+                </td>
+                <td class="field-value">肯特納通道上通道線（壓力線）</td>
+                <td class="field-value">計算肯特納通道的上通道線（壓力線）。<br />回傳數值=KeltnerUB(通道倍數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=KO%E6%88%90%E4%BA%A4%E9%87%8F%E6%93%BA%E7%9B%AA%E6%8C%87%E6%A8%99&amp;group=TECHINDEXFUNC">KO成交量擺盪指標</a>
+                </td>
+                <td class="field-value">KO成交量擺盪指標</td>
+                <td class="field-value">計算KO成交量擺盪值。<br />回傳數值=callfunction("KO成交量擺盪指標",短期數,長期數,雜訊平滑期數);<br />傳入三個參數:<br />- 第一個參數是短期數，計算短期KO成交量的簡單移動平均。<br />- 第二個參數是長期數，計算長期KO成交量的簡單移動平均。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=KST%E7%A2%BA%E8%AA%8D%E6%8C%87%E6%A8%99&amp;group=TECHINDEXFUNC">KST確認指標</a>
+                </td>
+                <td class="field-value">KST確認指標</td>
+                <td class="field-value">計算KST確認指標值。<br />回傳數值=callfunction("KST確認指標");</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=MA_Osc&amp;group=TECHINDEXFUNC">MA_Osc</a>
+                </td>
+                <td class="field-value">移動平均線擺盪指標</td>
+                <td class="field-value">計算移動平均線擺盪指標。<br />回傳數值=MA_Osc(短期數,長期數)<br />傳入二個參數:<br />- 第一個參數是計算快速線（短期）的期數。<br />- 第二個參數是計算慢速線（長期）的期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=MACD&amp;group=TECHINDEXFUNC">MACD</a>
+                </td>
+                <td class="field-value">指數平滑異同移動平均線</td>
+                <td class="field-value">計算MACD指標值。<br />回傳數值=MACD(數列,短期數,長期數,MACD平滑期數,輸出DIF值,輸出MACD值,輸出OSC值)<br />傳入七個參數:<br />- 第一個參數是數列，MACD通常是以加權平均收盤價（WeightedClose）來計算。<br />- 第二個參數是計算快速線（短期）的期數。<br />- 第三個參數是計算慢速線（長期）的期數。<br />- 第四個參數是計算MACD使用之平滑期數。<br />- 第五個參數是輸出計算完的DIF值。<br />- 第六個參數是輸出計算完的MACD值。<br />- 第七個參數是輸出計算完的OSC值。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=MAM&amp;group=TECHINDEXFUNC">MAM</a>
+                </td>
+                <td class="field-value">移動平均動量指標</td>
+                <td class="field-value">計算MAM指標。<br />回傳數值=MAM(移動平均期數,動量期數)<br />傳入二個參數:<br />- 第一個參數是用來計算移動平均的期數。<br />- 第二個參數是用來計算動量的期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=MI&amp;group=TECHINDEXFUNC">MI</a>
+                </td>
+                <td class="field-value">質量指標</td>
+                <td class="field-value">計算質量指標。<br />回傳數值=MI(期數1,期數2)<br />傳入二個參數:<br />- 第一個參數是計算指數移動平均的期數。<br />- 第二個參數是計算總和的期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=MO&amp;group=TECHINDEXFUNC">MO</a>
+                </td>
+                <td class="field-value">運動量震盪指標</td>
+                <td class="field-value">計算收盤價變動的百分比。<br />回傳數值=MO(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=Momentum&amp;group=TECHINDEXFUNC">Momentum</a>
+                </td>
+                <td class="field-value">動能指標</td>
+                <td class="field-value">計算數列指定期間的變動量。<br />回傳數值=Momentum(數列,期數)<br />傳入二個參數:<br />- 第一個參數是數列，通常是開高低收的價格數列。<br />- 第二個參數是期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=MTM&amp;group=TECHINDEXFUNC">MTM</a>
+                </td>
+                <td class="field-value">收盤價動能指標</td>
+                <td class="field-value">計算收盤價的變動量。<br />回傳數值=MTM(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=MTM_MA&amp;group=TECHINDEXFUNC">MTM_MA</a>
+                </td>
+                <td class="field-value">收盤價動能指標平均</td>
+                <td class="field-value">平均運動量指標，計算運動量指標的簡單移動平均。<br />回傳數值=MTM_MA(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=PercentR&amp;group=TECHINDEXFUNC">PercentR</a>
+                </td>
+                <td class="field-value">收盤價最近高低區間的百分比</td>
+                <td class="field-value">計算威廉指標（或稱百分比R、%R）。<br />回傳數值=PercentR(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=PSY&amp;group=TECHINDEXFUNC">PSY</a>
+                </td>
+                <td class="field-value">心理線</td>
+                <td class="field-value">人氣指標心理線。<br />回傳數值=PSY(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=Q%E6%8C%87%E6%A8%99&amp;group=TECHINDEXFUNC">Q指標</a>
+                </td>
+                <td class="field-value">計算QIndicator</td>
+                <td class="field-value">計算技術分析的Q值。<br />回傳數值=callfunction("Q指標",期數,平滑期數,雜訊平滑期數);<br />傳入三個參數:<br />- 第一個參數是期數，指定要計算累積價格變化的區間。<br />- 第二個參數是平滑期數，計算累積價格變化的簡單移動平均。<br />- 第三個參數是雜訊平滑期數，計算雜訊的簡單移動平均。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=RC&amp;group=TECHINDEXFUNC">RC</a>
+                </td>
+                <td class="field-value">變動率指標</td>
+                <td class="field-value">計算價格變動率。<br />回傳數值=RC(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=RSI&amp;group=TECHINDEXFUNC">RSI</a>
+                </td>
+                <td class="field-value">相對強弱指標(RSI)</td>
+                <td class="field-value">計算相對強弱指標數值。<br />回傳數值=RSI(數列,期數)<br />傳入二個參數:<br />- 第一個參數是數列，通常是開高低收的價格數列。<br />- 第二個參數是期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=RSV&amp;group=TECHINDEXFUNC">RSV</a>
+                </td>
+                <td class="field-value">未成熟隨機值</td>
+                <td class="field-value">未成熟隨機值<br />回傳數值=RSV(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=SAR&amp;group=TECHINDEXFUNC">SAR</a>
+                </td>
+                <td class="field-value">SAR停損點轉向指標</td>
+                <td class="field-value">SAR停損點轉向指標，或稱為拋物線型指標，為一種設定停損點相當有效力的指標。<br />回傳數值=SAR(加速因子初始值,加速因子遞增值,加速因子最大值)<br />傳入三個參數:<br />- 第一個參數是加速因子初始值。<br />- 第二個參數是加速因子遞增值。<br />- 第三個參數是加速因子最大值。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=Stochastic&amp;group=TECHINDEXFUNC">Stochastic</a>
+                </td>
+                <td class="field-value">用來計算KD/RSV相關指標的函數</td>
+                <td class="field-value">計算KD指標。<br />回傳數值=Stochastic(資料期數,K值平滑期數,D值平滑期數,輸出RSV值,輸出K值,輸出D值)<br />傳入六個參數:<br /><br />- 第一個參數是資料期數，指定計算的區間長度。<br />- 第二個參數是K值平滑期數，指定計算K值所用的平滑期數。<br />- 第三個參數是D值平滑期數，指定計算D值所用的平滑期數。<br />- 第四個參數是輸出RSV值，回傳計算完的RSV值。<br />- 第五個參數是輸出K值，回傳計算完的K值。<br />- 第六個參數是輸出D值，回傳計算完的D值。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=TechScore&amp;group=TECHINDEXFUNC">TechScore</a>
+                </td>
+                <td class="field-value">多空判斷分數</td>
+                <td class="field-value">計算多空判斷分數。<br />回傳數值=TechScore</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=TRIX&amp;group=TECHINDEXFUNC">TRIX</a>
+                </td>
+                <td class="field-value">TRIX指標</td>
+                <td class="field-value">三重指數平滑移動平均指標。<br />回傳數值=TRIX(數列,期數)<br />傳入二個參數:<br />- 第一個參數是數列，通常是開高低收的價格數列。<br />- 第二個參數是期數。</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=VA&amp;group=TECHINDEXFUNC">VA</a>
+                </td>
+                <td class="field-value">成交量累散佈指標</td>
+                <td class="field-value">計算成交量累散佈指標。<br />回傳數值=VA</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=VAO&amp;group=TECHINDEXFUNC">VAO</a>
+                </td>
+                <td class="field-value">成交量累散佈擺盪指標</td>
+                <td class="field-value">計算成交量累散佈擺盪指標。<br />回傳數值=VAO</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=VHF&amp;group=TECHINDEXFUNC">VHF</a>
+                </td>
+                <td class="field-value">垂直水平過濾指標</td>
+                <td class="field-value">計算垂直水平過濾指標。<br />回傳數值=VHF(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=VPT&amp;group=TECHINDEXFUNC">VPT</a>
+                </td>
+                <td class="field-value">量價趨勢指標</td>
+                <td class="field-value">計算量價趨勢指標。<br />回傳數值=VPT</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=VR&amp;group=TECHINDEXFUNC">VR</a>
+                </td>
+                <td class="field-value">成交量比率指標</td>
+                <td class="field-value">計算成交量比率指標。<br />回傳數值=VR(期數)</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=VVA&amp;group=TECHINDEXFUNC">VVA</a>
+                </td>
+                <td class="field-value">VVA指標</td>
+                <td class="field-value">計算VVA指標。<br />回傳數值=VVA</td>
+            </tr>
+            <tr>
+                <td class="field-value">
+                    <a href="/XSHelp/?HelpName=WAD&amp;group=TECHINDEXFUNC">WAD</a>
+                </td>
+                <td class="field-value">威廉集散指標</td>
+                <td class="field-value">計算威廉多空力度線(Williams Accumulation/Distribution)。<br />回傳數值=WAD</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+    <center>
+        <div class="footer">
+            <div class="footer_div">
+                <div class="flogo">
+                    <img src="/XSHelp/Content/Images/png-00-header-xqlite-180-60.png">
+                </div>
+                <div class="ftext">
+                    客服電話：0800-006-098 客服信箱：<a href="mailto:XQservice@XQ.com.tw">XQservice@XQ.com.tw</a><br>
+                    最佳瀏覽模式：解析度1024*768以上；瀏覽器建議使用 IE9.0以上。<br>
+                    本站內容僅供參考，本公司不負任何法律責任，投資人若依此以為買賣依據，須自負盈虧之責。<br>
+                    版權所有嘉實資訊股份有限公司，未經合法授權請勿翻載。 與本網站有關一切糾紛與法律問題，<br>均依中華民國相關法令解釋及適用之。<br>
+                </div>
+            </div>
+        </div>
+    </center>
+</footer>
+
+    <script type="text/javascript">
+        $(function () {
+            var deheight = document.documentElement.clientHeight;
+            var dheight = document.body.clientHeight;
+            if (deheight > dheight)
+                $('#help-main').css('min-height', deheight - 237);
+            else
+                $('#help-main').css('min-height', dheight - 237);
+        });
+    </script>
+</body>
+</html>

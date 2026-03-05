@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async=async src="https://www.googletagmanager.com/gtag/js?id=GTM-NHPFZR5F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'GTM-NHPFZR5F');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta property="og:type" Content="website" />
+    <meta property="og:site_name" Content="XS語法" />
+    <meta property="og:image" content="https://xshelp.xq.com.tw/XSHelp/Content/Images/png-07-xs-155-90.png" />
+    <meta property="og:title" Content="選股欄位 - 價格 - XS語法" />
+    <meta property="og:description" Content="選股欄位 - 價格" />
+    <link href="/XSHelp/Content/Images/favicon.ico" rel="icon" type="image/ico" />
+    <link href="/XSHelp/Content/css?v=MmAetLgQWTpj53h5C1K54227FFaG9xOGVb-qgk1DRGE1" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        // todo: js 參數替換
+        gConfig = {
+            site_path: "/XSHelp/",
+            site_url: "http://xshelp.xq.com.tw/",
+            djsite_url: "http://jv-testweb/",
+            url_suffix: "",
+            runat_asp: "1",
+            d: ""
+        };
+    </script>
+    <script src="/XSHelp/bundles/jquery?v=14H8EzIR27VT10jKdQjUdjivbIr5qhF08VKu4RwT7rI1"></script>
+
+</head>
+<body>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WMXRLD"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WMXRLD');</script>
+    <!-- End Google Tag Manager -->
+    <div id="container" class="clearfix">
+        <div id="help-main">
+            <div class="menu_side">
+                <div class="xq_logo">
+                    <a href="https://www.xq.com.tw/">
+                        <img src="/XSHelp/Content/Images/png-xsh-180-60.png" />
+                    </a>
+                </div>
+                <div class="help_logo">
+                    <img src="/XSHelp/Content/Images/png-07-xs-155-90.png" />
+                </div>
+                <script type="text/javascript" src="/XSHelp/Scripts/util.string.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/jmoneyui.autolist.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onPos.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onRange.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/XSHelp/Content/jmoneyui.autolist.css" type="text/css" />
+
+<div class="search">
+    <input type="text" class="inputarea default" value="函數、關鍵字或欄位" />
+    <button class="inputSearch"></button>
+</div>
+<script type="text/javascript">
+    (function () {
+        var cookie_key = 'search_record';
+        $('.inputarea').autolist({
+            source: function (req, res) {
+                $.getJSON($.xshelp.genDJPath(gConfig['site_path'] + 'rest', { a: encodeURIComponent(req.term) }), null, function (data) {
+                    var x = $.map(data, function (val, i) {
+                        return {
+                            label: cText(val),
+                            value: $.xshelp.genDJPath(gConfig['site_path'] + 'index', { HelpName: encodeURIComponent(val['name']), group: val['Description'] })
+                        };
+                    });
+                    res(x);
+                });
+            },
+            select: function (event, ui) {
+                var val = $(this).val();
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(val) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = ui.item.value;
+            },
+            directEnter: function (event, ui) {
+                var keyword = $(this).val();
+                if (typeof keyword == 'string' && keyword != '') {
+                    var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                    $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                    window.location = url;
+                }
+            },
+            dataMax: 50
+        });
+
+        $('.inputSearch').click(function () {
+            var keyword = $('.inputarea').val();
+            if (typeof keyword == 'string' && keyword != '') {
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = url;
+            }
+        });
+
+        function cText(obj) {
+            if (/^1/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^(2|3)/.test(obj['categoryid'])) {
+                //                var str = (obj['ename'])? obj['ename'] : obj['abbrev'];
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^4/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+        }
+    })();
+
+</script>
+                <div id="cssmenu">
+    <ul>
+        <li>
+            <a href="javascript:void(0);"><span>檢視紀錄</span></a>
+            <ul></ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>關鍵字</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=SKIPWORD">忽略字</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=CONSTANT">常數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=CONTROLFLOW">流程控制</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=DECLARATION">宣告</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>內建函數</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=GENERALFUNC">一般函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TIMEFUNC">時間函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=DATEFUNC">日期函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STRINGFUNC">字串函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=NUMBERFUNC">數學函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FIELDFUNC">欄位函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYFUNC">陣列函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TRANSACTIONFUNC">交易函數</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>系統函數</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICEGETFUNC">價格取得</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=PRICECULFUNC">價格計算</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICERELFUNC">價格關係</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TECHINDEXFUNC">技術指標</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=DATERELFUNC">日期相關</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRANSACTIONRELFUNC">交易相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STATSFUNC">統計分析</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRENDFUNC">趨勢分析</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=LOGICFUNC">邏輯判斷</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FUTUREFUNC">期權相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FREQUENCYFUNC">跨頻率</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYSYSFUNC">Array函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=VOLUMERELFUNC">量能相關</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>報價欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QOPTION">期權</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QFIVE">五檔統計</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>資料欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TBASIC">基本</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TEVENT">事件</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TOPTION">期權</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>選股欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FBASIC">基本</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=FEVENT">事件</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="javascript:void(0);" class="search_record"><span>搜尋記錄</span></a></li>
+        <li class="last">
+            <a href="https://github.com/sysjust-xq/XScript_Preset" target="_blank">
+                <span title="系統腳本的程式碼集">GitHub</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="/XSHelp/Scripts/menu-jquery.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    (function () {
+        var obj = $.cookie('search_record');
+        if (obj != null && typeof obj == 'string' && obj) {
+            $('.search_record').attr('href', obj);
+        }
+
+        var list = $.cookie($.xshelp.ViewRecookieName);
+        var ary = [];
+        if (list != null) {
+            ary = list.split(",");
+        }
+        ary = $.map(ary, function (n, i) {
+            var item = n.split('*');
+            return { link: $.xshelp.genDJPath('index', { HelpName: encodeURIComponent(item[0]), group: item[1] }), name: item[0] };
+        });
+
+        if (ary.length > 0) {
+            var str = '';
+            $.each(ary, function (i, o) {
+                str += '<li title="' + o['name'] + '"><a href="' + o['link'] + '"><span>' + o['name'] + '</span></a></li>';
+            });
+            $('#cssmenu > ul > li:first').addClass('has-sub').children('ul').append(str);
+        }
+    })();
+</script>
+
+            </div>
+            <div class="result">
+                <div class="content-txt">
+                    
+<div class="content-txt">
+    <h2>選股欄位&nbsp;-&nbsp;價格</h2>
+    <hr />
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="field-head nowrap">欄位名稱</th>
+                <th class="field-head nowrap">欄位說明</th>
+                <th class="field-head nowrap">支援商品</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=Jensen&amp;group=FPRICE">Jensen</a></td>
+                    <td class="field-value">Jensen指標用於衡量實際的投資回報超過基於其風險水平所預期的市場回報。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=SHARPE&amp;group=FPRICE">SHARPE</a></td>
+                    <td class="field-value">Sharpe指標衡量投資相對於其風險所帶來的超額回報率，即投資回報超過無風險利率部分的表現。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=Treynor&amp;group=FPRICE">Treynor</a></td>
+                    <td class="field-value">Treynor指標衡量投資相對於系統性風險的回報率。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%8B%E6%B8%B8%E8%82%A1%E5%83%B9%E6%8C%87%E6%A8%99&amp;group=FPRICE">下游股價指標</a></td>
+                    <td class="field-value">利用客戶的股價波動計算股價指數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%8A%E6%B8%B8%E8%82%A1%E5%83%B9%E6%8C%87%E6%A8%99&amp;group=FPRICE">上游股價指標</a></td>
+                    <td class="field-value">利用供應商的股價波動計算股價指數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%88%E5%B9%B3%E5%9D%87%E6%94%B6%E7%9B%8A%E7%8E%87&amp;group=FPRICE">月平均收益率</a></td>
+                    <td class="field-value">最近21日的平均賺賠比例。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%AC%E7%9B%8A%E6%AF%94&amp;group=FPRICE">本益比</a></td>
+                    <td class="field-value">股票的本益比。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%90%8C%E6%A5%AD%E8%82%A1%E5%83%B9%E6%8C%87%E6%A8%99&amp;group=FPRICE">同業股價指標</a></td>
+                    <td class="field-value">利用同業競爭公司的股價波動計算股價指數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%94%B6%E7%9B%A4%E5%83%B9&amp;group=FPRICE">收盤價</a></td>
+                    <td class="field-value">K棒資料的收盤價(最後一個成交價位)。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">香港股票</span>
+                                <span class="field-tag nowrap type_g">大陸股票</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9D%87%E5%83%B9&amp;group=FPRICE">均價</a></td>
+                    <td class="field-value">每日的平均成交價。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">大盤</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                                <span class="field-tag nowrap type_g">香港股票</span>
+                                <span class="field-tag nowrap type_g">大陸股票</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E8%B3%87%E5%BB%BA%E8%AD%B0%E7%9B%AE%E6%A8%99%E5%83%B9&amp;group=FPRICE">投資建議目標價</a></td>
+                    <td class="field-value">市場機構對個股的股價預估平均值。<br />美股股票才適用本欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B2%9D%E4%BB%96%E5%80%BC&amp;group=FPRICE">貝他值</a></td>
+                    <td class="field-value">個股的股價變動與市場大盤指數變動的相關性。<br />也就是當大盤平均上漲／下跌1%時，個股的漲跌預計將以 β% 的比例相應上漲或下跌。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B3%A2%E5%8B%95%E7%8E%87&amp;group=FPRICE">波動率</a></td>
+                    <td class="field-value">選擇權／權證商品標的股的歷史波動率。<br />單位是％，例如數值如果是23.12％，則回傳23.12。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">選擇權</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%82%A1%E5%83%B9%E6%B7%A8%E5%80%BC%E6%AF%94&amp;group=FPRICE">股價淨值比</a></td>
+                    <td class="field-value">計算公式：收盤價／每股淨值。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8C%AF%E5%B9%85&amp;group=FPRICE">振幅</a></td>
+                    <td class="field-value">當期股價的振幅。單位為%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9C%9F%E5%AF%A6%E7%AF%84%E5%9C%8D&amp;group=FPRICE">真實範圍</a></td>
+                    <td class="field-value">股價的真實範圍(TrueRange)，數值是考慮到跳空所推算出來的股價真正震盪幅度。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9C%9F%E5%AF%A6%E7%AF%84%E5%9C%8D%E6%B3%A2%E5%B9%85&amp;group=FPRICE">真實範圍波幅</a></td>
+                    <td class="field-value">真實範圍(TrueRange) / 昨收價 * 100%。單位為%，假如真實範圍是5，昨收價是50，則真實範圍波幅為10%，回傳值為10。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%AB%98%E4%BD%8E%E5%B7%AE&amp;group=FPRICE">高低差</a></td>
+                    <td class="field-value">當期的最高價 － 當期的最低價。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%8F%83%E8%80%83%E5%83%B9&amp;group=FPRICE">參考價</a></td>
+                    <td class="field-value">當日交易的參考價。一般而言是前一交易日的收盤價，如果股票商品有除權息的話，則是除權息後的參考價。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%80%E4%BD%8E%E5%83%B9&amp;group=FPRICE">最低價</a></td>
+                    <td class="field-value">K棒資料的最低成交價位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">香港股票</span>
+                                <span class="field-tag nowrap type_g">大陸股票</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%9C%80%E9%AB%98%E5%83%B9&amp;group=FPRICE">最高價</a></td>
+                    <td class="field-value">K棒資料的最高成交價位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">香港股票</span>
+                                <span class="field-tag nowrap type_g">大陸股票</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B7%8C%E5%81%9C%E5%83%B9&amp;group=FPRICE">跌停價</a></td>
+                    <td class="field-value">當日的跌停價。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%80%B1%E5%B9%B3%E5%9D%87%E6%94%B6%E7%9B%8A%E7%8E%87&amp;group=FPRICE">週平均收益率</a></td>
+                    <td class="field-value">最近5日的平均賺賠比例。<br /><br />計算公式 = 近5日漲幅 / 5，其中近5日漲幅 = (收盤價 - 5日前收盤價) / 5日前收盤價 * 100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%96%8B%E7%9B%A4%E5%83%B9&amp;group=FPRICE">開盤價</a></td>
+                    <td class="field-value">K棒資料的開盤價(第一個成交價位)。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">香港股票</span>
+                                <span class="field-tag nowrap type_g">大陸股票</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%BC%B2%E5%81%9C%E5%83%B9&amp;group=FPRICE">漲停價</a></td>
+                    <td class="field-value">當日的漲停價。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%BC%B2%E8%B7%8C%E5%B9%85&amp;group=FPRICE">漲跌幅</a></td>
+                    <td class="field-value">當期股價的漲跌幅。單位是％。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">香港股票</span>
+                                <span class="field-tag nowrap type_g">大陸股票</span>
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%A8%99%E6%BA%96%E5%B7%AE&amp;group=FPRICE">標準差</a></td>
+                    <td class="field-value">使用一年的每日漲跌幅，計算標準差數值，用來衡量股票報酬率的波動性。數值越小表示波動性越低。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+    <center>
+        <div class="footer">
+            <div class="footer_div">
+                <div class="flogo">
+                    <img src="/XSHelp/Content/Images/png-00-header-xqlite-180-60.png">
+                </div>
+                <div class="ftext">
+                    客服電話：0800-006-098 客服信箱：<a href="mailto:XQservice@XQ.com.tw">XQservice@XQ.com.tw</a><br>
+                    最佳瀏覽模式：解析度1024*768以上；瀏覽器建議使用 IE9.0以上。<br>
+                    本站內容僅供參考，本公司不負任何法律責任，投資人若依此以為買賣依據，須自負盈虧之責。<br>
+                    版權所有嘉實資訊股份有限公司，未經合法授權請勿翻載。 與本網站有關一切糾紛與法律問題，<br>均依中華民國相關法令解釋及適用之。<br>
+                </div>
+            </div>
+        </div>
+    </center>
+</footer>
+
+    <script type="text/javascript">
+        $(function () {
+            var deheight = document.documentElement.clientHeight;
+            var dheight = document.body.clientHeight;
+            if (deheight > dheight)
+                $('#help-main').css('min-height', deheight - 237);
+            else
+                $('#help-main').css('min-height', dheight - 237);
+        });
+    </script>
+</body>
+</html>

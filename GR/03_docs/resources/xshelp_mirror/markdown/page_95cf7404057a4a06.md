@@ -1,0 +1,31 @@
+NumToStr回傳的字串會依照指定的小數位數來處理，如果實際數值的小數位數 大於 指定的小數位數的話，則採用四捨五入的方式來計算，如果實際數值的小數位數 小於 指定的小數位數的話，則在小數位數後面補0。
+
+舉例說明:
+
+```
+Var: Str1(""), Str2(""), Str3("");
+
+
+Value1 = 144.5;
+
+
+Str1 = NumToStr(Value1, 0);  // Str1 = "145"
+Str2 = NumToStr(Value1, 1);  // Str2 = "144.5"
+Str3 = NumToStr(Value2, 2);  // Str3 = "144.50"
+```
+
+```
+Var: Str1(""), Str2(""), Str3("");
+
+
+Value1 = 144.5;
+
+
+Str1 = NumToStr(Value1, 0);  // Str1 = "145"
+Str2 = NumToStr(Value1, 1);  // Str2 = "144.5"
+Str3 = NumToStr(Value2, 2);  // Str3 = "144.50"
+```
+
+在上例內，Str1的字串值是144.5四捨五入後換算的結果 "145"，而Str3的字串值則在小數位數1之後補0，以確保有兩位小數 "144.50"。
+
+請參考 StrToNum函數 。

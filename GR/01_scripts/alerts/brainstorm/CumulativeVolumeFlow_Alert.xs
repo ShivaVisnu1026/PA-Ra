@@ -1,0 +1,258 @@
+// ============================================================
+
+// Strategy 4: Cumulative Volume Flow Accumulation Alert (Tightened)
+
+// ============================================================
+
+// 描述：
+
+//   使用累積成交量流（Cumulative Volume Flow）偵測累積訊號
+
+//   追蹤外盤量累積趨勢和價格關係
+
+//   每日僅觸發一次警示，不重複
+
+//
+
+// 核心邏輯：
+
+//   - 累積外盤量持續上升（斜率 > 閾值，已提高）
+
+//   - 累積外盤量斜率加速（二階導數 > 閾值，已提高）
+
+//   - 價格變化率 < 2%（更嚴格）
+
+//   - 外盤量佔比持續增加且 > 閾值
+
+//   - 外盤量比例本身 > 60%（新增條件）
+
+//   - 過去5日平均成交量 > 300（新增條件）
+
+//
+
+// 資料週期：適用於日內圖表（分鐘圖、Tick圖等）
+
+// ============================================================
+
+{@type:sensor}
+
+// ===== 參數設定 =====
+
+settotalbar(200);
+
+// --- 參數 ---
+
+input: accumulation_period(10, "累積計算期數"),
+
+       slope_threshold(1.0, "斜率閾值（已提高）"),
+
+       acceleration_threshold(0.3, "加速度閾值（已提高）"),
+
+       ask_ratio_trend_period(5, "外盤比例趨勢期數"),
+
+       ask_ratio_trend_threshold(5.0, "外盤比例趨勢閾值 (%)"),
+
+       min_ask_ratio(60, "最小外盤量比例 (%)"),
+
+       max_price_increase(5.0, "最大價格漲幅限制 (%)"),
+
+       max_price_change(2.0, "最大價格變化率 (%)"),
+
+       avg_volume_period(5, "平均成交量計算天數"),
+
+       min_avg_volume(300, "最小平均成交量");
+
+// ===== 變數宣告 =====
+
+var: currentVolume(0),              // 當前成交量
+
+     askVolume(0),                  // 外盤量
+
+     cumulativeAskVolume(0),        // 累積外盤量（當前）
+
+     cumulativeAskVolumePrev(0),    // 累積外盤量（前一期）
+
+     cumulativeAskVolumeSlope(0),  // 累積外盤量斜率
+
+     cumulativeAskVolumeSlopePrev(0), // 累積外盤量斜率（前一期）
+
+     cumulativeAskVolumeAccel(0),   // 累積外盤量加速度
+
+     askVolumeRatio(0),             // 當前外盤量比例
+
+     askVolumeRatioMA(0),           // 外盤量比例移動平均
+
+     askVolumeRatioTrend(0),        // 外盤量比例趨勢
+
+     priceChangePercent(0),         // 價格變化百分比
+
+     avg5DayVolume(0),              // 過去5日平均成交量
+
+     accumulationSignal(false),     // 累積訊號
+
+     intrabarpersist alertTriggeredToday(false),  // 今日是否已觸發警示
+
+     intrabarpersist lastAlertDate(0);  // 上次觸發警示的日期
+
+// ============================================================
+
+// 檢查是否為新的一天（重置警示標記）
+
+// ============================================================
+
+if Date <> lastAlertDate then
+
+begin
+
+    alertTriggeredToday = false;
+
+    lastAlertDate = Date;
+
+end;
+
+// ============================================================
+
+// 取得成交量資料
+
+// ============================================================
+
+currentVolume = GetField("成交量");
+
+askVolume = GetField("TradeVolumeAtAsk");
+
+// ============================================================
+
+// 計算過去5日平均成交量
+
+// ============================================================
+
+avg5DayVolume = Average(GetField("成交量", "D"), avg_volume_period);
+
+// ============================================================
+
+// 計算累積外盤量
+
+// ============================================================
+
+// 計算過去 N 期的累積外盤量
+
+cumulativeAskVolume = Summation(askVolume, accumulation_period);
+
+cumulativeAskVolumePrev = Summation(askVolume[1], accumulation_period);
+
+// ============================================================
+
+// 計算累積外盤量斜率和加速度
+
+// ============================================================
+
+// 斜率 = (當前累積量 - 前一期累積量) / 期數
+
+cumulativeAskVolumeSlope = (cumulativeAskVolume - cumulativeAskVolumePrev) / accumulation_period;
+
+// 計算前一期斜率
+
+var: cumulativeAskVolumePrev2(0);
+
+cumulativeAskVolumePrev2 = Summation(askVolume[2], accumulation_period);
+
+cumulativeAskVolumeSlopePrev = (cumulativeAskVolumePrev - cumulativeAskVolumePrev2) / accumulation_period;
+
+// 加速度 = 當前斜率 - 前一期斜率
+
+cumulativeAskVolumeAccel = cumulativeAskVolumeSlope - cumulativeAskVolumeSlopePrev;
+
+// ============================================================
+
+// 計算外盤量比例趨勢
+
+// ============================================================
+
+// 當前外盤量比例
+
+if currentVolume > 0 then
+
+    askVolumeRatio = (askVolume / currentVolume) * 100
+
+else
+
+    askVolumeRatio = 0;
+
+// 計算外盤量比例移動平均
+
+askVolumeRatioMA = Average(askVolumeRatio, ask_ratio_trend_period);
+
+// 計算外盤量比例趨勢（當前比例 - 移動平均）
+
+askVolumeRatioTrend = askVolumeRatio - askVolumeRatioMA;
+
+// ============================================================
+
+// 計算價格變化率
+
+// ============================================================
+
+priceChangePercent = RateOfChange(Close, accumulation_period);
+
+// ============================================================
+
+// 累積訊號判斷（已收緊條件）
+
+// ============================================================
+
+// 條件1：累積外盤量斜率 > 閾值（持續上升，閾值已提高）
+
+// 條件2：累積外盤量加速度 > 閾值（加速上升，閾值已提高）
+
+// 條件3：外盤量比例趨勢 > 閾值（比例增加，新增閾值要求）
+
+// 條件4：外盤量比例本身 > 最小閾值（新增條件）
+
+// 條件5：價格變化率 < 最大價格變化率（更嚴格，從3%降到2%）
+
+// 條件6：價格尚未上漲超過 5%
+
+// 條件7：過去5日平均成交量 > 300（新增條件）
+
+// 條件8：今日尚未觸發過警示
+
+accumulationSignal = (cumulativeAskVolumeSlope > slope_threshold)
+
+                 and (cumulativeAskVolumeAccel > acceleration_threshold)
+
+                 and (askVolumeRatioTrend > ask_ratio_trend_threshold)
+
+                 and (askVolumeRatio > min_ask_ratio)
+
+                 and (absvalue(priceChangePercent) < max_price_change)
+
+                 and (priceChangePercent < max_price_increase)
+
+                 and (priceChangePercent > -2.0)  // 允許小幅下跌但不超過2%
+
+                 and (avg5DayVolume > min_avg_volume)  // 過去5日平均成交量 > 300
+
+                 and not alertTriggeredToday;
+
+// ============================================================
+
+// 警示觸發（每日僅觸發一次）
+
+// ============================================================
+
+if accumulationSignal and not alertTriggeredToday then
+
+begin
+
+    ret = 1;
+
+    alertTriggeredToday = true;  // 立即標記今日已觸發，避免重複警示
+
+    lastAlertDate = Date;  // 記錄觸發日期
+
+end
+
+else
+
+    ret = 0;
+

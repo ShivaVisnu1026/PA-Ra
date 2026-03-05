@@ -1,0 +1,12 @@
+[submodule "external/sysjust-xq/XScript_Preset"]
+	path = external/sysjust-xq/XScript_Preset
+	url = https://github.com/sysjust-xq/XScript_Preset.git
+[submodule "external/sysjust-xq/XS_Blocks"]
+	path = external/sysjust-xq/XS_Blocks
+	url = https://github.com/sysjust-xq/XS_Blocks.git
+[submodule "external/sysjust-xq/vscode-xs"]
+	path = external/sysjust-xq/vscode-xs
+	url = https://github.com/sysjust-xq/vscode-xs.git
+[submodule "external/sysjust-xq/XQStrategy"]
+	path = external/sysjust-xq/XQStrategy
+	url = https://github.com/sysjust-xq/XQStrategy.git

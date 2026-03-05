@@ -1,0 +1,1266 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async=async src="https://www.googletagmanager.com/gtag/js?id=GTM-NHPFZR5F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'GTM-NHPFZR5F');
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta property="og:type" Content="website" />
+    <meta property="og:site_name" Content="XS語法" />
+    <meta property="og:image" content="https://xshelp.xq.com.tw/XSHelp/Content/Images/png-07-xs-155-90.png" />
+    <meta property="og:title" Content="選股欄位 - 籌碼 - XS語法" />
+    <meta property="og:description" Content="選股欄位 - 籌碼" />
+    <link href="/XSHelp/Content/Images/favicon.ico" rel="icon" type="image/ico" />
+    <link href="/XSHelp/Content/css?v=MmAetLgQWTpj53h5C1K54227FFaG9xOGVb-qgk1DRGE1" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        // todo: js 參數替換
+        gConfig = {
+            site_path: "/XSHelp/",
+            site_url: "http://xshelp.xq.com.tw/",
+            djsite_url: "http://jv-testweb/",
+            url_suffix: "",
+            runat_asp: "1",
+            d: ""
+        };
+    </script>
+    <script src="/XSHelp/bundles/jquery?v=14H8EzIR27VT10jKdQjUdjivbIr5qhF08VKu4RwT7rI1"></script>
+
+</head>
+<body>
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WMXRLD"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WMXRLD');</script>
+    <!-- End Google Tag Manager -->
+    <div id="container" class="clearfix">
+        <div id="help-main">
+            <div class="menu_side">
+                <div class="xq_logo">
+                    <a href="https://www.xq.com.tw/">
+                        <img src="/XSHelp/Content/Images/png-xsh-180-60.png" />
+                    </a>
+                </div>
+                <div class="help_logo">
+                    <img src="/XSHelp/Content/Images/png-07-xs-155-90.png" />
+                </div>
+                <script type="text/javascript" src="/XSHelp/Scripts/util.string.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/jmoneyui.autolist.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onPos.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/XSHelp/Scripts/util.onRange.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/XSHelp/Content/jmoneyui.autolist.css" type="text/css" />
+
+<div class="search">
+    <input type="text" class="inputarea default" value="函數、關鍵字或欄位" />
+    <button class="inputSearch"></button>
+</div>
+<script type="text/javascript">
+    (function () {
+        var cookie_key = 'search_record';
+        $('.inputarea').autolist({
+            source: function (req, res) {
+                $.getJSON($.xshelp.genDJPath(gConfig['site_path'] + 'rest', { a: encodeURIComponent(req.term) }), null, function (data) {
+                    var x = $.map(data, function (val, i) {
+                        return {
+                            label: cText(val),
+                            value: $.xshelp.genDJPath(gConfig['site_path'] + 'index', { HelpName: encodeURIComponent(val['name']), group: val['Description'] })
+                        };
+                    });
+                    res(x);
+                });
+            },
+            select: function (event, ui) {
+                var val = $(this).val();
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(val) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = ui.item.value;
+            },
+            directEnter: function (event, ui) {
+                var keyword = $(this).val();
+                if (typeof keyword == 'string' && keyword != '') {
+                    var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                    $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                    window.location = url;
+                }
+            },
+            dataMax: 50
+        });
+
+        $('.inputSearch').click(function () {
+            var keyword = $('.inputarea').val();
+            if (typeof keyword == 'string' && keyword != '') {
+                var url = $.xshelp.genDJPath(gConfig['site_path'] + 'search', { a: encodeURIComponent(keyword) });
+                $.cookie(cookie_key, decodeURIComponent(url), { secure: true });
+                window.location = url;
+            }
+        });
+
+        function cText(obj) {
+            if (/^1/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^(2|3)/.test(obj['categoryid'])) {
+                //                var str = (obj['ename'])? obj['ename'] : obj['abbrev'];
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+            if (/^4/.test(obj['categoryid'])) {
+                return obj['name'] + '(' + obj['father'] + ')';
+            }
+        }
+    })();
+
+</script>
+                <div id="cssmenu">
+    <ul>
+        <li>
+            <a href="javascript:void(0);"><span>檢視紀錄</span></a>
+            <ul></ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>關鍵字</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=SKIPWORD">忽略字</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=CONSTANT">常數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=CONTROLFLOW">流程控制</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=DECLARATION">宣告</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>內建函數</span></a>
+            <ul>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=GENERALFUNC">一般函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TIMEFUNC">時間函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=DATEFUNC">日期函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STRINGFUNC">字串函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=NUMBERFUNC">數學函數</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FIELDFUNC">欄位函數</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYFUNC">陣列函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TRANSACTIONFUNC">交易函數</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>系統函數</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICEGETFUNC">價格取得</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=PRICECULFUNC">價格計算</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=PRICERELFUNC">價格關係</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TECHINDEXFUNC">技術指標</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=DATERELFUNC">日期相關</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRANSACTIONRELFUNC">交易相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=STATSFUNC">統計分析</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TRENDFUNC">趨勢分析</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=LOGICFUNC">邏輯判斷</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FUTUREFUNC">期權相關</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FREQUENCYFUNC">跨頻率</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=ARRAYSYSFUNC">Array函數</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=VOLUMERELFUNC">量能相關</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>報價欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=QPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=QFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QOPTION">期權</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=QFIVE">五檔統計</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>資料欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=TCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=TBASIC">基本</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TEVENT">事件</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TMARKET">市場統計</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=TOPTION">期權</a>
+                </li>
+            </ul>
+        </li>
+        <li class="has-sub">
+            <a href="javascript:void(0);"><span>選股欄位</span></a>
+            <ul>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FOFTEN">常用</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FPRICE">價格</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FVOLUME">量能</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FCHIP">籌碼</a>
+                </li>
+                <li class="odd">
+                    <a href="/XSHelp/lists?a=FBASIC">基本</a>
+                </li>
+                <li class="even">
+                    <a href="/XSHelp/lists?a=FFINANCE">財務</a>
+                </li>
+                <li class="last odd">
+                    <a href="/XSHelp/lists?a=FEVENT">事件</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="javascript:void(0);" class="search_record"><span>搜尋記錄</span></a></li>
+        <li class="last">
+            <a href="https://github.com/sysjust-xq/XScript_Preset" target="_blank">
+                <span title="系統腳本的程式碼集">GitHub</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript" src="/XSHelp/Scripts/menu-jquery.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    (function () {
+        var obj = $.cookie('search_record');
+        if (obj != null && typeof obj == 'string' && obj) {
+            $('.search_record').attr('href', obj);
+        }
+
+        var list = $.cookie($.xshelp.ViewRecookieName);
+        var ary = [];
+        if (list != null) {
+            ary = list.split(",");
+        }
+        ary = $.map(ary, function (n, i) {
+            var item = n.split('*');
+            return { link: $.xshelp.genDJPath('index', { HelpName: encodeURIComponent(item[0]), group: item[1] }), name: item[0] };
+        });
+
+        if (ary.length > 0) {
+            var str = '';
+            $.each(ary, function (i, o) {
+                str += '<li title="' + o['name'] + '"><a href="' + o['link'] + '"><span>' + o['name'] + '</span></a></li>';
+            });
+            $('#cssmenu > ul > li:first').addClass('has-sub').children('ul').append(str);
+        }
+    })();
+</script>
+
+            </div>
+            <div class="result">
+                <div class="content-txt">
+                    
+<div class="content-txt">
+    <h2>選股欄位&nbsp;-&nbsp;籌碼</h2>
+    <hr />
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="field-head nowrap">欄位名稱</th>
+                <th class="field-head nowrap">欄位說明</th>
+                <th class="field-head nowrap">支援商品</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=CB%E5%89%A9%E9%A4%98%E5%BC%B5%E6%95%B8&amp;group=FCHIP">CB剩餘張數</a></td>
+                    <td class="field-value">目前流通在外的CB張數（就是還沒有轉換的）季底值，每週更新。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台(可轉債)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=ETF%E8%A6%8F%E6%A8%A1&amp;group=FCHIP">ETF規模</a></td>
+                    <td class="field-value">ETF的規模，單位是元/美元.</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">美(ETF)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8&amp;group=FCHIP">大戶持股人數</a></td>
+                    <td class="field-value">由集保公司所提供的指定級距以上的持股人數資料。<br />每週更新一次。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP">大戶持股比例</a></td>
+                    <td class="field-value">由集保公司所提供的指定級距以上的持股比例資料。<br />每週更新一次。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%A7%E6%88%B6%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8&amp;group=FCHIP">大戶持股張數</a></td>
+                    <td class="field-value">由集保公司所提供的指定級距以上的持股張數資料。<br />每週更新一次。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%A7%E9%83%A8%E4%BA%BA%E6%8C%81%E8%82%A1&amp;group=FCHIP">內部人持股</a></td>
+                    <td class="field-value">依美國證券交易委員會規定公告的「FORM 4 」所計算出的持股異動內部人的總持有股數。<br /><br />美股股票才適用本欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%A7%E9%83%A8%E4%BA%BA%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP">內部人持股比例</a></td>
+                    <td class="field-value">公司內部人持股占公司股本的比例。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%A7%E9%83%A8%E4%BA%BA%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8&amp;group=FCHIP">內部人持股張數</a></td>
+                    <td class="field-value">內部人= 台灣經濟新報所提供的所有董監持股資料 – 大股東。不重複計算股數 (即剃除重複名單/法人名稱資料)。每月更新。依查詢頻率取期底值。 </td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%A7%E9%83%A8%E4%BA%BA%E6%8C%81%E8%82%A1%E7%95%B0%E5%8B%95&amp;group=FCHIP">內部人持股異動</a></td>
+                    <td class="field-value">依美國證券交易委員會規定公告的「FORM 4 」所計算出的公司內部人總異動股數。正值表示買入總股數，負值表示賣出總股數。<br /><br />如果是週／月頻率的話，則是當週／當月內每一日內部人總異動股數的加總。<br /><br />美股股票才適用本欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%85%AC%E7%A9%8D%E5%8F%8A%E5%85%B6%E4%BB%96%E4%BD%94%E8%82%A1%E6%9C%AC%E6%AF%94%E9%87%8D&amp;group=FCHIP">公積及其他佔股本比重</a></td>
+                    <td class="field-value">股本形成中，公積及其他來源所佔的比重。<br />計算公式  : 公積及其他來源／總股本金額 * 100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%86%E5%85%AC%E5%8F%B8%E4%BA%A4%E6%98%93%E5%AE%B6%E6%95%B8&amp;group=FCHIP">分公司交易家數</a></td>
+                    <td class="field-value">統計有買進或是賣出的券商分點家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%86%E5%85%AC%E5%8F%B8%E6%B7%A8%E8%B2%B7%E8%B6%85%E9%87%91%E9%A1%8D%E5%AE%B6%E6%95%B8&amp;group=FCHIP">分公司淨買超金額家數</a></td>
+                    <td class="field-value">統計買超的券商分點家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%86%E5%85%AC%E5%8F%B8%E6%B7%A8%E8%B3%A3%E8%B6%85%E9%87%91%E9%A1%8D%E5%AE%B6%E6%95%B8&amp;group=FCHIP">分公司淨賣超金額家數</a></td>
+                    <td class="field-value">統計賣超的券商分點家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%86%E5%85%AC%E5%8F%B8%E8%B2%B7%E9%80%B2%E5%AE%B6%E6%95%B8&amp;group=FCHIP">分公司買進家數</a></td>
+                    <td class="field-value">統計買進金額大於零的券商分點家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%86%E5%85%AC%E5%8F%B8%E8%B3%A3%E5%87%BA%E5%AE%B6%E6%95%B8&amp;group=FCHIP">分公司賣出家數</a></td>
+                    <td class="field-value">統計賣出金額大於零的券商分點家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%BB%E5%8A%9B%E5%B9%B3%E5%9D%87%E8%B2%B7%E8%B6%85%E6%88%90%E6%9C%AC&amp;group=FCHIP">主力平均買超成本</a></td>
+                    <td class="field-value">前十五大買超券商的買超成本。<br />計算公式: 買超金額/買超張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%BB%E5%8A%9B%E5%B9%B3%E5%9D%87%E8%B3%A3%E8%B6%85%E6%88%90%E6%9C%AC&amp;group=FCHIP">主力平均賣超成本</a></td>
+                    <td class="field-value">前十五大賣超券商的賣超成本。<br />計算公式: 賣超金額/賣超張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%BB%E5%8A%9B%E6%88%90%E6%9C%AC&amp;group=FCHIP">主力成本</a></td>
+                    <td class="field-value">系統估計的長期主力持股成本。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%BB%E5%8A%9B%E6%8C%81%E8%82%A1&amp;group=FCHIP">主力持股</a></td>
+                    <td class="field-value">系統估計的長期主力持股數量。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%BB%E5%8A%9B%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">主力買張</a></td>
+                    <td class="field-value">前十五大買超分點的買超張數加總。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%BB%E5%8A%9B%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">主力買賣超張數</a></td>
+                    <td class="field-value">主力買張 ─ 主力賣張。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E4%B8%BB%E5%8A%9B%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">主力賣張</a></td>
+                    <td class="field-value">前十五大賣超分點的賣超張數加總。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%96%E8%B3%87%E6%88%90%E6%9C%AC&amp;group=FCHIP">外資成本</a></td>
+                    <td class="field-value">系統估算的外資持股成本。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%96%E8%B3%87%E6%8C%81%E8%82%A1&amp;group=FCHIP">外資持股</a></td>
+                    <td class="field-value">外資持有的張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%96%E8%B3%87%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP">外資持股比例</a></td>
+                    <td class="field-value">外資持股的比例。<br />單位為%，例如：持股比例若為20.5%，則回傳20.5。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%96%E8%B3%87%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">外資買張</a></td>
+                    <td class="field-value">外資買進張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%96%E8%B3%87%E8%B2%B7%E8%B3%A3%E8%B6%85&amp;group=FCHIP">外資買賣超</a></td>
+                    <td class="field-value">外資買賣超。數值內容/單位依商品類型而異。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%A4%96%E8%B3%87%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">外資賣張</a></td>
+                    <td class="field-value">外資賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%90%89%E5%B0%BC%E4%BF%82%E6%95%B8&amp;group=FCHIP">吉尼係數</a></td>
+                    <td class="field-value">使用券商分點交易比重所推估出來的吉尼系統。<br /><br />數值介於０與１之間，愈接近0表示集中度越低（也就是越平均），愈接近１則表示集中度越高（也就是越不平均）。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%9C%B0%E7%B7%A3%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">地緣券商買賣超張數</a></td>
+                    <td class="field-value">「地緣券商」買進張數 － 賣出張數。<br /><br />地緣券商為公司地址附近的分點券商(不包含外資券商)。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E6%88%90%E6%9C%AC&amp;group=FCHIP">自營商成本</a></td>
+                    <td class="field-value">系統估算的自營商持股成本。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E8%87%AA%E8%A1%8C%E8%B2%B7%E8%B3%A3%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">自營商自行買賣買張</a></td>
+                    <td class="field-value">自營商買進張數內歸屬於自行買賣的數量。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E8%87%AA%E8%A1%8C%E8%B2%B7%E8%B3%A3%E8%B2%B7%E8%B3%A3%E8%B6%85&amp;group=FCHIP">自營商自行買賣買賣超</a></td>
+                    <td class="field-value">自營商買賣超內歸屬於自行買賣的數量。數值內容/單位依商品類型而異。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E8%87%AA%E8%A1%8C%E8%B2%B7%E8%B3%A3%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">自營商自行買賣賣張</a></td>
+                    <td class="field-value">自營商賣出張數內歸屬於自行買賣的數量。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E6%8C%81%E8%82%A1&amp;group=FCHIP">自營商持股</a></td>
+                    <td class="field-value">系統估算值，計算方式是累計長期的自營商買賣超張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP">自營商持股比例</a></td>
+                    <td class="field-value">系統估算值，計算公式為：自營商持股/流通在外張數 * 100%。<br /><br />單位為%，例如：持股比例若為20.5%，則回傳20.5。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">自營商買張</a></td>
+                    <td class="field-value">自營商買進張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85&amp;group=FCHIP">自營商買賣超</a></td>
+                    <td class="field-value">自營商買賣超。數值內容/單位依商品類型而異。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">自營商賣張</a></td>
+                    <td class="field-value">自營商賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E9%81%BF%E9%9A%AA%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">自營商避險買張</a></td>
+                    <td class="field-value">自營商買進張數內歸屬於避險的數量。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E9%81%BF%E9%9A%AA%E8%B2%B7%E8%B3%A3%E8%B6%85&amp;group=FCHIP">自營商避險買賣超</a></td>
+                    <td class="field-value">自營商買賣超內歸屬於避險的數量。數值內容/單位依商品類型而異。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%87%AA%E7%87%9F%E5%95%86%E9%81%BF%E9%9A%AA%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">自營商避險賣張</a></td>
+                    <td class="field-value">自營商賣出張數內歸屬於避險的數量。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E4%BF%A1%E6%88%90%E6%9C%AC&amp;group=FCHIP">投信成本</a></td>
+                    <td class="field-value">系統估算的投信持股成本。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E4%BF%A1%E6%8C%81%E8%82%A1&amp;group=FCHIP">投信持股</a></td>
+                    <td class="field-value">系統估算值，計算方式是累計長期的投信買賣超張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E4%BF%A1%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP">投信持股比例</a></td>
+                    <td class="field-value">系統估算值，計算公式為：投信持股/流通在外張數 * 100%。<br /><br />單位為%，例如：持股比例若為20.5%，則回傳20.5。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E4%BF%A1%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">投信買張</a></td>
+                    <td class="field-value">投信買進張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E4%BF%A1%E8%B2%B7%E8%B3%A3%E8%B6%85&amp;group=FCHIP">投信買賣超</a></td>
+                    <td class="field-value">投信買賣超。數值內容/單位依商品類型而異。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">大盤</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8A%95%E4%BF%A1%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">投信賣張</a></td>
+                    <td class="field-value">投信賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%88%B8%E8%B3%87%E6%AF%94&amp;group=FCHIP">券資比</a></td>
+                    <td class="field-value">融券餘額與融資餘額的比例。計算公式：融券餘額張數 / 融資餘額張數 * 100%。<br /><br />單位是％，例如券資比為10%的話，則回傳10。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AE%98%E8%82%A1%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">官股券商買賣超張數</a></td>
+                    <td class="field-value">「官股券商」買進張數 - 賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B3%95%E4%BA%BA%E6%8C%81%E8%82%A1&amp;group=FCHIP">法人持股</a></td>
+                    <td class="field-value">三大法人(外資、投信、自營商)合計估計持股張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B3%95%E4%BA%BA%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP">法人持股比例</a></td>
+                    <td class="field-value">系統估算值，計算公式為：法人持股/流通在外張數 * 100%。<br /><br />單位為%，例如：持股比例若為20.5%，則回傳20.5。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B3%95%E4%BA%BA%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">法人買張</a></td>
+                    <td class="field-value">三大法人(外資、投信、自營商)合計買進張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B3%95%E4%BA%BA%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">法人買賣超張數</a></td>
+                    <td class="field-value">三大法人(外資、投信、自營商)合計買賣超張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%B3%95%E4%BA%BA%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">法人賣張</a></td>
+                    <td class="field-value">三大法人(外資、投信、自營商)合計賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%82%A1%E7%A5%A8%E5%9F%BA%E9%87%91%E6%8C%81%E6%9C%89%E6%AA%94%E6%95%B8&amp;group=FCHIP">股票基金持有檔數</a></td>
+                    <td class="field-value">根據主管機關核准的境內外共同基金，每季公告的占基金淨資產價值1%以上持股資料做統計，計算持有該股票的基金檔數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%9B%88%E9%A4%98%E8%BD%89%E5%A2%9E%E8%B3%87%E4%BD%94%E8%82%A1%E6%9C%AC%E6%AF%94%E9%87%8D&amp;group=FCHIP">盈餘轉增資佔股本比重</a></td>
+                    <td class="field-value">股本形成中，盈餘轉增資所佔的比重。<br />計算公式  : 盈餘轉增資金額／總股本金額*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%80%9F%E5%88%B8%E5%BC%B5%E6%95%B8&amp;group=FCHIP">借券張數</a></td>
+                    <td class="field-value">借券的張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%80%9F%E5%88%B8%E8%B3%A3%E5%87%BA%E5%BC%B5%E6%95%B8&amp;group=FCHIP">借券賣出張數</a></td>
+                    <td class="field-value">借券內實際賣出(放空)的張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%80%9F%E5%88%B8%E8%B3%A3%E5%87%BA%E9%A4%98%E9%A1%8D%E5%BC%B5%E6%95%B8&amp;group=FCHIP">借券賣出餘額張數</a></td>
+                    <td class="field-value">借券賣出餘額張數，也就是到目前為止借券賣出的淨張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%80%9F%E5%88%B8%E8%B3%A3%E5%87%BA%E9%82%84%E5%88%B8%E5%BC%B5%E6%95%B8&amp;group=FCHIP">借券賣出還券張數</a></td>
+                    <td class="field-value">償還先前借券賣出的張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%80%9F%E5%88%B8%E9%A4%98%E9%A1%8D%E5%BC%B5%E6%95%B8&amp;group=FCHIP">借券餘額張數</a></td>
+                    <td class="field-value">借券餘額張數，也就是到目前為止借券的淨張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%BA%AB%E8%97%8F%E8%82%A1%E9%A0%90%E8%A8%88%E8%B2%B7%E5%9B%9E%E5%BC%B5%E6%95%B8&amp;group=FCHIP">庫藏股預計買回張數</a></td>
+                    <td class="field-value">最新一次庫藏股公告的預計買回張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%BA%AB%E8%97%8F%E8%82%A1%E5%AF%A6%E9%9A%9B%E8%B2%B7%E5%9B%9E%E5%BC%B5%E6%95%B8&amp;group=FCHIP">庫藏股實際買回張數</a></td>
+                    <td class="field-value">最新一次庫藏股公告的實際買回張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8E%A7%E7%9B%A4%E8%80%85%E6%88%90%E6%9C%AC%E7%B7%9A&amp;group=FCHIP">控盤者成本線</a></td>
+                    <td class="field-value">系統估計的控盤者的持股成本。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8E%A7%E7%9B%A4%E8%80%85%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">控盤者買張</a></td>
+                    <td class="field-value">單一價格成交值大於100萬的合計買進張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8E%A7%E7%9B%A4%E8%80%85%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">控盤者買賣超張數</a></td>
+                    <td class="field-value">控盤者買張 ─ 控盤者賣張。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%8E%A7%E7%9B%A4%E8%80%85%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">控盤者賣張</a></td>
+                    <td class="field-value">單一價格成交值大於100萬的合計賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E5%88%B8%E5%84%9F%E9%82%84%E5%BC%B5%E6%95%B8&amp;group=FCHIP">現券償還張數</a></td>
+                    <td class="field-value">以現股方式償還融券的張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E8%82%A1%E7%95%B6%E6%B2%96%E5%BC%B5%E6%95%B8&amp;group=FCHIP">現股當沖張數</a></td>
+                    <td class="field-value">現股當日沖銷的張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E8%82%A1%E7%95%B6%E6%B2%96%E8%B2%B7%E9%80%B2%E9%87%91%E9%A1%8D&amp;group=FCHIP">現股當沖買進金額</a></td>
+                    <td class="field-value">現股當日沖銷的總買進金額。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E8%82%A1%E7%95%B6%E6%B2%96%E8%B3%A3%E5%87%BA%E9%87%91%E9%A1%8D&amp;group=FCHIP">現股當沖賣出金額</a></td>
+                    <td class="field-value">現股當日沖銷的總賣出金額。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E9%87%91%E5%A2%9E%E8%B3%87%E4%BD%94%E8%82%A1%E6%9C%AC%E6%AF%94%E9%87%8D&amp;group=FCHIP">現金增資佔股本比重</a></td>
+                    <td class="field-value">股本形成中，現金增資所佔的比重。<br />計算公式  : 現金增資金額／總股本金額*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%8F%BE%E9%87%91%E5%84%9F%E9%82%84%E5%BC%B5%E6%95%B8&amp;group=FCHIP">現金償還張數</a></td>
+                    <td class="field-value">以現金方式償還融資的張數。<br /><br />交易所公告的融資的現金償還張數。<br />週頻率以上為期間累計值。<br />每日下午10:30後開始更新。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8&amp;group=FCHIP">散戶持股人數</a></td>
+                    <td class="field-value">由集保公司所提供的指定級距以下的持股人數資料。<br />每週更新一次。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E6%AF%94%E4%BE%8B&amp;group=FCHIP">散戶持股比例</a></td>
+                    <td class="field-value">由集保公司所提供的指定級距以下的持股比例資料。<br />每週更新一次。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%95%A3%E6%88%B6%E6%8C%81%E8%82%A1%E5%BC%B5%E6%95%B8&amp;group=FCHIP">散戶持股張數</a></td>
+                    <td class="field-value">由集保公司所提供的指定級距以下的持股張數資料。<br />每週更新一次。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%95%A3%E6%88%B6%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">散戶買張</a></td>
+                    <td class="field-value">單一價格成交值小於50萬的合計買進張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%95%A3%E6%88%B6%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">散戶買賣超張數</a></td>
+                    <td class="field-value">散戶買張 ─ 散戶賣張。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%95%A3%E6%88%B6%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">散戶賣張</a></td>
+                    <td class="field-value">單一價格成交值小於50萬的合計賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B2%B7%E5%AE%B6%E6%95%B8&amp;group=FCHIP">買家數</a></td>
+                    <td class="field-value">統計買超張數大於零的券商家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B2%B7%E9%80%B2%E5%85%AC%E5%8F%B8%E5%AE%B6%E6%95%B8&amp;group=FCHIP">買進公司家數</a></td>
+                    <td class="field-value">統計買進金額大於零的券商家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%80%B1%E8%BD%89%E7%8E%87&amp;group=FCHIP">週轉率</a></td>
+                    <td class="field-value">股票交易量與流通股數的比例。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%9B%86%E4%BF%9D%E5%BC%B5%E6%95%B8&amp;group=FCHIP">集保張數</a></td>
+                    <td class="field-value">由集保公司所提供的集保張數，換算成萬張。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%9B%86%E4%BF%9D%E5%BC%B5%E6%95%B8%E4%BD%94%E7%99%BC%E8%A1%8C%E5%BC%B5%E6%95%B8%E7%99%BE%E5%88%86%E6%AF%94&amp;group=FCHIP">集保張數佔發行張數百分比</a></td>
+                    <td class="field-value">計算公式  : 集保張數／發行張數 *100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%95%B6%E6%97%A5%E6%B2%96%E9%8A%B7%E5%BC%B5%E6%95%B8&amp;group=FCHIP">當日沖銷張數</a></td>
+                    <td class="field-value">當日沖銷的總張數。計算公式：現股當沖張數＋資券互抵張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%91%A3%E7%9B%A3%E6%8C%81%E8%82%A1&amp;group=FCHIP">董監持股</a></td>
+                    <td class="field-value">董事與監察人的持股張數。<br />類股與細產業商品計算方式為成分股加總。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%91%A3%E7%9B%A3%E6%8C%81%E8%82%A1%E4%BD%94%E8%82%A1%E6%9C%AC%E6%AF%94%E4%BE%8B&amp;group=FCHIP">董監持股佔股本比例</a></td>
+                    <td class="field-value">董監持股占公司股本的比例。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%91%A3%E7%9B%A3%E8%B3%AA%E8%A8%AD%E6%AF%94%E4%BE%8B&amp;group=FCHIP">董監質設比例</a></td>
+                    <td class="field-value">董監持股內質設的比例。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%87%E5%88%B8%E4%BA%92%E6%8A%B5%E5%BC%B5%E6%95%B8&amp;group=FCHIP">資券互抵張數</a></td>
+                    <td class="field-value">資券當沖(信用當沖)的張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AF%A6%E6%88%B6%E8%B2%B7%E5%BC%B5&amp;group=FCHIP">實戶買張</a></td>
+                    <td class="field-value">單一價格成交值介於50萬到100萬之間的合計買進張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AF%A6%E6%88%B6%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">實戶買賣超張數</a></td>
+                    <td class="field-value">實戶買張 ─ 實戶賣張。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AF%A6%E6%88%B6%E8%B3%A3%E5%BC%B5&amp;group=FCHIP">實戶賣張</a></td>
+                    <td class="field-value">單一價格成交值介於50萬到100萬之間的合計賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AF%A6%E8%B3%AA%E8%B2%B7%E7%9B%A4%E6%AF%94&amp;group=FCHIP">實質買盤比</a></td>
+                    <td class="field-value">實質買進張數佔當日成交量的比例。<br /><br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E5%AF%A6%E8%B3%AA%E8%B3%A3%E7%9B%A4%E6%AF%94&amp;group=FCHIP">實質賣盤比</a></td>
+                    <td class="field-value">實質賣出張數佔當日成交量的比例。<br /><br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%B6%9C%E5%90%88%E5%89%8D%E5%8D%81%E5%A4%A7%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">綜合前十大券商買賣超張數</a></td>
+                    <td class="field-value">「綜合前十大券商」買進張數 － 賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%A3%E5%87%BA%E5%85%AC%E5%8F%B8%E5%AE%B6%E6%95%B8&amp;group=FCHIP">賣出公司家數</a></td>
+                    <td class="field-value">統計賣出金額大於零的券商家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%B3%A3%E5%AE%B6%E6%95%B8&amp;group=FCHIP">賣家數</a></td>
+                    <td class="field-value">統計賣超張數大於零的券商家數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%A9%9F%E6%A7%8B%E6%8C%81%E8%82%A1&amp;group=FCHIP">機構持股</a></td>
+                    <td class="field-value">依美國證券交易委員會規定每季公告的「SEC Form 13F」所計算出的投資機構總持有股數。<br /><br />美股股票才適用本欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E6%A9%9F%E6%A7%8B%E6%8C%81%E8%82%A1%E6%AF%94%E9%87%8D&amp;group=FCHIP">機構持股比重</a></td>
+                    <td class="field-value">依美國證券交易委員會規定每季公告的「SEC Form 13F」所計算出的投資機構總持有股數佔流通在外股數的比重。<br /><br />單位為%，例如：欄位數值75%，則回傳75。<br /><br />美股股票才適用本欄位。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">美(股票)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E5%88%B8%E4%BD%BF%E7%94%A8%E7%8E%87&amp;group=FCHIP">融券使用率</a></td>
+                    <td class="field-value">融券使用的比例。計算公式：融券餘額 / 融資限額 * 100%。<br /><br />單位是％，例如融券使用率為70%的話，則回傳70。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E5%88%B8%E8%B2%B7%E9%80%B2%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融券買進張數</a></td>
+                    <td class="field-value">融券買進的張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E5%88%B8%E5%A2%9E%E6%B8%9B%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融券增減張數</a></td>
+                    <td class="field-value">融券餘額(張數)與前一期的異動張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E5%88%B8%E8%B3%A3%E5%87%BA%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融券賣出張數</a></td>
+                    <td class="field-value">融券賣出的張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E5%88%B8%E9%A4%98%E9%A1%8D%E4%BD%94%E8%82%A1%E6%9C%AC%E6%AF%94%E4%BE%8B&amp;group=FCHIP">融券餘額佔股本比例</a></td>
+                    <td class="field-value">計算公式  : 融券餘額張數／發行張數*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E5%88%B8%E9%A4%98%E9%A1%8D%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融券餘額張數</a></td>
+                    <td class="field-value">融券餘額張數，也就是到目前為止以融券賣出的淨張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E8%B3%87%E4%BD%BF%E7%94%A8%E7%8E%87&amp;group=FCHIP">融資使用率</a></td>
+                    <td class="field-value">融資使用的比例。計算公式：融資餘額／融資限額 * 100%。<br /><br />單位是％，例如融資使用率為70%的話，則回傳70。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E8%B3%87%E9%99%90%E9%A1%8D%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融資限額張數</a></td>
+                    <td class="field-value">交易所公告的融資限額張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E8%B3%87%E8%B2%B7%E9%80%B2%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融資買進張數</a></td>
+                    <td class="field-value">融資買進的張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E8%B3%87%E7%B6%AD%E6%8C%81%E7%8E%87&amp;group=FCHIP">融資維持率</a></td>
+                    <td class="field-value">系統估算的個股融資維持率，也就是股票市值與融資金額的比例。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E8%B3%87%E5%A2%9E%E6%B8%9B%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融資增減張數</a></td>
+                    <td class="field-value">融資餘額(張數)與前一期的異動張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E8%B3%87%E8%B3%A3%E5%87%BA%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融資賣出張數</a></td>
+                    <td class="field-value">融資賣出的張數。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E8%B3%87%E9%A4%98%E9%A1%8D%E4%BD%94%E8%82%A1%E6%9C%AC%E6%AF%94%E4%BE%8B&amp;group=FCHIP">融資餘額佔股本比例</a></td>
+                    <td class="field-value">計算公式  : 融資餘額張數／發行張數*100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E8%9E%8D%E8%B3%87%E9%A4%98%E9%A1%8D%E5%BC%B5%E6%95%B8&amp;group=FCHIP">融資餘額張數</a></td>
+                    <td class="field-value">融資餘額張數，也就是到目前以融資買進的淨張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%B8%BD%E6%8C%81%E8%82%A1%E4%BA%BA%E6%95%B8&amp;group=FCHIP">總持股人數</a></td>
+                    <td class="field-value">由集保公司所提供的總持股人數。<br />股票每週更新一次，可轉債(CB)則是每月更新一次。<br /></td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%82%84%E5%88%B8%E5%BC%B5%E6%95%B8&amp;group=FCHIP">還券張數</a></td>
+                    <td class="field-value">償還先前借券的張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%97%9C%E8%81%AF%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">關聯券商買賣超張數</a></td>
+                    <td class="field-value">「關聯券商」買進張數 － 賣出張數。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E9%97%9C%E9%8D%B5%E5%88%B8%E5%95%86%E8%B2%B7%E8%B3%A3%E8%B6%85%E5%BC%B5%E6%95%B8&amp;group=FCHIP">關鍵券商買賣超張數</a></td>
+                    <td class="field-value">「關鍵券商」買進張數 － 賣出張數。<br />類股指數僅支援「細產業指數、主題指數」</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                                <span class="field-tag nowrap type_g">類股指數</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="field-value"><a href="/XSHelp/?HelpName=%E7%B1%8C%E7%A2%BC%E9%8E%96%E5%AE%9A%E7%8E%87&amp;group=FCHIP">籌碼鎖定率</a></td>
+                    <td class="field-value">計算公式: 主力券商買超張數／(發行張數－董監持股張數) * 100%。</td>
+                    <td class="field-value">
+                                <span class="field-tag nowrap type_g">台股</span>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+    <center>
+        <div class="footer">
+            <div class="footer_div">
+                <div class="flogo">
+                    <img src="/XSHelp/Content/Images/png-00-header-xqlite-180-60.png">
+                </div>
+                <div class="ftext">
+                    客服電話：0800-006-098 客服信箱：<a href="mailto:XQservice@XQ.com.tw">XQservice@XQ.com.tw</a><br>
+                    最佳瀏覽模式：解析度1024*768以上；瀏覽器建議使用 IE9.0以上。<br>
+                    本站內容僅供參考，本公司不負任何法律責任，投資人若依此以為買賣依據，須自負盈虧之責。<br>
+                    版權所有嘉實資訊股份有限公司，未經合法授權請勿翻載。 與本網站有關一切糾紛與法律問題，<br>均依中華民國相關法令解釋及適用之。<br>
+                </div>
+            </div>
+        </div>
+    </center>
+</footer>
+
+    <script type="text/javascript">
+        $(function () {
+            var deheight = document.documentElement.clientHeight;
+            var dheight = document.body.clientHeight;
+            if (deheight > dheight)
+                $('#help-main').css('min-height', deheight - 237);
+            else
+                $('#help-main').css('min-height', dheight - 237);
+        });
+    </script>
+</body>
+</html>

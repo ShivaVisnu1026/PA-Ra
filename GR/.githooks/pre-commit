@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Pre-commit guard for XScript repo
+# 1) Scan for reserved-word prefixes (daily/trade/position/filled/order...)
+# 2) Block commit if violations exist
+
+set -e
+
+# choose python
+if command -v python >/dev/null 2>&1; then
+  PY=python
+elif command -v py >/dev/null 2>&1; then
+  PY=py
+else
+  echo "[pre-commit] Python not found. Please install Python3."
+  exit 1
+fi
+
+$PY scripts/xs_guard_reserved_words.py || exit 1
+
+exit 0
+
+
+

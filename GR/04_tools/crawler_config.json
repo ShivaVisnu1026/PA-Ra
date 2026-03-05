@@ -1,0 +1,179 @@
+{
+  "sites": [
+    {
+      "name": "cnYES",
+      "display_name": "鉅亨網",
+      "base_url": "https://news.cnyes.com/",
+      "news_list_url": "https://news.cnyes.com/news/cat/tw_stock",
+      "selectors": {
+        "article_links": "a[href*='/news/']",
+        "title": "h1, .article-title, .news-title",
+        "content": ".article-content, .news-content, article",
+        "date": ".date, .publish-time, time",
+        "author": ".author, .writer"
+      },
+      "update_frequency": "hourly",
+      "enabled": true
+    },
+    {
+      "name": "commercial_times",
+      "display_name": "工商時報",
+      "base_url": "https://ctee.com.tw/",
+      "news_list_url": "https://ctee.com.tw/livenews/",
+      "selectors": {
+        "article_links": "a[href*='/livenews/']",
+        "title": "h1, .article-title",
+        "content": ".article-content, .content",
+        "date": ".date, time",
+        "author": ".author"
+      },
+      "update_frequency": "hourly",
+      "enabled": true
+    },
+    {
+      "name": "economic_daily",
+      "display_name": "經濟日報",
+      "base_url": "https://money.udn.com/",
+      "news_list_url": "https://money.udn.com/money/index",
+      "selectors": {
+        "article_links": "a[href*='/money/storypage']",
+        "title": "h1, .article-title",
+        "content": ".article-content, .story",
+        "date": ".date, time",
+        "author": ".author"
+      },
+      "update_frequency": "hourly",
+      "enabled": true
+    },
+    {
+      "name": "yahoo_finance_tw",
+      "display_name": "Yahoo Finance Taiwan",
+      "base_url": "https://tw.stock.yahoo.com/",
+      "news_list_url": "https://tw.stock.yahoo.com/news/",
+      "selectors": {
+        "article_links": "a[href*='/news/']",
+        "title": "h1, .article-title",
+        "content": ".article-content, .caas-body",
+        "date": ".date, time",
+        "author": ".author"
+      },
+      "update_frequency": "hourly",
+      "enabled": true
+    },
+    {
+      "name": "xq_blog",
+      "display_name": "XQ官方部落格",
+      "base_url": "https://www.xq.com.tw/xstrader/",
+      "news_list_url": "https://www.xq.com.tw/xstrader/",
+      "selectors": {
+        "article_links": "a[href*='/xstrader/']",
+        "title": "h1, .entry-title",
+        "content": ".entry-content, article",
+        "date": "time, .date",
+        "author": ".author"
+      },
+      "update_frequency": "daily",
+      "enabled": true,
+      "code_extraction": true
+    },
+    {
+      "name": "xshelp",
+      "display_name": "XScript Help",
+      "base_url": "https://xshelp.xq.com.tw/XSHelp/",
+      "news_list_url": "https://xshelp.xq.com.tw/XSHelp/",
+      "selectors": {
+        "article_links": "a[href*='HelpName=']",
+        "title": "h1, title",
+        "content": "#content, main",
+        "date": "",
+        "author": ""
+      },
+      "update_frequency": "weekly",
+      "enabled": true,
+      "code_extraction": true
+    }
+  ],
+  "crawler_settings": {
+    "request_delay": 0.5,
+    "timeout": 20,
+    "max_retries": 3,
+    "retry_delay": 1.0,
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "max_articles_per_site": 50,
+    "max_articles_per_run": 200
+  },
+  "alert_settings": {
+    "enabled": true,
+    "keywords": {
+      "high_priority": [
+        "台積電",
+        "TSMC",
+        "大盤",
+        "指數",
+        "漲停",
+        "跌停",
+        "重大",
+        "緊急",
+        "突發"
+      ],
+      "medium_priority": [
+        "聯發科",
+        "鴻海",
+        "台股",
+        "成交量",
+        "外資",
+        "投信",
+        "自營商"
+      ],
+      "low_priority": [
+        "財報",
+        "營收",
+        "股利",
+        "除權",
+        "除息"
+      ]
+    },
+    "notification_channels": {
+      "console": true,
+      "file": true,
+      "email": false
+    },
+    "alert_file_path": "DaTa/News/Alerts/alerts.json"
+  },
+  "code_extraction": {
+    "enabled": true,
+    "patterns": {
+      "xscript_keywords": [
+        "{@type:",
+        "input:",
+        "variable:",
+        "vars:",
+        "Plot1",
+        "Plot2",
+        "ret =",
+        "SetPosition",
+        "Average(",
+        "RSI(",
+        "MACD("
+      ],
+      "file_extensions": [".xs", ".xscript"],
+      "code_block_selectors": ["pre", "code", ".code-block"]
+    },
+    "output_directory": "DaTa/News/CodeExamples"
+  },
+  "archive_settings": {
+    "enabled": true,
+    "output_directory": "DaTa/News/Archive",
+    "format": "markdown",
+    "include_metadata": true,
+    "index_enabled": true
+  },
+  "email_settings": {
+    "enabled": false,
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "from_email": "",
+    "to_email": "",
+    "password": ""
+  }
+}

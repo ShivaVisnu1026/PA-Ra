@@ -1,0 +1,18 @@
+# Taiwan Market News Crawler - Dependencies
+# Install with: pip install -r requirements_crawler.txt
+
+# HTTP requests with retry logic
+requests>=2.31.0
+
+# HTML parsing
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# HTML to Markdown conversion
+markdownify>=0.12.1
+
+# URL handling and retries
+urllib3>=2.0.0
+
+# Date parsing (optional, for better date handling)
+python-dateutil>=2.8.0
